@@ -1,0 +1,103 @@
+h1 {
+    font-family:'Questrial', Verdana, sans-serif;
+    text-align:center;
+    font-size:30px;
+    padding:0;
+    margin:0 0 20px 0;
+}
+hr{
+    border-top: 1px solid #8c8b8b;
+}
+#selectedLang{
+    margin-top:2%;
+}
+#selectedLang .shiny-options-group {
+    padding-top: 3%;
+}
+
+#noTweetsSlider {
+    display:inline-block;
+}
+selectize-input { line-height: 30px; }
+selectize-dropdown { line-height: 20px; }
+
+#shiny-notification-panel {
+  top:10%;
+  left:33%;
+}
+
+.tweet {
+  position: relative;
+  margin-top:3%;
+  margin-bottom:1%;
+  padding: 1.2em 1em 1.2em 1em;
+  border-radius: 5px;
+  box-shadow: 0 0 0 0.5em rgba(68, 68, 68, 0.2);
+  background: white;
+}
+.tweet:first-child{ margin-top:1%; }
+
+.tweet:before {
+  content: ' ';
+  position: relative;
+  top: 1em;
+  left: 1em;
+  width: 1em;
+  height: 3em;
+}
+.tweet time {
+  position: absolute;
+  top: 5px;
+
+}
+.tweet time a {
+  font-size: 0.8667em;
+  color: #aaaaaa;
+}
+.tweet time a:hover {
+  color: grey;
+}
+.tweet p {
+  margin: 0;
+}
+.tweet a {
+  color: grey;
+  text-decoration: none;
+}
+.tweet a:hover {
+  text-decoration: underline;
+}
+.tweet a.user {
+  font-weight: bold;
+  color: #444;
+  text-decoration: none;
+  display:inline-block;
+  position:relative;
+  top:-10px;
+}
+.tweet a.user:hover {
+  color: lightgreen;
+}
+.tweet a.user small {
+  font-weight: normal;
+  color: #aaaaaa;
+}
+
+.btn-loading-container {
+  margin-left: 10px;
+  font-size: 1.2em;
+}
+.btn-done-indicator {
+  color: green;
+}
+.btn-err {
+  margin-top: 10px;
+  color: red;
+}
+#resetSearchPanel
+{
+	position:absolute;
+	top:0;
+	right:16px;
+}
+

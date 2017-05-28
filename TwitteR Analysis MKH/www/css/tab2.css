@@ -1,0 +1,53 @@
+.outer {
+  position: fixed;
+  top: 41px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Customize fonts */
+body, label, input, button, select { 
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 200;
+}
+
+#trendsControls,#trendsPanel {
+  /* Appearance */
+  background-color: white;
+  padding: 0 20px 20px 20px;
+  cursor: move;
+  /* Fade out while not hovering */
+  opacity: 0.60;
+  zoom: 0.9;
+  transition: opacity 500ms 1s;
+}
+#trendsControls:hover{
+  /* Fade in while hovering */
+  opacity: 0.90;
+  transition-delay: 0;
+}
+#trendsPanel:hover{
+  opacity: 0.99;
+  transition-delay: 0;
+  
+}
+
+#trendsControls h3{
+  text-align:center;
+  margin-bottom:15px;
+  font-weight:bold; 
+}
+/* If not using map tiles, show a white background */
+.leaflet-container {
+  background-color: white !important;
+}
+
+#closeTrendsPanel
+{
+	position:absolute;
+	top:0;
+	right:0;
+}

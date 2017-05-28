@@ -1,0 +1,31 @@
+
+.simple-list-grid ul li:after, .simple-list-grid:after {
+  content: "";
+  display: table;
+  clear: both
+}
+
+.simple-list-grid {
+  -webkit-transition: all .2s ease-in;
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  transition: all .2s ease-in
+}
+
+.simple-list-grid ul {
+  list-style: none;
+}
+
+.simple-list-grid ul li {
+  width: 100%;
+  -webkit-transition: all .2s ease-in;
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  transition: all .2s ease-in
+}
+
+.simple-list-grid ul li .thumb {
+  float: left;
+  margin-right: 1rem;
+  width: 100%;
+}
