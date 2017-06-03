@@ -3,17 +3,9 @@ tabPanel("Search",
          #Imports <head>
          tags$head(
                     includeCSS("www\\css\\tab1.css"),
-
-                    #includeCSS("www\\css\\jplist.core.min.css"),
-                    #includeCSS("www\\css\\jplist.list-grid-view.min.css"),
-                    #tags$script(src = "js\\jplist.core.min.js"),
-                    #tags$script(src = "js\\jplist.list-grid-view.min.js"),
-
                     tags$script(src = "js\\tab1.js"),
                     tags$script(src = "js\\shinyTweets.js"),
-
                     tags$script(src = "js\\jquery.twbsPagination.min.js")
-              
                    ),
          #Specify Layout of page
          sidebarLayout(
@@ -21,17 +13,16 @@ tabPanel("Search",
            sidebarPanel(id="searchPanel", width = 4,
 
                         tags$h1("Twitter Analysis Options", class = "text-center"),
-
                         tags$hr(),
-
           #-------------------------------------------------------------REGION AND LANGUAGE -------------------------------------------------------------#
                         fluidRow(
-                                    column(7, selectizeInput("trendLocations", "Country :",
+                                    column(6, selectizeInput("trendLocations", "Country :",
                                                               choices = c("Worldwide", sort(as.vector(availableTrendLocations$country))),                                                                multiple = F, options = list(placeholder = 'Select a region'))),
                                     column(5, radioButtons("selectedLang", "Language : ",
                                                               c("Arabic" = "ar", "English" = "en"), inline = T))
+                                    #column(6, selectizeInput("selectedLang", "Language :",
+                                                              #choices = as.vector(availableLanaguages$lang_abbr)))
                         ),
-
                         tags$br(),
           #-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#
                         fluidRow(
@@ -70,20 +61,8 @@ tabPanel("Search",
            
              #div for rendering our tweets to it
              tags$div(class = "tweetsContainer", id = "tweetsContainerID"
-                 #HTML('
-                    #<div class="jplist-panel">						
-                        #<!-- views control -->
-                        #<div class="jplist-views" data-control-type="views" data-control-name="views" data-control-action="views" data-default="jplist-grid-view">
-         
-                            #<button type="button" class="jplist-view jplist-list-view" data-type="jplist-list-view"></button>
-                            #<button type="button" class="jplist-view jplist-grid-view" data-type="jplist-grid-view"></button>
-                            #<button type="button" class="jplist-view jplist-thumbs-view" data-type="jplist-thumbs-view"></button>
-                        #</div>
-                    #</div>
-                 #')
              ),
-            
-
+           
              #Pagination for our tweets (page 1 2 3 4 ) to render to it through our shinytweets.js
              HTML("<ul id=\"pagination\" class=\"pagination-md\"></ul>")
              ) #End main content Container

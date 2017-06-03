@@ -1,251 +1,251 @@
-,countryCode,lang_abbr,lang_fullname
-1,AD,ca,French
-2,AE,ar,Arabic
-3,AF,"ps,uz,tk",Turkish
-4,AG,en,English
-5,AI,en,English
-6,AL,sq,Albanian
-7,AM,"hy,ru",Armenian
-8,AO,pt,Portuguese
-9,AQ,,NA
-10,AR,"es,gn",Spanish
-11,AS,"en,sm",English
-12,AT,de,German
-13,AU,en,English
-14,AW,"nl,pa",Dutch
-15,AX,sv,Swedish
-16,AZ,az,Azerbaijani
-17,BA,"bs,hr,sr",Bosnian
-18,BB,en,English
-19,BD,bn,Bengali
-20,BE,"nl,fr",Dutch
-21,BF,"fr,ff",French
-22,BG,bg,Bulgarian
-23,BH,ar,Arabic
-24,BI,"fr,rn",French
-25,BJ,fr,French
-26,BL,fr,French
-27,BM,en,English
-28,BN,ms,Malay
-29,BO,"es,ay,qu",Spanish
-30,BQ,nl,Dutch
-31,BR,pt,Portuguese
-32,BS,en,English
-33,BT,dz,Dzongkha
-34,BV,,NA
-35,BW,"en,tn",English
-36,BY,"be,ru",Belarusian
-37,BZ,"en,es",English
-38,CA,"en,fr",English
-39,CC,en,English
-40,CD,"fr,ln,kg,sw,lu",French
-41,CF,"fr,sg",French
-42,CG,"fr,ln",French
-43,CH,"de,fr,it",German
-44,CI,fr,French
-45,CK,en,English
-46,CL,es,Spanish
-47,CM,"en,fr",English
-48,CN,zh,Chinese
-49,CO,es,Spanish
-50,CR,es,Spanish
-51,CU,es,Spanish
-52,CV,pt,Portuguese
-53,CW,"nl,pa,en",Dutch
-54,CX,en,English
-55,CY,"el,tr,hy",Greek
-56,CZ,"cs,sk",Czech
-57,DE,de,German
-58,DJ,"fr,ar",French
-59,DK,da,Danish
-60,DM,en,English
-61,DO,es,Spanish
-62,DZ,ar,Arabic
-63,EC,es,Spanish
-64,EE,et,Estonian
-65,EG,ar,Arabic
-66,EH,es,Spanish
-67,ER,"ti,ar,en",Tigrinya
-68,ES,"es,eu,ca,gl,oc",Spanish
-69,ET,am,Amharic
-70,FI,"fi,sv",Finnish
-71,FJ,"en,fj,hi,ur",English
-72,FK,en,English
-73,FM,en,English
-74,FO,fo,Faroese
-75,FR,fr,French
-76,GA,fr,French
-77,GB,en,English
-78,GD,en,English
-79,GE,ka,Georgian
-80,GF,fr,French
-81,GG,"en,fr",English
-82,GH,en,English
-83,GI,en,English
-84,GL,kl,Kalaallisut; Greenlandic
-85,GM,en,English
-86,GN,"fr,ff",French
-87,GP,fr,French
-88,GQ,"es,fr",Spanish
-89,GR,el,Greek
-90,GS,en,English
-91,GT,es,Spanish
-92,GU,"en,ch,es",English
-93,GW,pt,Portuguese
-94,GY,en,English
-95,HK,"zh,en",Chinese
-96,HM,en,English
-97,HN,es,Spanish
-98,HR,hr,Croatian
-99,HT,"fr,ht",French
-100,HU,hu,Hungarian
-101,ID,id,Indonesian
-102,IE,"ga,en",Irish
-103,IL,"he,ar",Hebrew
-104,IM,"en,gv",English
-105,IN,"hi,en",Hindi
-106,IO,en,English
-107,IQ,"ar,ku",Arabic
-108,IR,fa,Persian
-109,IS,is,Icelandic
-110,IT,it,Italian
-111,JE,"en,fr",English
-112,JM,en,English
-113,JO,ar,Arabic
-114,JP,ja,Japanese
-115,KE,"en,sw",NA
-116,KG,"ky,ru",Kirghiz
-117,KH,km,Central Khmer
-118,KI,en,English
-119,KM,"ar,fr",Arabic
-120,KN,en,English
-121,KP,ko,Korean
-122,KR,ko,Korean
-123,KW,ar,Arabic
-124,KY,en,English
-125,KZ,"kk,ru",Kazakh
-126,LA,lo,Lao
-127,LB,"ar,fr",Arabic
-128,LC,en,English
-129,LI,de,German
-130,LK,"si,ta",Sinhala
-131,LR,en,English
-132,LS,"en,st",English
-133,LT,lt,Lithuanian
-134,LU,"fr,de,lb",French
-135,LV,lv,Latvian
-136,LY,ar,Arabic
-137,MA,ar,Arabic
-138,MC,fr,French
-139,MD,ro,Romanian
-140,ME,"sr,bs,sq,hr",Serbian
-141,MF,"en,fr,nl",English
-142,MG,"fr,mg",French
-143,MH,"en,mh",English
-144,MK,mk,Macedonian
-145,ML,fr,French
-146,MM,my,Burmese
-147,MN,mn,Mongolian
-148,MO,"zh,pt",Chinese
-149,MP,"en,ch",English
-150,MQ,fr,French
-151,MR,ar,Arabic
-152,MS,en,English
-153,MT,"mt,en",Maltese
-154,MU,en,English
-155,MV,dv,Divehi
-156,MW,"en,ny",English
-157,MX,es,Spanish
-158,MY,,NA
-159,MZ,pt,Portuguese
-160,NA,"en,af",English
-161,NC,fr,French
-162,NE,fr,French
-163,NF,en,English
-164,NG,en,English
-165,NI,es,Spanish
-166,NL,nl,Dutch; Flemish
-167,NO,no,Norwegian
-168,NP,ne,Nepali
-169,NR,"en,na",NA
-170,NU,en,English
-171,NZ,"en,mi",English
-172,OM,ar,Arabic
-173,PA,es,Spanish
-174,PE,es,Spanish
-175,PF,fr,French
-176,PG,en,English
-177,PH,en,English
-178,PK,"en,ur",English
-179,PL,pl,Polish
-180,PM,fr,French
-181,PN,en,English
-182,PR,"es,en",Spanish
-183,PS,ar,Arabic
-184,PT,pt,Portuguese
-185,PW,en,English
-186,PY,"es,gn",Spanish
-187,QA,ar,Arabic
-188,RE,fr,French
-189,RO,ro,Romanian; Moldavian; Moldovan
-190,RS,sr,Serbian
-191,RU,ru,Russian
-192,RW,"rw,en,fr",Kinyarwanda
-193,SA,ar,Arabic
-194,SB,en,English
-195,SC,"fr,en",French
-196,SD,"ar,en",Arabic
-197,SE,sv,Swedish
-198,SG,"en,ms,ta,zh",English
-199,SH,en,English
-200,SI,sl,Slovenian
-201,SJ,no,Norwegian
-202,SK,sk,Slovak
-203,SL,en,English
-204,SM,it,Italian
-205,SN,fr,French
-206,SO,"so,ar",Somali
-207,SR,nl,Dutch; Flemish
-208,SS,en,English
-209,ST,pt,Portuguese
-210,SV,es,Spanish
-211,SX,"nl,en",Dutch
-212,SY,ar,Arabic
-213,SZ,"en,ss",English
-214,TC,en,English
-215,TD,"fr,ar",French
-216,TF,fr,French
-217,TG,fr,French
-218,TH,th,Thai
-219,TJ,"tg,ru",Tajik
-220,TK,en,English
-221,TL,pt,Portuguese
-222,TM,"tk,ru",Turkish
-223,TN,ar,Arabic
-224,TO,"en,to",English
-225,TR,tr,Turkish
-226,TT,en,English
-227,TV,en,English
-228,TW,zh,Chinese
-229,TZ,"sw,en",Swedish
-230,UA,uk,Ukrainian
-231,UG,"en,sw",English
-232,UM,en,English
-233,US,en,English
-234,UY,es,Spanish
-235,UZ,"uz,ru",Uzbek
-236,VA,"it,la",Italian
-237,VC,en,English
-238,VE,es,Spanish
-239,VG,en,English
-240,VI,en,English
-241,VN,vi,Vietnamese
-242,VU,"bi,en,fr",Bislama
-243,WF,fr,French
-244,WS,"sm,en",Samoan
-245,XK,"sq,sr",Albanian
-246,YE,ar,Arabic
-247,YT,fr,French
-248,ZA,af,Afrikaans
-249,ZM,en,English
-250,ZW,"en,sn,nd",English
+countryCode,lang_native,lang_abbr
+AD,Andorra,ca
+AE,دولة الإمارات العربية المتحدة,ar
+AF,افغانستان,"ps,uz,tk"
+AG,Antigua and Barbuda,en
+AI,Anguilla,en
+AL,Shqipëria,sq
+AM,"Հայաստան","hy,ru"
+AO,Angola,pt
+AQ,Antarctica,
+AR,Argentina,"es,gn"
+AS,American Samoa,"en,sm"
+AT,Österreich,de
+AU,Australia,en
+AW,Aruba,"nl,pa"
+AX,Åland,sv
+AZ,Azərbaycan,az
+BA,Bosna i Hercegovina,"bs,hr,sr"
+BB,Barbados,en
+BD,Bangladesh,bn
+BE,België,"nl,fr,de"
+BF,Burkina Faso,"fr,ff"
+BG,България,bg
+BH,‏البحرين,ar
+BI,Burundi,"fr,rn"
+BJ,Bénin,fr
+BL,Saint-Barthélemy,fr
+BM,Bermuda,en
+BN,Negara Brunei Darussalam,ms
+BO,Bolivia,"es,ay,qu"
+BQ,Bonaire,nl
+BR,Brasil,pt
+BS,Bahamas,en
+BT,ʼbrug-yul,dz
+BV,Bouvetøya,
+BW,Botswana,"en,tn"
+BY,Белару́сь,"be,ru"
+BZ,Belize,"en,es"
+CA,Canada,"en,fr"
+CC,Cocos (Keeling) Islands,en
+CD,République démocratique du Congo,"fr,ln,kg,sw,lu"
+CF,Ködörösêse tî Bêafrîka,"fr,sg"
+CG,République du Congo,"fr,ln"
+CH,Schweiz,"de,fr,it"
+CI,Côte d'Ivoire,fr
+CK,Cook Islands,en
+CL,Chile,es
+CM,Cameroon,"en,fr"
+CN,中国,zh
+CO,Colombia,es
+CR,Costa Rica,es
+CU,Cuba,es
+CV,Cabo Verde,pt
+CW,Curaçao,"nl,pa,en"
+CX,Christmas Island,en
+CY,Κύπρος,"el,tr,hy"
+CZ,"Česká republika","cs,sk"
+DE,Deutschland,de
+DJ,Djibouti,"fr,ar"
+DK,Danmark,da
+DM,Dominica,en
+DO,República Dominicana,es
+DZ,الجزائر,ar
+EC,Ecuador,es
+EE,Eesti,et
+EG,مصر‎,ar
+EH,"الصحراء الغربية",es
+ER,ኤርትራ,"ti,ar,en"
+ES,España,"es,eu,ca,gl,oc"
+ET,ኢትዮጵያ,am
+FI,Suomi,"fi,sv"
+FJ,Fiji,"en,fj,hi,ur"
+FK,Falkland Islands,en
+FM,Micronesia,en
+FO,Føroyar,fo
+FR,France,fr
+GA,Gabon,fr
+GB,United Kingdom,en
+GD,Grenada,en
+GE,"საქართველო",ka
+GF,Guyane française,fr
+GG,Guernsey,"en,fr"
+GH,Ghana,en
+GI,Gibraltar,en
+GL,Kalaallit Nunaat,kl
+GM,Gambia,en
+GN,Guinée,"fr,ff"
+GP,Guadeloupe,fr
+GQ,Guinea Ecuatorial,"es,fr"
+GR,Ελλάδα,el
+GS,South Georgia,en
+GT,Guatemala,es
+GU,Guam,"en,ch,es"
+GW,Guiné-Bissau,pt
+GY,Guyana,en
+HK,香港,"zh,en"
+HM,Heard Island and McDonald Islands,en
+HN,Honduras,es
+HR,Hrvatska,hr
+HT,Haïti,"fr,ht"
+HU,"Magyarország",hu
+ID,Indonesia,id
+IE,Éire,"ga,en"
+IL,יִשְׂרָאֵל,"he,ar"
+IM,Isle of Man,"en,gv"
+IN,भारत,"hi,en"
+IO,British Indian Ocean Territory,en
+IQ,العراق,"ar,ku"
+IR,ایران,fa
+IS,Ísland,is
+IT,Italia,it
+JE,Jersey,"en,fr"
+JM,Jamaica,en
+JO,الأردن,ar
+JP,日本,ja
+KE,Kenya,"en,sw"
+KG,Кыргызстан,"ky,ru"
+KH,Kâmpŭchéa,km
+KI,Kiribati,en
+KM,Komori,"ar,fr"
+KN,Saint Kitts and Nevis,en
+KP,북한,ko
+KR,대한민국,ko
+KW,الكويت,ar
+KY,Cayman Islands,en
+KZ,Қазақстан,"kk,ru"
+LA,ສປປລາວ,lo
+LB,لبنان,"ar,fr"
+LC,Saint Lucia,en
+LI,Liechtenstein,de
+LK,śrī laṃkāva,"si,ta"
+LR,Liberia,en
+LS,Lesotho,"en,st"
+LT,Lietuva,lt
+LU,Luxembourg,"fr,de,lb"
+LV,Latvija,lv
+LY,‏ليبيا,ar
+MA,المغرب,ar
+MC,Monaco,fr
+MD,Moldova,ro
+ME,Црна Гора,"sr,bs,sq,hr"
+MF,Saint-Martin,"en,fr,nl"
+MG,Madagasikara,"fr,mg"
+MH,M̧ajeļ,"en,mh"
+MK,Македонија,mk
+ML,Mali,fr
+MM,Myanma,my
+MN,Монгол улс,mn
+MO,澳門,"zh,pt"
+MP,Northern Mariana Islands,"en,ch"
+MQ,Martinique,fr
+MR,موريتانيا,ar
+MS,Montserrat,en
+MT,Malta,"mt,en"
+MU,Maurice,en
+MV,Maldives,dv
+MW,Malawi,"en,ny"
+MX,México,es
+MY,Malaysia,
+MZ,Moçambique,pt
+NA,Namibia,"en,af"
+NC,Nouvelle-Calédonie,fr
+NE,Niger,fr
+NF,Norfolk Island,en
+NG,Nigeria,en
+NI,Nicaragua,es
+NL,Nederland,nl
+NO,Norge,"no,nb,nn"
+NP,नपल,ne
+NR,Nauru,"en,na"
+NU,Niuē,en
+NZ,New Zealand,"en,mi"
+OM,عمان,ar
+PA,"Panamá",es
+PE,Perú,es
+PF,Polynésie française,fr
+PG,Papua Niugini,en
+PH,Pilipinas,en
+PK,Pakistan,"en,ur"
+PL,Polska,pl
+PM,Saint-Pierre-et-Miquelon,fr
+PN,Pitcairn Islands,en
+PR,Puerto Rico,"es,en"
+PS,فلسطين,ar
+PT,Portugal,pt
+PW,Palau,en
+PY,Paraguay,"es,Guarani"
+QA,قطر,ar
+RE,La Réunion,fr
+RO,România,ro
+RS,"Србија",sr
+RU,Россия,ru
+RW,Rwanda,"rw,en,fr"
+SA,العربية السعودية,ar
+SB,Solomon Islands,en
+SC,Seychelles,"fr,en"
+SD,السودان,"ar,en"
+SE,Sverige,sv
+SG,Singapore,"en,ms,ta,zh"
+SH,Saint Helena,en
+SI,Slovenija,sl
+SJ,Svalbard og Jan Mayen,no
+SK,Slovensko,sk
+SL,Sierra Leone,en
+SM,San Marino,it
+SN,Sénégal,fr
+SO,Soomaaliya,"so,ar"
+SR,Suriname,nl
+SS,South Sudan,en
+ST,São Tomé e Príncipe,pt
+SV,El Salvador,es
+SX,Sint Maarten,"nl,en"
+SY,سوريا,ar
+SZ,Swaziland,"en,ss"
+TC,Turks and Caicos Islands,en
+TD,Tchad,"fr,ar"
+TF,Territoire des Terres australes et antarctiques fr,fr
+TG,Togo,fr
+TH,ประเทศไทย,th
+TJ,Тоҷикистон,"tg,ru"
+TK,Tokelau,en
+TL,Timor-Leste,pt
+TM,Türkmenistan,"tk,ru"
+TN,تونس,ar
+TO,Tonga,"en,to"
+TR,Türkiye,tr
+TT,Trinidad and Tobago,en
+TV,Tuvalu,en
+TW,臺灣,zh
+TZ,Tanzania,"sw,en"
+UA,Україна,uk
+UG,Uganda,"en,sw"
+UM,United States Minor Outlying Islands,en
+US,United States,en
+UY,Uruguay,es
+UZ,O‘zbekiston,"uz,ru"
+VA,Vaticano,"it,la"
+VC,Saint Vincent and the Grenadines,en
+VE,Venezuela,es
+VG,British Virgin Islands,en
+VI,United States Virgin Islands,en
+VN,Việt Nam,vi
+VU,Vanuatu,"bi,en,fr"
+WF,Wallis et Futuna,fr
+WS,Samoa,"sm,en"
+XK,Republika e Kosovës,"sq,sr"
+YE,اليَمَن,ar
+YT,Mayotte,fr
+ZA,South Africa,"af,en,nr,st,ss,tn,ts,ve,xh,zu"
+ZM,Zambia,en
+ZW,Zimbabwe,"en,sn,nd"

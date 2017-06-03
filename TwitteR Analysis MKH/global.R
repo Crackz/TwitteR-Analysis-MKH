@@ -1,6 +1,6 @@
 # NOTE: Can't use Reactivity HERE!!
 # Designed To contain Global Funs that can be accessed by ui and server ..
-# global.r vs server.r =>that server.r will be Established for every client Session
+# global.r vs server.r => server.r will be Established for every client Session
 
 # Establish Load Libraries processing
 EnsurePackage <- function(x, github = FALSE) {
@@ -14,7 +14,7 @@ EnsurePackage <- function(x, github = FALSE) {
             install.packages(pkgs = x, repos = "http://cran.r-project.org")
         else devtools::install_github(y)
 
-        library(x,character.only = TRUE)
+        library(x, character.only = TRUE)
     }
 }
 options(stringsAsFactors = FALSE)
@@ -28,7 +28,7 @@ LoadLibraries <- function() {
     EnsurePackage("jsonlite")
     EnsurePackage("dplyr")
     #EnsurePackage("sqldf")
-    EnsurePackage("carlganz/shinyCleave", github = T) #Notification Library
+    EnsurePackage("carlganz/shinyCleave", github = T) #UI Notification Library
     #EnsurePackage("leaflet")
     #EnsurePackage("stringr")
     #EnsurePackage("rgdal")
@@ -37,36 +37,33 @@ LoadLibraries <- function() {
 LoadLibraries()
 ########################################################## Shared Between Tabs #########################################################
 # Create Enviroment Variable Holding our token
-create_token( app = "Twitter Analysis MKH", consumer_key = readLines("tokens.txt")[1], consumer_secret = readLines("tokens.txt")[2], cache = TRUE)
+create_token(app = "Twitter Analysis MKH", consumer_key = readLines("tokens.txt")[1], consumer_secret = readLines("tokens.txt")[2], cache = TRUE)
 
 ########################################################## Tab1 Search Tweets ############################################################
 
-getTweets <- function(searchQuery, noTweets, selectedLang) 
-{ 
-    rateLimit_Search <- rate_limit(query = "search/tweets", token = NULL)
+getTweets <- function(searchQuery, noTweets, selectedLang) {
 
-    if (rateLimit_Search$remaining > 0) {
+    if (getRateLimitFor("search/tweets")$remaining > 0) {
 
         # Merge all chars in search box into one string
         searchQuery <- paste0(searchQuery, collapse = " ")
- 
-        twtdf <- search_tweets(searchQuery, n = noTweets, lang = selectedLang , include_rts = FALSE, full_text = TRUE , parse =  TRUE)
+
+        twtdf <- search_tweets( searchQuery, n = noTweets, lang = selectedLang,
+                                include_rts = FALSE, full_text = TRUE, parse = TRUE )
         # Strange behaviour in parameter (include_entitites=T) returning twt as a list
 
-        save_as_csv(twtdf, "Saved_Tweets.csv")
+        save_as_csv(twtdf, "LoggedData/Saved_Tweets.csv")
 
-        # check get results or not 
+        # Check if got results or not 
         if (length(twtdf$text) > 1) {
-            twtJson <- toJSON( twtdf , pretty = TRUE)
-            write(twtJson, "Saved_Tweets.json")
+            twtJson <- toJSON(twtdf, pretty = TRUE)
+            write(twtJson, "LoggedData/Saved_Tweets.json")
             return(twtJson)
 
-        } else return("Didn't find what you are looking for..")
+        } else return(paste0("Didn't find ",searchQuery))
 
     } else {
-        textLimitReach <- paste0("TwitterSearch Reached Limit ... Reset In: ", rateLimit_Search$reset)
-        print(textLimitReach)
-        return(textLimitReach)
+        return(exceedsTwitterLimits("search/tweets"))
     }
 }
 
@@ -75,35 +72,34 @@ availableTrendLocations <- trends_available()
 availableLanaguages <- read.csv("ShapeCountries/CountriesLanguages.csv", stringsAsFactors = FALSE)
 availableTrendLocations <- left_join(availableTrendLocations, availableLanaguages, by = "countryCode")
 
-getCountryTrends <- function(currentCountryName) {
-    rateLimit_Trends <- rate_limit(query = "trends/place", token = NULL)
-    if (rateLimit_Trends$remaining > 0) {
+getCountryTrends <- function (currentCountryName) {
+   
+    if (getRateLimitFor("trends/place")$remaining > 0) {
 
         currentCountryWoeid <- subset(availableTrendLocations, name == currentCountryName)[["woeid"]]
-        return(get_trends(currentCountryWoeid))
+        return (get_trends(currentCountryWoeid))
 
     } else {
-        textLimitReach <- paste0("Reached Limit..Reset In : ", rateLimit_Trends$reset)
+        textLimitReach <- paste0("Exceeds Limit..Reset In : ", rateLimit_Trends$reset)
         print(textLimitReach)
-        return(textLimitReach)
+        return (textLimitReach)
     }
 }
 
-getCountryTrendsNames <- function(currentCountryName) {
-    return(getCountryTrends(currentCountryName)$trend)
-
+getCountryTrendsNames <- function (currentCountryName) {
+    return (getCountryTrends(currentCountryName)$trend)
 }
+getRateLimitFor<- function(queryRateLimit) {
+    return(rate_limit(queryRateLimit, token = NULL))
+}
+exceedsTwitterLimits <- function(queryRateLimit) {
+    return(exceedsTwitterLimits("trends/place"))
+}
+
 
 
 #countriesInfo <- geojsonio::geojson_read("ShapeCountries\\countries.geo.json", what = "sp")
 #countriesInfo <- readOGR("ShapeCountries\\shapeCountries.shp", layer = "shapeCountries", encoding = "utf-8")
-
-
-
-
-
-
-
 
 
 #Load Countries shape 
