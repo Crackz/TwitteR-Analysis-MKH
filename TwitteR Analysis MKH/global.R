@@ -39,7 +39,7 @@ LoadLibraries()
 # Create Enviroment Variable Holding our token
 create_token(app = "Twitter Analysis MKH", consumer_key = readLines("tokens.txt")[1], consumer_secret = readLines("tokens.txt")[2], cache = TRUE)
 
-########################################################## Tab1 Search Tweets ############################################################
+########################################################## Search Tweets ############################################################
 
 getTweets <- function(searchQuery, noTweets, selectedLang) {
 
@@ -60,7 +60,7 @@ getTweets <- function(searchQuery, noTweets, selectedLang) {
             write(twtJson, "LoggedData/Saved_Tweets.json")
             return(twtJson)
 
-        } else return(paste0("Didn't find ",searchQuery))
+        } else return("Didn't find What you are looking for ...")
 
     } else {
         return(exceedsTwitterLimits("search/tweets"))
@@ -69,8 +69,18 @@ getTweets <- function(searchQuery, noTweets, selectedLang) {
 
 ############################################################### Trends #########################################################
 availableTrendLocations <- trends_available()
-availableLanaguages <- read.csv("ShapeCountries/CountriesLanguages.csv", stringsAsFactors = FALSE)
-availableTrendLocations <- left_join(availableTrendLocations, availableLanaguages, by = "countryCode")
+availableCountriesLanaguagesCodes <- read.csv("ShapeCountries/language-codes.csv", stringsAsFactors = FALSE)
+availableCountriesLanaguages <- read.csv("ShapeCountries/CountriesLanguages.csv", stringsAsFactors = FALSE)
+availableTrendLocations <- left_join(availableTrendLocations, availableCountriesLanaguages, by = "countryCode")
+
+#Convert countryLanguages to List Of Vectors
+availableTrendLocations$countryLanguages <- lapply(availableTrendLocations$countryLanguages, function(countryLanguagesCell) {
+    if (grepl("\\W", countryLanguagesCell)) {
+        countryLanguagesCell <- regmatches(countryLanguagesCell, gregexpr("[A-za-z]+", countryLanguagesCell))[[1]]
+        return(countryLanguagesCell)
+
+    } else return(countryLanguagesCell)
+})
 
 getCountryTrends <- function (currentCountryName) {
    
@@ -89,12 +99,25 @@ getCountryTrends <- function (currentCountryName) {
 getCountryTrendsNames <- function (currentCountryName) {
     return (getCountryTrends(currentCountryName)$trend)
 }
+
+getCountriesLanguages <- function() {
+    return(c("English", sort(unique(unlist(availableTrendLocations$countryLanguages)))))
+}
+
+getCountryLanguages <- function(currentCountryName) {
+    if (currentCountryName == "Worldwide"|| currentCountryName == "") return(c("English"))
+    languages <- availableTrendLocations[which(availableTrendLocations$country == currentCountryName),]$countryLanguages[1]
+    return(unlist(languages))
+}
+
 getRateLimitFor<- function(queryRateLimit) {
     return(rate_limit(queryRateLimit, token = NULL))
 }
+
 exceedsTwitterLimits <- function(queryRateLimit) {
     return(exceedsTwitterLimits("trends/place"))
 }
+
 
 
 

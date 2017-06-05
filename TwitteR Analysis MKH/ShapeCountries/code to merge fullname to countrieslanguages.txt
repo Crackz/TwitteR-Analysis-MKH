@@ -1,0 +1,18 @@
+availableCountriesLanaguages$lang_fullname <- lapply(availableCountriesLanaguages$lang_abbr, function(langAbbrVal) {
+    if (grepl("\\W", langAbbrVal)) {
+        #langAbbrVal <- regmatches(langAbbrVal, gregexpr("[a-z]{2}", langAbbrVal))[[1]]
+        langAbbrVal <- regmatches(langAbbrVal, gregexpr("[a-z]{2}", langAbbrVal))[[1]]
+
+        langFullName <- sapply(langAbbrVal, function(lang)
+               return(availableCountriesLanaguagesCodes[which(availableCountriesLanaguagesCodes$lang_abbr == lang),]$lang_fullname)
+            )
+        return(langFullName)
+    } else return(availableCountriesLanaguagesCodes[which(availableCountriesLanaguagesCodes$lang_abbr == langAbbrVal),]$lang_fullname)
+})
+
+#After doing this you wont be able to export to csv 
+#Cuz List Can't be represented in 2D excel file 
+#should apply this fun to convert to vectors
+
+availableCountriesLanaguages$lang_fullname <- vapply(availableCountriesLanaguages$lang_fullname, paste, collapse = ",", character(1L))
+

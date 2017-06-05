@@ -17,11 +17,12 @@ tabPanel("Search",
           #-------------------------------------------------------------REGION AND LANGUAGE -------------------------------------------------------------#
                         fluidRow(
                                     column(6, selectizeInput("trendLocations", "Country :",
-                                                              choices = c("Worldwide", sort(as.vector(availableTrendLocations$country))),                                                                multiple = F, options = list(placeholder = 'Select a region'))),
-                                    column(5, radioButtons("selectedLang", "Language : ",
-                                                              c("Arabic" = "ar", "English" = "en"), inline = T))
-                                    #column(6, selectizeInput("selectedLang", "Language :",
-                                                              #choices = as.vector(availableLanaguages$lang_abbr)))
+                                                              choices = c("Worldwide", sort(as.vector(availableTrendLocations$country))),
+                                                              multiple = F, options = list(placeholder = 'Select a region'))),
+                                    #column(5, radioButtons("selectedLang", "Language : ",
+                                                              #c("Arabic" = "ar", "English" = "en"), inline = T))
+                                    column(6, selectizeInput("selectedLang", "Language :",
+                                                              choices = getCountriesLanguages(), options = list(placeholder = 'Select a language') ))
                         ),
                         tags$br(),
           #-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#

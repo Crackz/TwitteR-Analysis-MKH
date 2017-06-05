@@ -48,6 +48,7 @@ cleave(session, "#noTweets", list(
 observeEvent(input$trendLocations, {
     if (input$trendLocations != "") {
         updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$trendLocations), server = TRUE)
+        updateSelectizeInput(session, 'selectedLang', choices = c(getCountryLanguages(input$trendLocations), getCountriesLanguages()) , server = TRUE)
     }
 })
 
