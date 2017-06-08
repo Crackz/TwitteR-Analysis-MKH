@@ -3,7 +3,7 @@ $(document).ready(function () {
     //Add Validation to No Tweets Input
     $('#noTweets').attr('maxlength', 4).prop('required', true);
 
-    //Listen For Enter key and dont work if button is disabled
+    //Listen For Enter key if button is disabled then dont work 
     $(document).keypress(function (e) {
         if ($('#btnAnalyze').prop('disabled')) return
         else {

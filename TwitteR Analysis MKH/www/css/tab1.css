@@ -1,18 +1,12 @@
-h1 {
-    font-family:'Questrial', Verdana, sans-serif;
-    text-align:center;
-    font-size:30px;
-    padding:0;
-    margin:0 0 20px 0;
+#twitterAnalysisOptions {
+    font-family: 'Questrial', Verdana, sans-serif;
+    text-align: center;
+    font-size: 30px;
+    padding: 0;
+    margin: 0 0 20px 0;
 }
 hr{
     border-top: 1px solid #8c8b8b;
-}
-#selectedLang{
-    margin-top:2%;
-}
-#selectedLang .shiny-options-group {
-    padding-top: 3%;
 }
 
 #noTweetsSlider {
@@ -27,13 +21,13 @@ selectize-dropdown { line-height: 20px; }
 }
 
 .tweet {
-  position: relative;
-  margin-top:3%;
-  margin-bottom:1%;
-  padding: 1.2em 1em 1.2em 1em;
-  border-radius: 5px;
-  box-shadow: 0 0 0 0.5em rgba(68, 68, 68, 0.2);
-  background: white;
+    position: relative;
+    margin-top: 3%;
+    margin-bottom: 1%;
+    padding: 1.2em 1em 1.2em 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 0 0.5em rgba(68, 68, 68, 0.2);
+    background: white;
 }
 .tweet:first-child{ margin-top:1%; }
 
@@ -98,6 +92,6 @@ selectize-dropdown { line-height: 20px; }
 {
 	position:absolute;
 	top:0;
-	right:16px;
+	right:15px;
 }
 

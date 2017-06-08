@@ -12,17 +12,17 @@ tabPanel("Search",
            #Left Side Panel
            sidebarPanel(id="searchPanel", width = 4,
 
-                        tags$h1("Twitter Analysis Options", class = "text-center"),
+                        tags$h1(id="twitterAnalysisOptions","Twitter Analysis Options", class = "text-center"),
                         tags$hr(),
           #-------------------------------------------------------------REGION AND LANGUAGE -------------------------------------------------------------#
                         fluidRow(
                                     column(6, selectizeInput("trendLocations", "Country :",
                                                               choices = c("Worldwide", sort(as.vector(availableTrendLocations$country))),
-                                                              multiple = F, options = list(placeholder = 'Select a region'))),
-                                    #column(5, radioButtons("selectedLang", "Language : ",
-                                                              #c("Arabic" = "ar", "English" = "en"), inline = T))
+                                                              options = list(placeholder = 'Select a region'))),
+
                                     column(6, selectizeInput("selectedLang", "Language :",
-                                                              choices = getCountriesLanguages(), options = list(placeholder = 'Select a language') ))
+                                                              choices = getCountriesLanguages(), selected = "English",
+                                                              options = list(placeholder = 'Select a language')))
                         ),
                         tags$br(),
           #-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#

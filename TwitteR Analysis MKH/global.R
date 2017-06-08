@@ -14,7 +14,7 @@ EnsurePackage <- function(x, github = FALSE) {
             install.packages(pkgs = x, repos = "http://cran.r-project.org")
         else devtools::install_github(y)
 
-        library(x, character.only = TRUE)
+        library (x, character.only = TRUE)
     }
 }
 options(stringsAsFactors = FALSE)
@@ -27,8 +27,8 @@ LoadLibraries <- function() {
     EnsurePackage("V8")
     EnsurePackage("jsonlite")
     EnsurePackage("dplyr")
-    #EnsurePackage("sqldf")
     EnsurePackage("carlganz/shinyCleave", github = T) #UI Notification Library
+    #EnsurePackage("sqldf")
     #EnsurePackage("leaflet")
     #EnsurePackage("stringr")
     #EnsurePackage("rgdal")
@@ -41,14 +41,14 @@ create_token(app = "Twitter Analysis MKH", consumer_key = readLines("tokens.txt"
 
 ########################################################## Search Tweets ############################################################
 
-getTweets <- function(searchQuery, noTweets, selectedLang) {
+getTweets <- function (searchQuery, noTweets, selectedLang) {
 
     if (getRateLimitFor("search/tweets")$remaining > 0) {
 
-        # Merge all chars in search box into one string
+        # Concatenate chars vector in search box into one string with space between every word
         searchQuery <- paste0(searchQuery, collapse = " ")
-
-        twtdf <- search_tweets( searchQuery, n = noTweets, lang = selectedLang,
+        selectedLang <- subset(availableCountriesLanaguagesCodes, lang_fullname == selectedLang)[["lang_abbr"]]
+        twtdf <- search_tweets (searchQuery, n = noTweets, lang = selectedLang,
                                 include_rts = FALSE, full_text = TRUE, parse = TRUE )
         # Strange behaviour in parameter (include_entitites=T) returning twt as a list
 
@@ -60,10 +60,10 @@ getTweets <- function(searchQuery, noTweets, selectedLang) {
             write(twtJson, "LoggedData/Saved_Tweets.json")
             return(twtJson)
 
-        } else return("Didn't find What you are looking for ...")
+        } else return ("Didn't find What you are looking for ...")
 
     } else {
-        return(exceedsTwitterLimits("search/tweets"))
+        return (exceedsTwitterLimits("search/tweets"))
     }
 }
 
@@ -90,9 +90,7 @@ getCountryTrends <- function (currentCountryName) {
         return (get_trends(currentCountryWoeid))
 
     } else {
-        textLimitReach <- paste0("Exceeds Limit..Reset In : ", rateLimit_Trends$reset)
-        print(textLimitReach)
-        return (textLimitReach)
+        return (exceedsTwitterLimits("trends/place"))
     }
 }
 
@@ -100,22 +98,24 @@ getCountryTrendsNames <- function (currentCountryName) {
     return (getCountryTrends(currentCountryName)$trend)
 }
 
-getCountriesLanguages <- function() {
+getCountriesLanguages <- function () {
     return(c("English", sort(unique(unlist(availableTrendLocations$countryLanguages)))))
 }
 
-getCountryLanguages <- function(currentCountryName) {
+getCountryLanguages <- function (currentCountryName) {
     if (currentCountryName == "Worldwide"|| currentCountryName == "") return(c("English"))
     languages <- availableTrendLocations[which(availableTrendLocations$country == currentCountryName),]$countryLanguages[1]
-    return(unlist(languages))
+    return (unlist(languages))
 }
 
-getRateLimitFor<- function(queryRateLimit) {
-    return(rate_limit(queryRateLimit, token = NULL))
+getRateLimitFor<- function (queryRateLimit) {
+    return (rate_limit(queryRateLimit, token = NULL))
 }
 
-exceedsTwitterLimits <- function(queryRateLimit) {
-    return(exceedsTwitterLimits("trends/place"))
+exceedsTwitterLimits <- function (queryRateLimit) {
+    textLimitReach <- paste0(queryRateLimit, " Exceeds Limit..Reset In : ", round(getRateLimitFor(queryRateLimit)$reset, 2) , " Minutes")
+    print(textLimitReach)
+    return (textLimitReach)
 }
 
 

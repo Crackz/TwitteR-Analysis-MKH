@@ -1,15 +1,20 @@
-#establish Global Listener
-
+# Establish Global Listener
 observe({
     toggleState("btnAnalyze", !is.null(input$searchQuery) && !is.null(input$trendLocations) && input$noTweets != "")
-    #updateTextInput(session , "noTweets" , value = input$noTweetsSlider)     
+    # updateTextInput(session , "noTweets" , value = input$noTweetsSlider)     
         
-}) #End Global Listenerþ
+}) # End Global Listenerþ
 
+# Configurations for Number of Tweets Input
+cleave(session, "#noTweets", list(
+    numeral = TRUE,
+    numeralPositiveOnly = TRUE,
+    delimiter = '',
+    numeralDecimalScale = 0
+))
 
 
 startTime <- Sys.time()
-
 observeEvent(input$noTweets, {
     if (!is.na(as.numeric(input$noTweets)))
        noTweets <- as.numeric(input$noTweets)
@@ -31,42 +36,28 @@ observeEvent(input$noTweets, {
                                 min = ceiling(noTweets * 0.5), max = ceiling(noTweets * 1.5))
 
 })
+
 observeEvent(input$noTweetsSlider, {
     if (input$noTweetsSlider < 100)
         showNotification("Note: That minimum tweets is 100 tweets", type = "warning")
-
 })
-
-cleave(session, "#noTweets", list(
-    numeral = TRUE,
-    numeralPositiveOnly = TRUE,
-    delimiter='',
-    numeralDecimalScale = 0
-))
-
 
 observeEvent(input$trendLocations, {
     if (input$trendLocations != "") {
         updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$trendLocations), server = TRUE)
-        updateSelectizeInput(session, 'selectedLang', choices = c(getCountryLanguages(input$trendLocations), getCountriesLanguages()) , server = TRUE)
+        countryLanguages <- getCountryLanguages(input$trendLocations)
+        updateSelectizeInput(session, 'selectedLang', choices = c(countryLanguages, getCountriesLanguages()), selected = countryLanguages[1], server = TRUE)
     }
 })
 
-#btnAnalyze values When Button Search clicked !
+
 observeEvent(input$btnAnalyze, {
 
-   # print(paste0("Lang: ",input$selectedLang," | Search Query : ", input$searchQuery ) )     #" | Date : S/ " ,input$searchDateRange[1],"  D/ ",input$searchDateRange[2] ))
-
     withBusyIndicatorServer("btnAnalyze", {
-
-        #print(paste0("Remaining Search Tweets Limit : ", rate_limit(query = "search/tweets", token = NULL)$remaining))
-
-        #Begain Search Tweets API
+        # Call Search Tweets API with form values
         tweetsJson <- getTweets( input$searchQuery , as.numeric( input$noTweets ) , input$selectedLang )
-        
+        # Check is it a valid Json Or it's text containing Error 
         if (validate(tweetsJson)) {
-            #Check is it a valid Json Or it's text containing Error 
-
             session$sendCustomMessage("CreateTweets", tweetsJson)
         }
         else {
@@ -75,10 +66,9 @@ observeEvent(input$btnAnalyze, {
     })
 }) #End btnAnalyze event
 
-#Reset Values when Button Reset clicked !
+#Reset Form Values when Button Reset clicked !
 observeEvent(input$resetSearchPanel, {
     reset("searchPanel")
     runjs("clearTweets();")
-
-}) #end reset event
+})
 
