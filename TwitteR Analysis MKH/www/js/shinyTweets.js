@@ -29,8 +29,8 @@ Shiny.addCustomMessageHandler("CreateTweets", function (tweetsJson) {
      }
 
      function renderSelectedLang() {
-
-         if ($("#selectedLang").val() == "Arabic") {
+         var currentSelectedLang = $("#selectedLang").val();
+         if (currentSelectedLang == "Arabic" || currentSelectedLang == "Hebrew" ) {
 	        $(".tweet").css("direction", "rtl");
 	        $(".createdAt").css({ "left": "1em", "direction": "ltr" });
 	        $(".tweetContent").css({ "margin": "0 1% 0 0" });
@@ -48,3 +48,4 @@ function clearTweets() {
     $(".tweetsContainer").empty();
     $('#pagination').twbsPagination('destroy')
 }
+

@@ -1,6 +1,6 @@
 # Establish Global Listener
 observe({
-    toggleState("btnAnalyze", !is.null(input$searchQuery) && !is.null(input$trendLocations) && input$noTweets != "")
+    toggleState("btnAnalyze", input$searchQuery != "" && input$trendLocations != "" && input$selectedLang != "" && input$noTweets != "")
     # updateTextInput(session , "noTweets" , value = input$noTweetsSlider)     
         
 }) # End Global Listenerþ
@@ -44,9 +44,13 @@ observeEvent(input$noTweetsSlider, {
 
 observeEvent(input$trendLocations, {
     if (input$trendLocations != "") {
-        updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$trendLocations), server = TRUE)
-        countryLanguages <- getCountryLanguages(input$trendLocations)
-        updateSelectizeInput(session, 'selectedLang', choices = c(countryLanguages, getCountriesLanguages()), selected = countryLanguages[1], server = TRUE)
+        updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$trendLocations) , server = TRUE)
+        countryLanguages <- c(getCountryLanguages(input$trendLocations), "" ) # should add empty char to be able to use list in updateSelectizeInput & ignore exception
+
+        updateSelectizeInput (session, 'selectedLang',
+                              choices = list("Most Used" = countryLanguages, "Others" = setdiff(getCountriesLanguages(), countryLanguages)),
+                              selected= countryLanguages[1] )
+
     }
 })
 
@@ -56,6 +60,7 @@ observeEvent(input$btnAnalyze, {
     withBusyIndicatorServer("btnAnalyze", {
         # Call Search Tweets API with form values
         tweetsJson <- getTweets( input$searchQuery , as.numeric( input$noTweets ) , input$selectedLang )
+
         # Check is it a valid Json Or it's text containing Error 
         if (validate(tweetsJson)) {
             session$sendCustomMessage("CreateTweets", tweetsJson)

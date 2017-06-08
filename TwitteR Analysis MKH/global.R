@@ -98,12 +98,14 @@ getCountryTrendsNames <- function (currentCountryName) {
     return (getCountryTrends(currentCountryName)$trend)
 }
 
+CountriesLanguages <- sort(unique(unlist(availableTrendLocations$countryLanguages)))
 getCountriesLanguages <- function () {
-    return(c("English", sort(unique(unlist(availableTrendLocations$countryLanguages)))))
+    return(c("English", CountriesLanguages))
 }
 
 getCountryLanguages <- function (currentCountryName) {
-    if (currentCountryName == "Worldwide"|| currentCountryName == "") return(c("English"))
+    if (currentCountryName == "Worldwide") return(c("English"))
+    if (currentCountryName == "") return(vector())
     languages <- availableTrendLocations[which(availableTrendLocations$country == currentCountryName),]$countryLanguages[1]
     return (unlist(languages))
 }

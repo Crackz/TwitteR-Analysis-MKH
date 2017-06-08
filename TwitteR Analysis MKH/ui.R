@@ -1,8 +1,8 @@
 shinyUI(
-  tagList( #Tag Container Created exclusively to include Externel shinyJs lib
-    useShinyjs(), # Import Libraries for extra control on UI
+  tagList( # Tag Container Created exclusively to include Externel libraries
+    useShinyjs(),
     includeCleave(), 
-    HTML('<meta charset="UTF-8">'), #To make browser read arabic
+    HTML('<meta charset="UTF-8">'), # To make browser show any language,
     navbarPage(
       title="Twitter Analysis",
       collapsible = T,inverse = F, fluid = T, #selected = "Trends", 

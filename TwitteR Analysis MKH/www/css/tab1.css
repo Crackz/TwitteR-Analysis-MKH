@@ -12,8 +12,6 @@ hr{
 #noTweetsSlider {
     display:inline-block;
 }
-selectize-input { line-height: 30px; }
-selectize-dropdown { line-height: 20px; }
 
 #shiny-notification-panel {
   top:10%;
@@ -95,3 +93,10 @@ selectize-dropdown { line-height: 20px; }
 	right:15px;
 }
 
+#searchQuery .selectize-input {
+    line-height: 30px !important;
+}
+
+#searchQuery .selectize-dropdown {
+    line-height: 40px !important;
+}
