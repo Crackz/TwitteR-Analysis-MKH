@@ -1,68 +1,68 @@
 source("UI/UIHelpers/ButtonBusyIndicator.R") # Load all the code needed to show feedback on a button click
 tabPanel("Search",
-         #Imports <head>
-         tags$head(
-                    includeCSS("www\\css\\tab1.css"),
-                    tags$script(src = "js\\tab1.js"),
-                    tags$script(src = "js\\shinyTweets.js"),
-                    tags$script(src = "js\\jquery.twbsPagination.min.js")
-                   ),
-         #Specify Layout of page
-         sidebarLayout(
-           #Left Side Panel
-           sidebarPanel(id="searchPanel", width = 4,
+    #Imports <head>
+    tags$head(
+            includeCSS("www\\css\\tab1.css"),
+            tags$script(src = "js\\tab1.js"),
+            tags$script(src = "js\\shinyTweets.js"),
+            tags$script(src = "js\\jquery.twbsPagination.min.js")
+            ),
+    #Specify Layout of page
+    sidebarLayout(
+    #Left Side Panel
+    sidebarPanel(id="searchPanel", width = 4,
 
-                        tags$h1(id="twitterAnalysisOptions","Twitter Analysis Options", class = "text-center"),
-                        tags$hr(),
-          #-------------------------------------------------------------REGION AND LANGUAGE -------------------------------------------------------------#
-                        fluidRow(
-                                    column(6, selectizeInput("trendLocations", "Country :",
-                                                              choices = c("Worldwide", sort(as.vector(availableTrendLocations$country))),
-                                                              options = list(placeholder = 'Select a region'))),
+        tags$h1(id="twitterAnalysisOptions","Twitter Analysis Options", class = "text-center"),
+        tags$hr(),
+#-------------------------------------------------------------REGION AND LANGUAGE -------------------------------------------------------------#
+        fluidRow(
+            column(6, selectizeInput("trendLocations", "Country :",
+                                        choices = c("Worldwide", getCountriesNames()),
+                                        options = list(placeholder = 'Select a region'))),
 
-                                    column(6, selectizeInput("selectedLang", "Language :", choices = c("English"),
-                                                              options = list(placeholder = 'Select a language')))
-                        ),
-                        tags$br(),
-          #-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#
-                        fluidRow(
-                            column(3,
-                                textInput("noTweets", "No. Tweets :" , value = 100 , placeholder = "Enter No.Tweets")
-                            ),
-                            column(9,
-                                #additional Options has been added to tab1.js (coz this related to ion.rangeSlider.js library)  
-                                div(style="margin-top:-3%;",
-                                sliderInput("noTweetsSlider", "", post =" tweets" , min = 100, max = 1500, value = 100))
-                            )
-                        ),
+            column(6, selectizeInput("selectedLang", "Language :", choices = NULL,
+                                        options = list(placeholder = 'Select a language')))
+        ),
+        tags$br(),
+#-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#
+        fluidRow(
+            column(3,
+                textInput("noTweets", "No. Tweets :" , value = 100 , placeholder = "Enter No.Tweets")
+            ),
+            column(9,
+                #additional Options has been added to tab1.js (coz this related to ion.rangeSlider.js library)  
+                div(style="margin-top:-3%;",
+                sliderInput("noTweetsSlider", "", post =" tweets" , min = 100, max = 1500, value = 100))
+            )
+        ),
 
-                     #sliderInput("searchDateRange", "DateRange : ", min = Sys.Date() - 7, max = Sys.Date(), ticks = TRUE, value = c(Sys.Date() - 7 ,  Sys.Date()),
-                                            #dragRange = T),
+        #sliderInput("searchDateRange", "DateRange : ", min = Sys.Date() - 7, max = Sys.Date(), ticks = TRUE, value = c(Sys.Date() - 7 ,  Sys.Date()),
+                            #dragRange = T),
 
-         #-------------------------------------------------------------  SEARCH TEXT BOX -------------------------------------------------------------#
-                    div(id="searchQueryID", #used to be target in css
-                     #additional options has been added (coz this related to selectize.js library)
-                     selectizeInput("searchQuery", "Search For : ", choices = NULL, multiple = T,
-                                       options = list(create = TRUE, placeholder = "Enter Search Query ...", closeAfterSelect = T, createOnBlur = T, maxItems = 5, plugins = list("remove_button", "drag_drop")))
-                    ),
-         #------------------------------------------------------------ Submit Options For Search ----------------------------------------------------------#
-                        fluidRow(
-                          withBusyIndicatorUI(
-                              actionButton("btnAnalyze", "Analyze", icon = icon("twitter"), width = "80%", class = "btn-lg", style = "margin-left:7%;")
-                          ),
-                          #To Reset Options to Their Defaults
-                          actionButton("resetSearchPanel", "", icon = icon("refresh")
-                                            , title = "Reset Inputs Fields to their defaults", class = "btn-md")
-                          )
-           ), #sidbar Container 
-           #Panel which will hold tweets .. generated by javascript
-           mainPanel(
-             #div for rendering our tweets to it
-             tags$div(class = "tweetsContainer", id = "tweetsContainerID"
-             ),
+#-------------------------------------------------------------  SEARCH TEXT BOX -------------------------------------------------------------#
+    div(id="searchQueryID", #used to be target in css
+        #additional options has been added (coz this related to selectize.js library)
+        selectizeInput("searchQuery", "Search For : ", choices = NULL, multiple = T,
+                        options = list(create = TRUE, placeholder = "Enter Search Query ...", closeAfterSelect = T, createOnBlur = T, maxItems = 5, plugins = list("remove_button", "drag_drop")))
+    ),
+#------------------------------------------------------------ Submit Options For Search ----------------------------------------------------------#
+        fluidRow(
+            withBusyIndicatorUI(
+                actionButton("btnAnalyze", "Analyze", icon = icon("twitter"), width = "80%", class = "btn-lg", style = "margin-left:7%;")
+            ),
+            #To Reset Options to Their Defaults
+            actionButton("resetSearchPanel", "", icon = icon("refresh")
+                            , title = "Reset Inputs Fields to their defaults", class = "btn-md")
+            )
+    ), #sidbar Container 
+    #Panel which will hold tweets .. generated by javascript
+    mainPanel(
+        #div for rendering our tweets to it
+        tags$div(class = "tweetsContainer", id = "tweetsContainerID"
+        ),
            
-             #Pagination for our tweets (page 1 2 3 4 ) to render to it through our shinytweets.js
-             HTML("<ul id=\"pagination\" class=\"pagination-md\"></ul>")
-             ) #End main content Container
-         ) #End SidbarLayout
+        #Pagination for our tweets (page 1 2 3 4 ) to render to it through our shinytweets.js
+        HTML("<ul id=\"pagination\" class=\"pagination-md\"></ul>")
+        ) #End main content Container
+    ) #End SidbarLayout
 ) #End Tab Search

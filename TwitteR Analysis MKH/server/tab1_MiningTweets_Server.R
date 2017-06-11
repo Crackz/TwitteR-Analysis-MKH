@@ -42,15 +42,20 @@ observeEvent(input$noTweetsSlider, {
         showNotification("Note: That minimum tweets is 100 tweets", type = "warning")
 })
 
+#change automatically based on selected country
+countryLanguages <- reactive({
+    # instead of if(trendLocation == null)
+    req(input$trendLocations)
+    # should add empty char to be able to use list in updateSelectizeInput & ignore exception
+    c(getCountryLanguages(input$trendLocations), "")
+})
+
 observeEvent(input$trendLocations, {
     if (input$trendLocations != "") {
         updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$trendLocations) , server = TRUE)
-        countryLanguages <- c(getCountryLanguages(input$trendLocations), "" ) # should add empty char to be able to use list in updateSelectizeInput & ignore exception
-
         updateSelectizeInput (session, 'selectedLang',
-                              choices = list("Most Used" = countryLanguages, "Others" = setdiff(getCountriesLanguages(), countryLanguages)),
-                              selected= countryLanguages[1] )
-
+                              choices = list("Most Used" = countryLanguages(), "Others" = setdiff (getCountriesLanguages(), countryLanguages() )),
+                              selected= countryLanguages()[1] )
     }
 })
 

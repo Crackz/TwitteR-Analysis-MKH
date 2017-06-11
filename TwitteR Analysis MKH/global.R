@@ -19,22 +19,25 @@ EnsurePackage <- function(x, github = FALSE) {
 }
 options(stringsAsFactors = FALSE)
 
-# Identifying packages required  
 LoadLibraries <- function() {
     EnsurePackage("rtweet")
     EnsurePackage("shiny")
+    #EnsurePackage("shinythemes")
     EnsurePackage("shinyjs")
     EnsurePackage("V8")
     EnsurePackage("jsonlite")
     EnsurePackage("dplyr")
     EnsurePackage("carlganz/shinyCleave", github = T) #UI Notification Library
     #EnsurePackage("sqldf")
-    #EnsurePackage("leaflet")
+    EnsurePackage("leaflet")
     #EnsurePackage("stringr")
     #EnsurePackage("rgdal")
     #EnsurePackage("ggmap")
 }
 LoadLibraries()
+
+#############LoadConfig
+#source("config.R") # To Do Implementation
 ########################################################## Shared Between Tabs #########################################################
 # Create Enviroment Variable Holding our token
 create_token(app = "Twitter Analysis MKH", consumer_key = readLines("tokens.txt")[1], consumer_secret = readLines("tokens.txt")[2], cache = TRUE)
@@ -75,6 +78,7 @@ availableTrendLocations <- left_join(availableTrendLocations, availableCountries
 
 #Convert countryLanguages to List Of Vectors
 availableTrendLocations$countryLanguages <- lapply(availableTrendLocations$countryLanguages, function(countryLanguagesCell) {
+    #Check if the cell contains more than one lang
     if (grepl("\\W", countryLanguagesCell)) {
         countryLanguagesCell <- regmatches(countryLanguagesCell, gregexpr("[A-za-z]+", countryLanguagesCell))[[1]]
         return(countryLanguagesCell)
@@ -82,13 +86,16 @@ availableTrendLocations$countryLanguages <- lapply(availableTrendLocations$count
     } else return(countryLanguagesCell)
 })
 
+getCountriesNames <- function() {
+    #remove any empty cell first then and any duplication then sort  
+    return (sort(unique(availableTrendLocations$country[availableTrendLocations$country != ""]))) 
+}
 getCountryTrends <- function (currentCountryName) {
    
     if (getRateLimitFor("trends/place")$remaining > 0) {
-
+        #Get woeid(Where On Earth) of selected country
         currentCountryWoeid <- subset(availableTrendLocations, name == currentCountryName)[["woeid"]]
         return (get_trends(currentCountryWoeid))
-
     } else {
         return (exceedsTwitterLimits("trends/place"))
     }

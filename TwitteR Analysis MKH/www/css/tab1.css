@@ -10,7 +10,8 @@ hr{
 }
 
 #noTweetsSlider {
-    display:inline-block;
+    display: inline-block;
+    margin-top: -3%;
 }
 
 #shiny-notification-panel {

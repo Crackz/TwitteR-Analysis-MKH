@@ -1,7 +1,8 @@
 shinyUI(
   tagList( # Tag Container Created exclusively to include Externel libraries
     useShinyjs(),
-    includeCleave(), 
+    includeCleave(),
+    #themeSelector(),
     HTML('<meta charset="UTF-8">'), # To make browser show any language,
     navbarPage(
       title="Twitter Analysis",
