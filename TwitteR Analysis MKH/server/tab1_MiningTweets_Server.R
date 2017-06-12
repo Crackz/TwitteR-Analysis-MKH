@@ -13,7 +13,21 @@ cleave(session, "#noTweets", list(
     numeralDecimalScale = 0
 ))
 
-
+output$countryMap <- renderLeaflet({
+    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 6, dragging = F, doubleClickZoom=F)) %>% addProviderTiles(providers$Esri.WorldStreetMap)
+ })
+observeEvent(input$countryMap_click, {
+    ## Get the click info like had been doing
+    click <- input$countryMap_click
+    clat <- click$lat
+    clng <- click$lng
+      leafletProxy("countryMap") %>%
+      clearShapes() %>%
+      addCircles(lng = clng, lat = clat, layerId = 'selectedRegion',
+                 weight = 1, radius = 100000, color = 'black', fillColor = 'orange',
+                 fillOpacity = 0.5, opacity = 1)
+     str(input$countryMap_shape_selectedRegion)
+})
 startTime <- Sys.time()
 observeEvent(input$noTweets, {
     if (!is.na(as.numeric(input$noTweets)))
@@ -55,8 +69,14 @@ observeEvent(input$trendLocations, {
         updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$trendLocations) , server = TRUE)
         updateSelectizeInput (session, 'selectedLang',
                               choices = list("Most Used" = countryLanguages(), "Others" = setdiff (getCountriesLanguages(), countryLanguages() )),
-                              selected= countryLanguages()[1] )
-    }
+                              selected = countryLanguages()[1])
+        if (input$trendLocations != "Worldwide") {
+            countryBoundary <- as.list(lookup_coords(input$trendLocations))
+            str(countryBoundary)
+            leafletProxy("countryMap") %>%
+                fitBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
+        }
+             }
 })
 
 

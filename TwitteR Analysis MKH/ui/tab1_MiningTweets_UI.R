@@ -23,6 +23,7 @@ tabPanel("Search",
             column(6, selectizeInput("selectedLang", "Language :", choices = NULL,
                                         options = list(placeholder = 'Select a language')))
         ),
+        leafletOutput("countryMap"),
         tags$br(),
 #-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#
         fluidRow(
