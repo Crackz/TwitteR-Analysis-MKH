@@ -16,14 +16,28 @@ tabPanel("Search",
         tags$hr(),
 #-------------------------------------------------------------REGION AND LANGUAGE -------------------------------------------------------------#
         fluidRow(
-            column(6, selectizeInput("trendLocations", "Country :",
+            column(5, selectizeInput("trendLocations", "Country :",
                                         choices = c("Worldwide", getCountriesNames()),
                                         options = list(placeholder = 'Select a region'))),
 
-            column(6, selectizeInput("selectedLang", "Language :", choices = NULL,
-                                        options = list(placeholder = 'Select a language')))
+            column(5, selectizeInput("selectedLang", "Language :", choices = c("English"),
+                                        options = list(placeholder = 'Select a language')), offset = 2)
         ),
-        leafletOutput("countryMap"),
+        #conditionalPanel(condition = "input.trendLocations != 'Worldwide' || input.trendLocations != '' ",
+                 #selectInput(
+                 #"breaks", "Breaks",
+                 #c("Sturges",
+                 #"Scott",
+                 #"Freedman-Diaconis",
+                 #"[Custom]" = "custom"))
+        #),
+        #absolutePanel(id = "countryMapContainer",
+                      #tags$span(id = "closeMap", class = "fa fa-times"),
+                      #tags$span(id = "finishMap", class = "fa fa-check"),
+                     #,
+                      #width = "100%", height = "500px", top = "1%", left = "105%"
+                     #),
+ leafletOutput("countryMap"),
         tags$br(),
 #-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#
         fluidRow(

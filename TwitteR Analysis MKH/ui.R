@@ -17,7 +17,7 @@ shinyUI(
       #source(file.path("ui", "tab3_UserTimeline_UI.R"), local = TRUE)$value
       
     )#End NavBar
-  )#End Tag Container Created exclusively to include shinyJS
+  )#End Tag Container Created exclusively to extra libraries
   
   
 )

@@ -1,3 +1,6 @@
+#searchPanel {
+    position:relative;
+}
 #twitterAnalysisOptions {
     font-family: 'Questrial', Verdana, sans-serif;
     text-align: center;
@@ -13,12 +16,25 @@ hr{
     display: inline-block;
     margin-top: -3%;
 }
+#resetSearchPanel {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#searchQuery .selectize-input {
+    line-height: 30px !important;
+}
+
+#searchQuery .selectize-dropdown {
+    line-height: 40px !important;
+}
 
 #shiny-notification-panel {
   top:10%;
   left:33%;
 }
-
+/* Style of Tweets Posts*/
 .tweet {
     position: relative;
     margin-top: 3%;
@@ -75,7 +91,7 @@ hr{
   font-weight: normal;
   color: #aaaaaa;
 }
-
+/* Loading & Error Styles */
 .btn-loading-container {
   margin-left: 10px;
   font-size: 1.2em;
@@ -87,17 +103,50 @@ hr{
   margin-top: 10px;
   color: red;
 }
-#resetSearchPanel
-{
-	position:absolute;
-	top:0;
-	right:15px;
+
+
+
+/* Hide useless button called clearAll on map*/
+a[title='clear all layers.']{
+    visibility:hidden;
 }
 
-#searchQuery .selectize-input {
-    line-height: 30px !important;
+#closeMap, #finishMap{
+    position:relative;
+    float:right;
+    color: black;
+    display: inline-block;
+    width: 30px;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 2px 0px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: white;
+    border: 2px solid #e7e7e7;
+    border-radius:10%;
 }
 
-#searchQuery .selectize-dropdown {
-    line-height: 40px !important;
+#closeMap{
+    right: 0;
+}
+#finishMap{
+    right: 5px;
+}
+
+#closeMapx:hover {
+    background-color: #e7e7e7;
+    color: red;
+    cursor: pointer;
+}
+#finishMapx:hover {
+    background-color: #e7e7e7;
+    color: lightgreen;
+    cursor: pointer;
+}
+
+#closeMapx,#finishMapx{
+    float: right;
 }

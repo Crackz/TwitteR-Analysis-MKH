@@ -10,7 +10,7 @@ shinyServer(function(input, output,session) {
   #-------------------------------------# Trends Map TAB 2 ---------------------------------------#
   #source(file.path("server", "tab2_GetTrends_Server.R"), local = TRUE)$value
   
- session$onSessionEnded(stopApp)#Shiny app will automatically stop running whenever the browser tab (or any session) is closed.
+ #session$onSessionEnded(stopApp)#Shiny app will automatically stop running whenever the browser tab (or any session) is closed.
   
 })#END SHINYAPP Server
 

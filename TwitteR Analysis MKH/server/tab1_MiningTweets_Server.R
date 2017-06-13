@@ -2,7 +2,7 @@
 observe({
     toggleState("btnAnalyze", input$searchQuery != "" && input$trendLocations != "" && input$selectedLang != "" && input$noTweets != "")
     # updateTextInput(session , "noTweets" , value = input$noTweetsSlider)     
-}) # End Global Listenerþ
+}) # End Global Listener?
 
 # Configurations for Number of Tweets Input
 cleave(session, "#noTweets", list(
@@ -12,31 +12,25 @@ cleave(session, "#noTweets", list(
     numeralDecimalScale = 0
 ))
 
-output$countryMap <- renderLeaflet({
-    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 10, dragging = T,
-            doubleClickZoom = F)) %>% addProviderTiles(providers$Esri.WorldStreetMap) %>% addDrawToolbar(
-                targetGroup = 'selectedRegion',
-                circleOptions = drawCircleOptions(),
-                editOptions = editToolbarOptions(edit = TRUE, remove = F, selectedPathOptions = NULL, allowIntersection = F),
-                polylineOptions = F,
-                polygonOptions = F,
-                rectangleOptions = F,
-                markerOptions =F
-                ) %>% addFullscreenControl( position = "topleft", pseudoFullscreen = T)
+
+observeEvent(input$countryMap_draw_edited_features, {
+       str(input$countryMap_draw_edited_features)
 })
+observeEvent(input$countryMap_draw_new_feature, {
+    str(input$countryMap_draw_new_feature)
+    print("-------------------------------------")
+
+})
+
 observeEvent(input$countryMap_click, {
     
     ## Get the click info like had been doing
     click <- input$countryMap_click
     clat <- click$lat
     clng <- click$lng
-      leafletProxy("countryMap") %>%
-      clearShapes() %>%
-      addCircles(lng = clng, lat = clat, group = 'selectedRegion',
-                 weight = 1, radius = 100000, color = 'black', fillColor = 'orange',
-                 fillOpacity = 0.5, opacity = 1)
-     str(input$countryMap_selectedRegion)
+    str(input$countryMap_click)
 })
+
 startTime <- Sys.time()
 observeEvent(input$noTweets, {
     if (!is.na(as.numeric(input$noTweets)))
@@ -75,15 +69,28 @@ countryLanguages <- reactive({
 
 observeEvent(input$trendLocations, {
     if (input$trendLocations != "") {
-        updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$trendLocations) , server = TRUE)
         updateSelectizeInput (session, 'selectedLang',
                               choices = list("Most Used" = countryLanguages(), "Others" = setdiff (getCountriesLanguages(), countryLanguages() )),
-                              selected = countryLanguages()[1])
+                              selected = countryLanguages()[1] )
+        updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$trendLocations), server = TRUE)
+
         if (input$trendLocations != "Worldwide") {
             countryBoundary <- as.list(lookup_coords(input$trendLocations))
-            str(countryBoundary)
             leafletProxy("countryMap") %>%
                 setMaxBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
+        }
+        else {
+                output$countryMap <- renderLeaflet({
+                    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 10, dragging = T, doubleClickZoom = F)) %>%
+                    addEasyButton(easyButton(icon = "fa-times", id="closeMapx", position = "topright", title = "Close Map", onClick = JS("function(btn, map){ $('#countryMapContainer').hide(); }"))) %>%
+                    addEasyButton(easyButton(icon = "fa-check", id="finishMapx",position = "topright", title = "Finish", onClick = JS("function(btn, map){ $('#countryMapContainer').hide(); }"))) %>%
+                    addProviderTiles(providers$Esri.WorldStreetMap,options= tileOptions(attribution="")) %>%
+                    addDrawToolbar(targetGroup = 'selectedRegion', singleFeature = T,
+                                    circleOptions = drawCircleOptions(), editOptions = editToolbarOptions(),
+                                    polylineOptions = F, polygonOptions = F, rectangleOptions = F, markerOptions = F
+                                ) %>%
+                    addFullscreenControl()
+                })
         }
     }
 })
