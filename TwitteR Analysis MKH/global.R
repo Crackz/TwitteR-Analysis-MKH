@@ -28,8 +28,9 @@ LoadLibraries <- function() {
     EnsurePackage("jsonlite")
     EnsurePackage("dplyr")
     EnsurePackage("carlganz/shinyCleave", github = T) #UI Notification Library
+    EnsurePackage("rstudio/leaflet", github = T)
+    EnsurePackage("bhaskarvk/leaflet.extras", github = T)
     #EnsurePackage("sqldf")
-    EnsurePackage("leaflet")
     #EnsurePackage("stringr")
     #EnsurePackage("rgdal")
     #EnsurePackage("ggmap")

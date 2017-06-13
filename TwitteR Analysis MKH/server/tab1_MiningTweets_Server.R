@@ -2,7 +2,6 @@
 observe({
     toggleState("btnAnalyze", input$searchQuery != "" && input$trendLocations != "" && input$selectedLang != "" && input$noTweets != "")
     # updateTextInput(session , "noTweets" , value = input$noTweetsSlider)     
-        
 }) # End Global Listenerþ
 
 # Configurations for Number of Tweets Input
@@ -14,19 +13,29 @@ cleave(session, "#noTweets", list(
 ))
 
 output$countryMap <- renderLeaflet({
-    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 6, dragging = F, doubleClickZoom=F)) %>% addProviderTiles(providers$Esri.WorldStreetMap)
- })
+    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 10, dragging = T,
+            doubleClickZoom = F)) %>% addProviderTiles(providers$Esri.WorldStreetMap) %>% addDrawToolbar(
+                targetGroup = 'selectedRegion',
+                circleOptions = drawCircleOptions(),
+                editOptions = editToolbarOptions(edit = TRUE, remove = F, selectedPathOptions = NULL, allowIntersection = F),
+                polylineOptions = F,
+                polygonOptions = F,
+                rectangleOptions = F,
+                markerOptions =F
+                ) %>% addFullscreenControl( position = "topleft", pseudoFullscreen = T)
+})
 observeEvent(input$countryMap_click, {
+    
     ## Get the click info like had been doing
     click <- input$countryMap_click
     clat <- click$lat
     clng <- click$lng
       leafletProxy("countryMap") %>%
       clearShapes() %>%
-      addCircles(lng = clng, lat = clat, layerId = 'selectedRegion',
+      addCircles(lng = clng, lat = clat, group = 'selectedRegion',
                  weight = 1, radius = 100000, color = 'black', fillColor = 'orange',
                  fillOpacity = 0.5, opacity = 1)
-     str(input$countryMap_shape_selectedRegion)
+     str(input$countryMap_selectedRegion)
 })
 startTime <- Sys.time()
 observeEvent(input$noTweets, {
@@ -74,9 +83,9 @@ observeEvent(input$trendLocations, {
             countryBoundary <- as.list(lookup_coords(input$trendLocations))
             str(countryBoundary)
             leafletProxy("countryMap") %>%
-                fitBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
+                setMaxBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
         }
-             }
+    }
 })
 
 
