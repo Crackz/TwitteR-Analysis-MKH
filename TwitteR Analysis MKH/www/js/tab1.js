@@ -37,11 +37,4 @@ $(document).ready(function () {
 	    }
     });
 
-    document.getElementById('closeMap').onclick = function () {
-        $("#countryMapContainer").hide();
-    };
-    document.getElementById('finishMap').onclick = function () {
-        $("#countryMapContainer").hide();
-    };
-
 });

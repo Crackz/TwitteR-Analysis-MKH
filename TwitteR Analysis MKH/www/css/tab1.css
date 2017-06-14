@@ -1,6 +1,10 @@
 #searchPanel {
     position:relative;
 }
+
+.selectize-control {
+    z-index:1001;
+}
 #twitterAnalysisOptions {
     font-family: 'Questrial', Verdana, sans-serif;
     text-align: center;
@@ -20,13 +24,32 @@ hr{
     position: absolute;
     top: 0;
     right: 0;
+    color: black;
+    width: 35px;
+    height: 35px;
+    padding: 2px 10px;
+    margin: 0;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    background-color: #f5f5f0;
+    border: 1px solid #e3e3e3;
+    border-radius: 10%;
+    text-align: center;
 }
 
-#searchQuery .selectize-input {
-    line-height: 30px !important;
+#resetSearchPanel:hover {
+    background-color:white;
 }
 
-#searchQuery .selectize-dropdown {
+#searchQueryID {
+    z-index: 1000;
+}
+#searchQueryID .selectize-input {
+        line-height: 30px !important;
+    }
+
+#searchQueryID .selectize-dropdown {
     line-height: 40px !important;
 }
 
@@ -107,11 +130,11 @@ hr{
 
 
 /* Hide useless button called clearAll on map*/
-a[title='clear all layers.']{
-    visibility:hidden;
+a[title='clear all layers.'], .leaflet-control-attribution {
+    visibility: hidden;
 }
 
-#closeMap, #finishMap{
+/*#closeMap, #finishMap{
     position:relative;
     float:right;
     color: black;
@@ -122,19 +145,19 @@ a[title='clear all layers.']{
     text-decoration: none;
     font-size: 16px;
     margin: 2px 0px;
-    -webkit-transition-duration: 0.4s; /* Safari */
+    -webkit-transition-duration: 0.4s; 
     transition-duration: 0.4s;
     background-color: white;
     border: 2px solid #e7e7e7;
     border-radius:10%;
-}
+}*/
 
-#closeMap{
+/*#closeMap{
     right: 0;
 }
 #finishMap{
     right: 5px;
-}
+}*/
 
 #closeMapx:hover {
     background-color: #e7e7e7;
@@ -145,8 +168,4 @@ a[title='clear all layers.']{
     background-color: #e7e7e7;
     color: lightgreen;
     cursor: pointer;
-}
-
-#closeMapx,#finishMapx{
-    float: right;
 }

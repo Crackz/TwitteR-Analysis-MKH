@@ -20,9 +20,10 @@ tabPanel("Search",
                                         choices = c("Worldwide", getCountriesNames()),
                                         options = list(placeholder = 'Select a region'))),
 
-            column(5, selectizeInput("selectedLang", "Language :", choices = c("English"),
-                                        options = list(placeholder = 'Select a language')), offset = 2)
-        ),
+            column(4, selectizeInput("selectedLang", "Language :", choices = c("English"),
+                                        options = list(placeholder = 'Select a language'))),
+            column(3, radioButtons("selectedRegion","",c("None Region","Specific Region"),selected = "None Region")
+        )),
         #conditionalPanel(condition = "input.trendLocations != 'Worldwide' || input.trendLocations != '' ",
                  #selectInput(
                  #"breaks", "Breaks",
@@ -37,7 +38,10 @@ tabPanel("Search",
                      #,
                       #width = "100%", height = "500px", top = "1%", left = "105%"
                      #),
- leafletOutput("countryMap"),
+        conditionalPanel(condition = "input.isMapOn",
+             leafletOutput("countryMap")
+        )
+        ,
         tags$br(),
 #-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#
         fluidRow(
@@ -58,7 +62,7 @@ tabPanel("Search",
     div(id="searchQueryID", #used to be target in css
         #additional options has been added (coz this related to selectize.js library)
         selectizeInput("searchQuery", "Search For : ", choices = NULL, multiple = T,
-                        options = list(create = TRUE, placeholder = "Enter Search Query ...", closeAfterSelect = T, createOnBlur = T, maxItems = 5, plugins = list("remove_button", "drag_drop")))
+                        options = list(create = TRUE, placeholder = "Enter your search query", closeAfterSelect = T, createOnBlur = T, maxItems = 5, plugins = list("remove_button", "drag_drop")))
     ),
 #------------------------------------------------------------ Submit Options For Search ----------------------------------------------------------#
         fluidRow(

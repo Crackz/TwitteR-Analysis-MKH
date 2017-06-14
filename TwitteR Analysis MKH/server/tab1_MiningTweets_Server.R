@@ -12,6 +12,17 @@ cleave(session, "#noTweets", list(
     numeralDecimalScale = 0
 ))
 
+output$countryMap <- renderLeaflet({
+    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 10, dragging = T, doubleClickZoom = F)) %>%
+                    addEasyButton(easyButton(icon = "fa-times", id = "closeMapx", position = "topright", title = "Close Map", onClick = JS("function(btn, map){ $('#countryMap').slideUp('fast'); if (map.isFullscreen()) {  map.toggleFullscreen(); } }"))) %>%
+                    addEasyButton(easyButton(icon = "fa-check", id = "finishMapx", position = "topright", title = "Finish", onClick = JS("function(btn, map){ $('#countryMap').slideUp('fast'); if (map.isFullscreen()) {  map.toggleFullscreen(); }  }"))) %>%
+                    addProviderTiles(providers$Esri.WorldStreetMap, options = tileOptions(attribution = "")) %>%
+                    addDrawToolbar(targetGroup = 'selectedRegion', singleFeature = T,
+                                    circleOptions = drawCircleOptions(), editOptions = editToolbarOptions(),
+                                    polylineOptions = F, polygonOptions = F, rectangleOptions = F, markerOptions = F
+                                ) %>%
+                    addFullscreenControl()
+  })
 
 observeEvent(input$countryMap_draw_edited_features, {
        str(input$countryMap_draw_edited_features)
@@ -80,21 +91,23 @@ observeEvent(input$trendLocations, {
                 setMaxBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
         }
         else {
-                output$countryMap <- renderLeaflet({
-                    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 10, dragging = T, doubleClickZoom = F)) %>%
-                    addEasyButton(easyButton(icon = "fa-times", id="closeMapx", position = "topright", title = "Close Map", onClick = JS("function(btn, map){ $('#countryMapContainer').hide(); }"))) %>%
-                    addEasyButton(easyButton(icon = "fa-check", id="finishMapx",position = "topright", title = "Finish", onClick = JS("function(btn, map){ $('#countryMapContainer').hide(); }"))) %>%
-                    addProviderTiles(providers$Esri.WorldStreetMap,options= tileOptions(attribution="")) %>%
-                    addDrawToolbar(targetGroup = 'selectedRegion', singleFeature = T,
-                                    circleOptions = drawCircleOptions(), editOptions = editToolbarOptions(),
-                                    polylineOptions = F, polygonOptions = F, rectangleOptions = F, markerOptions = F
-                                ) %>%
-                    addFullscreenControl()
-                })
+              
         }
     }
 })
+isMapOn <- reactive({
+    if (input$showMap) TRUE
+    else FALSE
+})
 
+observeEvent(input$isMapOn, {
+    if (input$isMapOn) {
+        shinyjs::show("countryMap", anim = T)
+    }
+    else {
+        shinyjs::hide("countryMap", anim = T)
+    }
+})
 
 observeEvent(input$btnAnalyze, {
 
