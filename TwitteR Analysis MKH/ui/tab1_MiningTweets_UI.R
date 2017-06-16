@@ -19,11 +19,22 @@ tabPanel("Search",
             column(5, selectizeInput("trendLocations", "Country :",
                                         choices = c("Worldwide", getCountriesNames()),
                                         options = list(placeholder = 'Select a region'))),
+            column(2, tags$div(class = "button-checkbox",
+                            actionButton("MapButton", "", icon = icon("mapButtonIcon"), width = NULL, "data-color" = "default"),
+                            hidden(checkboxInput("isMapOn", "", value = T)))
+                   ),
+            column(5, selectizeInput("selectedLang", "Language :", choices = c("English"),
+                                        options = list(placeholder = 'Select a language')))
+            # column(3, actionButton("isMapOn","",icon=NULL,width=NULL,tags$img(src="images/map.svg"))
+           
+            #HTML('
+                  #<span class="button-checkbox">
+                      #<button id="aaa" type="button" class="btn" data-color="default">Default</button>
+                      #<input type="checkbox" class="hidden" checked />
+                  #</span>
+                #)
+        ),
 
-            column(4, selectizeInput("selectedLang", "Language :", choices = c("English"),
-                                        options = list(placeholder = 'Select a language'))),
-            column(3, radioButtons("selectedRegion","",c("None Region","Specific Region"),selected = "None Region")
-        )),
         #conditionalPanel(condition = "input.trendLocations != 'Worldwide' || input.trendLocations != '' ",
                  #selectInput(
                  #"breaks", "Breaks",
@@ -40,13 +51,12 @@ tabPanel("Search",
                      #),
         conditionalPanel(condition = "input.isMapOn",
              leafletOutput("countryMap")
-        )
-        ,
+        ),
         tags$br(),
 #-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#
         fluidRow(
             column(3,
-                textInput("noTweets", "No. Tweets :" , value = 100 , placeholder = "Enter No.Tweets")
+                numericInput("noTweets", "No. Tweets :" , value = 100 , step = 100,min = 1)
             ),
             column(9,
                 #additional Options has been added to tab1.js (coz this related to ion.rangeSlider.js library)  

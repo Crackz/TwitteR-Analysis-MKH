@@ -92,7 +92,7 @@ getCountriesNames <- function() {
     return (sort(unique(availableTrendLocations$country[availableTrendLocations$country != ""]))) 
 }
 getCountryTrends <- function (currentCountryName) {
-   
+    if (currentCountryName == 'Region') return()
     if (getRateLimitFor("trends/place")$remaining > 0) {
         #Get woeid(Where On Earth) of selected country
         currentCountryWoeid <- subset(availableTrendLocations, name == currentCountryName)[["woeid"]]

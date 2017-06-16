@@ -1,8 +1,11 @@
 $(document).ready(function () {
 
     //Add Validation to No Tweets Input
-    $('#noTweets').attr('maxlength', 4).prop('required', true);
-
+    //$('#noTweets').attr('maxlength', 4).prop('required', true);
+    noTweets.oninput = function () {
+        if (this.value.length > 5)
+            this.value = this.value.slice(0, 5);
+    }
     //Listen For Enter key if button is disabled then dont work 
     $(document).keypress(function (e) {
         if ($('#btnAnalyze').prop('disabled')) return
@@ -37,4 +40,87 @@ $(document).ready(function () {
 	    }
     });
 
+
+$('.button-checkbox').each(function () {
+
+        // Settings
+        var $widget = $(this),
+            $button = $widget.find('button'),
+            $checkbox = $widget.find('input:checkbox'),
+            color = $button.data('color'),
+            settings = {
+                on: {
+                    icon: 'fa fa-check-square-o'
+                },
+                off: {
+                    icon: 'fa fa-square-o'
+                }
+            };
+
+        // Event Handlers
+        $button.on('click', function () {
+            $checkbox.prop('checked', !$checkbox.is(':checked'));
+            $checkbox.triggerHandler('change');
+            updateDisplay();
+        });
+        $checkbox.on('change', function () {
+            updateDisplay();
+        });
+
+        // Actions
+        function updateDisplay() {
+            var isChecked = $checkbox.is(':checked');
+
+            // Set the button's state
+            $button.data('state', (isChecked) ? "on" : "off");
+
+            // Set the button's icon
+            $button.find('.state-icon')
+                .removeClass()
+                .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+            // Update the button's color
+            if (isChecked) {
+                $button
+                    .removeClass('btn-default')
+                    .addClass('btn-' + color + ' active');
+            }
+            else {
+                $button
+                    .removeClass('btn-' + color + ' active')
+                    .addClass('btn-default')
+                    .blur();
+            }
+        }
+
+        // Initialization
+        function init() {
+
+            updateDisplay();
+
+            // Inject the icon if applicable
+            if ($button.find('.state-icon').length == 0) {
+                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+            }
+        }
+        init();
+    });
+
+    $("#doneMap").click(function () {
+        console.log("I was here");
+        var $select = $('#trendLocations').selectize();
+        var selectize = $select[0].selectize;
+        selectize.addOption({ value: 'selectedRegion', text: 'Selected Region' });
+        selectize.addItem('selectedRegion', true);
+    });
+    function closeMap() {
+        $('#countryMap').slideUp('fast');
+        if (map.isFullscreen()) map.toggleFullscreen();
+    }
+    function addSelectedRegionOption() {
+        var $select = $('#trendLocations').selectize();
+        var selectize = $select[0].selectize;
+        selectize.addOption({ value: 'selectedRegion', label: 'Selected Region' });
+        selectize.addItem('selectedRegion');
+    }
 });

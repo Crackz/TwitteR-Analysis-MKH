@@ -1,7 +1,6 @@
 # Establish Global Listener
 observe({
     toggleState("btnAnalyze", input$searchQuery != "" && input$trendLocations != "" && input$selectedLang != "" && input$noTweets != "")
-    # updateTextInput(session , "noTweets" , value = input$noTweetsSlider)     
 }) # End Global Listener?
 
 # Configurations for Number of Tweets Input
@@ -14,15 +13,26 @@ cleave(session, "#noTweets", list(
 
 output$countryMap <- renderLeaflet({
     leaflet(options = leafletOptions(minZoom = 5, maxZoom = 10, dragging = T, doubleClickZoom = F)) %>%
-                    addEasyButton(easyButton(icon = "fa-times", id = "closeMapx", position = "topright", title = "Close Map", onClick = JS("function(btn, map){ $('#countryMap').slideUp('fast'); if (map.isFullscreen()) {  map.toggleFullscreen(); } }"))) %>%
-                    addEasyButton(easyButton(icon = "fa-check", id = "finishMapx", position = "topright", title = "Finish", onClick = JS("function(btn, map){ $('#countryMap').slideUp('fast'); if (map.isFullscreen()) {  map.toggleFullscreen(); }  }"))) %>%
+                  
                     addProviderTiles(providers$Esri.WorldStreetMap, options = tileOptions(attribution = "")) %>%
                     addDrawToolbar(targetGroup = 'selectedRegion', singleFeature = T,
                                     circleOptions = drawCircleOptions(), editOptions = editToolbarOptions(),
                                     polylineOptions = F, polygonOptions = F, rectangleOptions = F, markerOptions = F
                                 ) %>%
-                    addFullscreenControl()
-  })
+                    addFullscreenControl() %>%
+                    addEasyButton(easyButton(icon = "fa-times", id = "closeMap", position = "topright", title = "Close Map",
+                    onClick = JS("function(btn, map){ 
+                                                closeMap();
+                                                $('#MapButton').click();
+                                                            
+                                            }"))) %>%
+                    addEasyButton(easyButton(icon = "fa-check", id = "doneMap", position = "topright", title = "Finish",
+                    onClick = JS("function(btn, map){ 
+                                                closeMap();
+                                                addSelectedRegionOption();
+                                            }
+                            "))) 
+})
 
 observeEvent(input$countryMap_draw_edited_features, {
        str(input$countryMap_draw_edited_features)

@@ -2,8 +2,12 @@
     position:relative;
 }
 
-.selectize-control {
-    z-index:1001;
+
+
+.button-checkbox {
+    position:relative;
+    top:25px;
+    right:10px;
 }
 #twitterAnalysisOptions {
     font-family: 'Questrial', Verdana, sans-serif;
@@ -41,16 +45,20 @@ hr{
 #resetSearchPanel:hover {
     background-color:white;
 }
-
-#searchQueryID {
-    z-index: 1000;
-}
-#searchQueryID .selectize-input {
-        line-height: 30px !important;
+    #resetSearchPanel:active {
+        color: grey;
+        border-color: #002cf4;
     }
 
+.selectize-dropdown {
+    z-index: 1001 !important;
+}
+#searchQueryID .selectize-input {
+    line-height: 30px !important;
+}
+
 #searchQueryID .selectize-dropdown {
-    line-height: 40px !important;
+    line-height: 30px !important;
 }
 
 #shiny-notification-panel {
@@ -134,38 +142,29 @@ a[title='clear all layers.'], .leaflet-control-attribution {
     visibility: hidden;
 }
 
-/*#closeMap, #finishMap{
-    position:relative;
-    float:right;
-    color: black;
-    display: inline-block;
-    width: 30px;
-    padding: 5px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 2px 0px;
-    -webkit-transition-duration: 0.4s; 
-    transition-duration: 0.4s;
-    background-color: white;
-    border: 2px solid #e7e7e7;
-    border-radius:10%;
-}*/
-
-/*#closeMap{
-    right: 0;
-}
-#finishMap{
-    right: 5px;
-}*/
-
-#closeMapx:hover {
+#closeMap:hover {
     background-color: #e7e7e7;
     color: red;
     cursor: pointer;
 }
-#finishMapx:hover {
+#donehMap:hover {
     background-color: #e7e7e7;
     color: lightgreen;
     cursor: pointer;
+}
+
+
+#isMapOnID {
+    display: none !important;
+}
+
+#MapButton {
+    background-image: url( 'images/map.svg' );
+    background-repeat: no-repeat;
+    background-position:center;
+}
+
+.state-icon{
+    position:relative;
+    left:35px;
 }
