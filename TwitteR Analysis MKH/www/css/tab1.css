@@ -2,13 +2,6 @@
     position:relative;
 }
 
-
-
-.button-checkbox {
-    position:relative;
-    top:25px;
-    right:10px;
-}
 #twitterAnalysisOptions {
     font-family: 'Questrial', Verdana, sans-serif;
     text-align: center;
@@ -24,6 +17,8 @@ hr{
     display: inline-block;
     margin-top: -3%;
 }
+
+/* Reset Button Style*/
 #resetSearchPanel {
     position: absolute;
     top: 0;
@@ -41,30 +36,25 @@ hr{
     border-radius: 10%;
     text-align: center;
 }
-
 #resetSearchPanel:hover {
     background-color:white;
 }
-    #resetSearchPanel:active {
-        color: grey;
-        border-color: #002cf4;
-    }
+#resetSearchPanel:active {
+    color: grey;
+    border-color: #002cf4;
+}
 
+/* Search Query Input */
 .selectize-dropdown {
     z-index: 1001 !important;
 }
 #searchQueryID .selectize-input {
     line-height: 30px !important;
 }
-
 #searchQueryID .selectize-dropdown {
     line-height: 30px !important;
 }
 
-#shiny-notification-panel {
-  top:10%;
-  left:33%;
-}
 /* Style of Tweets Posts*/
 .tweet {
     position: relative;
@@ -135,36 +125,51 @@ hr{
   color: red;
 }
 
-
-
 /* Hide useless button called clearAll on map*/
 a[title='clear all layers.'], .leaflet-control-attribution {
     visibility: hidden;
 }
 
+#closeMap, #doneMap {
+    background-color: transparent;
+    color: inherit;
+    transition: all .5s;
+}
+#closeMap {
+    color: #d9534f;
+}
+#doneMap {
+    color: #5cb85c;
+}
 #closeMap:hover {
-    background-color: #e7e7e7;
+    background-color: #d9534f;
     color: red;
     cursor: pointer;
 }
-#donehMap:hover {
-    background-color: #e7e7e7;
+#doneMap:hover {
+    background-color: #5cb85c;
     color: lightgreen;
     cursor: pointer;
 }
 
-
-#isMapOnID {
-    display: none !important;
-}
-
-#MapButton {
+#btnMap {
     background-image: url( 'images/map.svg' );
     background-repeat: no-repeat;
     background-position:center;
 }
 
+.region-button-checkbox {
+    position: relative;
+    top: 25px;
+    right: 10px;
+}
 .state-icon{
     position:relative;
-    left:35px;
+    left:30px;
+}
+
+
+#shiny-notification-panel {
+    top: 10%;
+    left: 33%;
 }

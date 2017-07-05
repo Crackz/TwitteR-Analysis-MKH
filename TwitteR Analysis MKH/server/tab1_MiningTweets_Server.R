@@ -1,7 +1,13 @@
-# Establish Global Listener
 observe({
-    toggleState("btnAnalyze", input$searchQuery != "" && input$trendLocations != "" && input$selectedLang != "" && input$noTweets != "")
-}) # End Global Listener?
+    toggleState("btnAnalyze", isTruthy(input$searchQuery) && isTruthy(input$currentSelectedCountry) && isTruthy(input$selectedLang) && isTruthy(input$noTweets))
+    #print(str(input$countryMap_field_draw_features))
+    #str(input$countryMap)
+    toggle(id = "animation", anim = TRUE, animType = "slide", time = 0.3, condition = input$isMapOn)
+
+    str(input$countryMap_draw_new_feature)
+    print("---------------------------------")
+    str(input$countryMap_draw_feature)
+}) 
 
 # Configurations for Number of Tweets Input
 cleave(session, "#noTweets", list(
@@ -12,47 +18,39 @@ cleave(session, "#noTweets", list(
 ))
 
 output$countryMap <- renderLeaflet({
-    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 10, dragging = T, doubleClickZoom = F)) %>%
-                  
-                    addProviderTiles(providers$Esri.WorldStreetMap, options = tileOptions(attribution = "")) %>%
+    leaflet(options = leafletOptions(minZoom = 1, maxZoom = 10, dragging = T, doubleClickZoom = T, worldCopyJump = T)) %>%
+
+                    addProviderTiles(providers$Esri.WorldStreetMap, options = providerTileOptions()) %>%
                     addDrawToolbar(targetGroup = 'selectedRegion', singleFeature = T,
-                                    circleOptions = drawCircleOptions(), editOptions = editToolbarOptions(),
-                                    polylineOptions = F, polygonOptions = F, rectangleOptions = F, markerOptions = F
-                                ) %>%
+                                    circleOptions = drawCircleOptions(showRadius = T), editOptions = editToolbarOptions(), #metric = T, feet = F, nautic =F
+                                    polylineOptions = F, polygonOptions = F, rectangleOptions = F, markerOptions = F) %>%                 
                     addFullscreenControl() %>%
                     addEasyButton(easyButton(icon = "fa-times", id = "closeMap", position = "topright", title = "Close Map",
                     onClick = JS("function(btn, map){ 
-                                                closeMap();
-                                                $('#MapButton').click();
+                                                if (map.isFullscreen()) map.toggleFullscreen();
+                                                $('#btnMap').click();
                                                             
                                             }"))) %>%
                     addEasyButton(easyButton(icon = "fa-check", id = "doneMap", position = "topright", title = "Finish",
                     onClick = JS("function(btn, map){ 
-                                                closeMap();
-                                                addSelectedRegionOption();
-                                            }
-                            "))) 
+                                                if (map.isFullscreen()) map.toggleFullscreen();
+                                                $('#btnMap').click().addClass('active');
+                                                $('#btnMap i').addClass('fa-check-square-o').removeClass('fa-square-o');
+                                                var $select = $('#currentSelectedCountry').selectize();
+                                                var selectize = $select[0].selectize;
+                                                selectize.addOption({ value: 'Selected Region', label: 'Selected Region' });
+                                                selectize.addItem('Selected Region');
+                                            }")))
 })
+# Never suspend Map causing some issuess in  Rendering
+outputOptions(output, "countryMap", suspendWhenHidden = FALSE)
 
-observeEvent(input$countryMap_draw_edited_features, {
-       str(input$countryMap_draw_edited_features)
-})
-observeEvent(input$countryMap_draw_new_feature, {
-    str(input$countryMap_draw_new_feature)
+observeEvent(input$countryMap_field_draw_features, {
+    str(input$countryMap_field_draw_features)
     print("-------------------------------------")
 
 })
 
-observeEvent(input$countryMap_click, {
-    
-    ## Get the click info like had been doing
-    click <- input$countryMap_click
-    clat <- click$lat
-    clng <- click$lng
-    str(input$countryMap_click)
-})
-
-startTime <- Sys.time()
 observeEvent(input$noTweets, {
     if (!is.na(as.numeric(input$noTweets)))
        noTweets <- as.numeric(input$noTweets)
@@ -61,69 +59,58 @@ observeEvent(input$noTweets, {
         return();
     }
     if (noTweets == 0) {
-        updateTextInput(session, "noTweets", value = 100)
+        updateNumericInput(session, "noTweets", value = 100)
         showNotification("Please , Enter a valid number", type = "error")
     }
-   interval <- 300
-   sleepTime <- startTime + interval - Sys.time()
-   if (noTweets < 100 && sleepTime < 0) {
+   if (noTweets < 100) {
         showNotification("Note: That minimum tweets is 100 tweets", type = "warning")
-        startTime <- Sys.time() 
    } 
     updateSliderInput(session, "noTweetsSlider", value = noTweets,
                                 min = ceiling(noTweets * 0.5), max = ceiling(noTweets * 1.5))
-
-})
-
-observeEvent(input$noTweetsSlider, {
-    if (input$noTweetsSlider < 100)
-        showNotification("Note: That minimum tweets is 100 tweets", type = "warning")
 })
 
 #change automatically based on selected country
 countryLanguages <- reactive({
-    # instead of if(trendLocation == null)
-    req(input$trendLocations)
-    # should add empty char to be able to use list in updateSelectizeInput & ignore exception
-    c(getCountryLanguages(input$trendLocations), "")
+    req(input$currentSelectedCountry)
+    # should add empty char to let lang render as list in updateSelectizeInput & ignore exception
+    c(getCountryLanguages(input$currentSelectedCountry), "")
 })
 
-observeEvent(input$trendLocations, {
-    if (input$trendLocations != "") {
-        updateSelectizeInput (session, 'selectedLang',
-                              choices = list("Most Used" = countryLanguages(), "Others" = setdiff (getCountriesLanguages(), countryLanguages() )),
-                              selected = countryLanguages()[1] )
-        updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$trendLocations), server = TRUE)
+observeEvent(input$currentSelectedCountry,{
 
-        if (input$trendLocations != "Worldwide") {
-            countryBoundary <- as.list(lookup_coords(input$trendLocations))
-            leafletProxy("countryMap") %>%
-                setMaxBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
-        }
+    if (isTruthy(input$currentSelectedCountry)) {
+    # Notice : countryLanguages returns at least c("")
+        if (length(countryLanguages()) != 1) {
+            updateSelectizeInput(session, 'selectedLang',
+                                  choices = list("Most Used" = countryLanguages(), "Others" = setdiff(getCountriesLanguages(), countryLanguages())),
+                                  selected = countryLanguages()[1])
+        } else updateSelectizeInput(session, 'selectedLang', choices = getCountriesLanguages() , selected = "")
+        
+        if (input$currentSelectedCountry != "Worldwide" && input$currentSelectedCountry != "Selected Region") {
+                updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$currentSelectedCountry), server = TRUE)
+
+                countryBoundary <- as.list(lookup_coords(input$currentSelectedCountry))
+                countryCenter <- c("long" = mean(countryBoundary$long1, countryBoundary$lat1), "lat" = mean(countryBoundary$long2, countryBoundary$lat2))
+                leafletProxy("countryMap") %>%
+                       setMaxBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]]) %>%
+                       fitBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
+            }
         else {
-              
+                mapBounds <- input$countryMap_bounds
+                print(mapBounds)
+                print(input$countryMap_center)
+                #center <- c(mean(mapBounds$north, mapBounds$south), mean(mapBounds$east, mapBounds$west))
+                #leafletProxy("countryMap") %>% setView(center[1], center[2], zoom = 1)
         }
     }
-})
-isMapOn <- reactive({
-    if (input$showMap) TRUE
-    else FALSE
-})
-
-observeEvent(input$isMapOn, {
-    if (input$isMapOn) {
-        shinyjs::show("countryMap", anim = T)
-    }
-    else {
-        shinyjs::hide("countryMap", anim = T)
-    }
+    
 })
 
 observeEvent(input$btnAnalyze, {
 
     withBusyIndicatorServer("btnAnalyze", {
-        # Call Search Tweets API with form values
-        tweetsJson <- getTweets( input$searchQuery , as.numeric( input$noTweets ) , input$selectedLang )
+        # Pass form values search tweets API  
+        tweetsJson <- getTweets( input$searchQuery , input$noTweets , input$selectedLang )
 
         # Check is it a valid Json Or it's text containing Error 
         if (validate(tweetsJson)) {

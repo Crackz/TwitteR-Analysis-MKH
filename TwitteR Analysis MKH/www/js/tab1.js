@@ -41,7 +41,7 @@ $(document).ready(function () {
     });
 
 
-$('.button-checkbox').each(function () {
+$('.region-button-checkbox').each(function () {
 
         // Settings
         var $widget = $(this),
@@ -106,21 +106,5 @@ $('.button-checkbox').each(function () {
         init();
     });
 
-    $("#doneMap").click(function () {
-        console.log("I was here");
-        var $select = $('#trendLocations').selectize();
-        var selectize = $select[0].selectize;
-        selectize.addOption({ value: 'selectedRegion', text: 'Selected Region' });
-        selectize.addItem('selectedRegion', true);
-    });
-    function closeMap() {
-        $('#countryMap').slideUp('fast');
-        if (map.isFullscreen()) map.toggleFullscreen();
-    }
-    function addSelectedRegionOption() {
-        var $select = $('#trendLocations').selectize();
-        var selectize = $select[0].selectize;
-        selectize.addOption({ value: 'selectedRegion', label: 'Selected Region' });
-        selectize.addItem('selectedRegion');
-    }
+   
 });

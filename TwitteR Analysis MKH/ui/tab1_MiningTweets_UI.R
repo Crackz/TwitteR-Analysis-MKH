@@ -16,41 +16,20 @@ tabPanel("Search",
         tags$hr(),
 #-------------------------------------------------------------REGION AND LANGUAGE -------------------------------------------------------------#
         fluidRow(
-            column(5, selectizeInput("trendLocations", "Country :",
+            column(5, selectizeInput("currentSelectedCountry", "Country :",
                                         choices = c("Worldwide", getCountriesNames()),
                                         options = list(placeholder = 'Select a region'))),
-            column(2, tags$div(class = "button-checkbox",
-                            actionButton("MapButton", "", icon = icon("mapButtonIcon"), width = NULL, "data-color" = "default"),
-                            hidden(checkboxInput("isMapOn", "", value = T)))
+            column(2, tags$div(class = "region-button-checkbox",
+                            actionButton("btnMap", "", icon = NULL, width = NULL, "data-color" = "default"),
+                            hidden(checkboxInput("isMapOn", "", value = F)))
                    ),
             column(5, selectizeInput("selectedLang", "Language :", choices = c("English"),
                                         options = list(placeholder = 'Select a language')))
-            # column(3, actionButton("isMapOn","",icon=NULL,width=NULL,tags$img(src="images/map.svg"))
-           
-            #HTML('
-                  #<span class="button-checkbox">
-                      #<button id="aaa" type="button" class="btn" data-color="default">Default</button>
-                      #<input type="checkbox" class="hidden" checked />
-                  #</span>
-                #)
         ),
-
-        #conditionalPanel(condition = "input.trendLocations != 'Worldwide' || input.trendLocations != '' ",
-                 #selectInput(
-                 #"breaks", "Breaks",
-                 #c("Sturges",
-                 #"Scott",
-                 #"Freedman-Diaconis",
-                 #"[Custom]" = "custom"))
-        #),
-        #absolutePanel(id = "countryMapContainer",
-                      #tags$span(id = "closeMap", class = "fa fa-times"),
-                      #tags$span(id = "finishMap", class = "fa fa-check"),
-                     #,
-                      #width = "100%", height = "500px", top = "1%", left = "105%"
-                     #),
-        conditionalPanel(condition = "input.isMapOn",
-             leafletOutput("countryMap")
+        div(id = "animation",
+            conditionalPanel(condition = "input.isMapOn",
+                 leafletOutput("countryMap")
+            )
         ),
         tags$br(),
 #-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#
