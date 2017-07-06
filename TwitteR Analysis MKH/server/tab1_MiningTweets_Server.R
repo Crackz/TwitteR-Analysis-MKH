@@ -4,9 +4,13 @@ observe({
     #str(input$countryMap)
     toggle(id = "animation", anim = TRUE, animType = "slide", time = 0.3, condition = input$isMapOn)
 
+
+    print("--------------------input$countryMap_draw_new_feature-----------------------")
     str(input$countryMap_draw_new_feature)
-    print("---------------------------------")
-    str(input$countryMap_draw_feature)
+    print("-------------------input$countryMap_draw_deleted_features----------------")
+    str(input$countryMap_draw_deleted_features)
+    print("--------------------input$countryMap_draw_feature-----------------------")
+    str(input$countryMap_group_selectedRegion)
 }) 
 
 # Configurations for Number of Tweets Input
@@ -46,10 +50,15 @@ output$countryMap <- renderLeaflet({
 outputOptions(output, "countryMap", suspendWhenHidden = FALSE)
 
 observeEvent(input$countryMap_field_draw_features, {
+    print("--------------------input$countryMap_field_draw_features----------------------")
+
     str(input$countryMap_field_draw_features)
-    print("-------------------------------------")
 
 })
+observeEvent(input$countryMap_draw_deleted_features, {
+
+})
+
 
 observeEvent(input$noTweets, {
     if (!is.na(as.numeric(input$noTweets)))
@@ -96,9 +105,9 @@ observeEvent(input$currentSelectedCountry,{
                        fitBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
             }
         else {
-                mapBounds <- input$countryMap_bounds
-                print(mapBounds)
-                print(input$countryMap_center)
+               # mapBounds <- input$countryMap_bounds
+                #print(mapBounds)
+                #print(input$countryMap_center)
                 #center <- c(mean(mapBounds$north, mapBounds$south), mean(mapBounds$east, mapBounds$west))
                 #leafletProxy("countryMap") %>% setView(center[1], center[2], zoom = 1)
         }

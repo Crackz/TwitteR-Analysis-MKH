@@ -1,7 +1,7 @@
 # NOTE: Can't use Reactivity HERE!!
 # Designed To contain Global Funs that can be accessed by ui and server ..
 # global.r vs server.r => server.r will be Established for every client Session
-options(shiny.reactlog = T, shiny.autoreload = F, shiny.trace = T, shiny.error = browser, shiny.minified = F, dstringsAsFactors = FALSE)
+options(shiny.reactlog = F, shiny.autoreload = F, shiny.trace = T, shiny.error = browser, shiny.minified = F, dstringsAsFactors = FALSE)
 
 # Establish Load Libraries processing
 EnsurePackage <- function(x, github = FALSE) {
@@ -22,7 +22,7 @@ EnsurePackage <- function(x, github = FALSE) {
 LoadLibraries <- function() {
     EnsurePackage("rtweet")
     EnsurePackage("shiny")
-    #EnsurePackage("shinythemes")
+    EnsurePackage("shinythemes")
     EnsurePackage("shinyjs")
     EnsurePackage("V8")
     EnsurePackage("jsonlite")
