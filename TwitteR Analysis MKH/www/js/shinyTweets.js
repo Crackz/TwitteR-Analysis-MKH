@@ -74,12 +74,13 @@ Shiny.addCustomMessageHandler("CreateUserTweets", function (userTweetsJson) {
         for (var i = startIndex; i < Math.min(startIndex + pageSize, userTweetsJson.length); i++) {
             var tweet = userTweetsJson[i];
             tweetsContent += '<div class="tweet"><time class="createdAt"><a href="#">' + tweet.created_at + '</a></time> <a href="#" class="user"></a><p class="tweetContent" >' + tweet.text + '</p></div>';
+
         }
         $(".userTweetsContainer").append(tweetsContent);
     }
     function renderSelectedLang() {
-        var currentSelectedLang = $("#selectedLang").val();
-        if (currentSelectedLang == "Arabic" || currentSelectedLang == "Hebrew") {
+       
+        if (userTweetsJson[0].lang == "ar") {
             $(".tweet").css("direction", "rtl");
             $(".createdAt").css({ "left": "1em", "direction": "ltr" });
             $(".tweetContent").css({ "margin": "0 1% 0 0" });
