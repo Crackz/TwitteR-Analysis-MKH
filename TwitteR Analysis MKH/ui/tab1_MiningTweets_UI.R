@@ -48,12 +48,11 @@ tabPanel("Search",
                             #dragRange = T),
 
 #-------------------------------------------------------------  SEARCH TEXT BOX -------------------------------------------------------------#
-    div(id="searchQueryID", #used to be target in css
-        #additional options has been added (coz this related to selectize.js library)
+    div(id="searchQueryID", #used to be targeted in css
         selectizeInput("searchQuery", "Search For : ", choices = NULL, multiple = T,
                         options = list(create = TRUE, placeholder = "Enter your search query", closeAfterSelect = T, createOnBlur = T, maxItems = 5, plugins = list("remove_button", "drag_drop")))
     ),
-#------------------------------------------------------------ Submit Options For Search ----------------------------------------------------------#
+#------------------------------------------------------------ Submit Options For Analyze ----------------------------------------------------------#
         fluidRow(
             withBusyIndicatorUI(
                 actionButton("btnAnalyze", "Analyze", icon = icon("twitter"), width = "80%", class = "btn-lg", style = "margin-left:7%;")

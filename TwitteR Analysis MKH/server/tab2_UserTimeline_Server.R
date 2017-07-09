@@ -1,14 +1,23 @@
+
+
+getUserInfo <- function(user) {
+    userInfo<- lookup_users(user)
+    if (!is.na(userInfo$user_id)) {
+        print("User is not null..")
+        return(userInfo)
+    } else {
+        return("Didnt' find user !")
+    }
+}
+
+
 observeEvent(input$getUser, {
-    req(input$userid)
-userTweets <- get_timeline(input$userId, n = 200, max_id = NULL, home = FALSE,
-            full_text = TRUE, parse = TRUE, check = TRUE, usr = FALSE,
-            token = NULL)
-
-    if (length(userTweets$text) > 1) {
-        userTweets <- toJSON(userTweets, pretty = TRUE)
-        write(userTweets, "LoggedData/Saved_UserTweets.json")
-        session$sendCustomMessage("CreateUserTweets", userTweets)
-
+req(input$userId)
+    userInfoJson <- toJSON(getUserInfo(input$userId), pretty = TRUE)
+    if (validate(userInfoJson)) {
+        print("Valide User Info Json..")
+        write(userInfoJson, "LoggedData/Saved_UserTweets.json")
+        session$sendCustomMessage("CreateUserInfo", userInfoJson)
 
     }
 

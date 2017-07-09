@@ -48,49 +48,46 @@ function clearTweets() {
     $('#pagination').twbsPagination('destroy')
 }
 
+Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
+    console.log(userInfo)
+    userInfo = userInfo[0];
+    $("#userProfileImage").attr("src", userInfo.profile_image_url);
+    var userInfoContent = 
+    `
+        <tbody>
+			<tr>
+			<td>Name</td>
+			<td>
+				${userInfo.name} 
+			</td>
+			</tr>
+			<tr>
+			<td >Joined Twitter on</td>
+			<td>${userInfo.created_at}</td>
+			</tr>
+			<tr>
+			<td>Location</td>
+			<td>${userInfo.location}</td>
+			</tr>
+			<tr>
+			<td>Timezone</td>
+			<td>${userInfo.time_zone}</td>
+			</tr>
+			<tr>
+			<td>Language</td>
+			<td>
+				${userInfo.lang}
+			</td>
+			</tr>
+			<tr>
+			<td>Bio</td>
+			<td>${userInfo.description}</td>
+			</tr>
+			<tr>
+		</tbody>
+    `
+    $(".userInfoTable").append(userInfoContent).show();
 
-
-Shiny.addCustomMessageHandler("CreateUserTweets", function (userTweetsJson) {
-    console.log(userTweetsJson);
-
-    var pageSize = 15;
-    $('#userPagination').twbsPagination({
-        totalPages: Math.ceil(userTweetsJson.length / pageSize),
-        visiblePages: 6,
-        hideOnlyOnePage: true,
-        onPageClick: function (event, page) {
-            renderTweetsOnPage(page, pageSize);
-            renderSelectedLang();
-            jQuery("html,body").animate({ scrollTop: 50 }, 300);
-        }
-    });
-
-
-    function renderTweetsOnPage(page, pageSize) {
-
-        var tweetsContent = "";
-        var startIndex = (page - 1) * pageSize;
-
-        for (var i = startIndex; i < Math.min(startIndex + pageSize, userTweetsJson.length); i++) {
-            var tweet = userTweetsJson[i];
-            tweetsContent += '<div class="tweet"><time class="createdAt"><a href="#">' + tweet.created_at + '</a></time> <a href="#" class="user"></a><p class="tweetContent" >' + tweet.text + '</p></div>';
-
-        }
-        $(".userTweetsContainer").append(tweetsContent);
-    }
-    function renderSelectedLang() {
-       
-        if (userTweetsJson[0].lang == "ar") {
-            $(".tweet").css("direction", "rtl");
-            $(".createdAt").css({ "left": "1em", "direction": "ltr" });
-            $(".tweetContent").css({ "margin": "0 1% 0 0" });
-        }
-        else {
-            $(".tweet").css("direction", "ltr");
-            $(".createdAt").css("right", "1em");
-            $(".tweetContent").css({ "margin": "0 0 0 1%" });
-        }
-    }
 });
 
 
