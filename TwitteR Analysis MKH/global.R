@@ -1,7 +1,7 @@
 # NOTE: Can't use Reactivity HERE!!
 # Designed To contain Global Funs that can be accessed by ui and server ..
 # global.r vs server.r => server.r will be Established for every client Session
-options(shiny.reactlog = F, shiny.autoreload = T, shiny.trace = T, shiny.error = browser, shiny.minified = F, dstringsAsFactors = FALSE)
+options(shiny.reactlog = F, shiny.autoreload = F, shiny.trace =T, shiny.error = browser, shiny.minified = F, dstringsAsFactors = FALSE)
 
 # Establish Load Libraries processing
 EnsurePackage <- function(x, github = FALSE) {
@@ -58,7 +58,7 @@ getTweets <- function (searchQuery, noTweets, selectedLang) {
         save_as_csv(twtdf, "LoggedData/Saved_Tweets.csv")
 
         # Check if got results or not 
-        if (length(twtdf$text) > 1) {
+        if (!is.na(twtdf$text[1])) {
             twtJson <- toJSON(twtdf, pretty = TRUE)
             write(twtJson, "LoggedData/Saved_Tweets.json")
             return(twtJson)

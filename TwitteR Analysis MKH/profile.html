@@ -1,88 +1,31 @@
-<style>
-/* Container All*/
-.userAnalysisInfo {
-    display: flex;
-	flex-direction: column;
-}
-/* First Row Show User Info */
-.userProfile{
-	display:flex;
-    flex-grow:1;
-}
-/* Form Box To Get User ID*/
-.getUserInfo {
-	margin-right:2%;
-    align-self:flex-start;
-}
-/* User Profile Info Shown in the middle */
-.userDescInfo {
-    display: flex;
-    margin-right:4%;
-}
-.userImage{
-    flex-basis:20px;
-    margin-right:4%;
-}
-/* User Tweets */
-#userTweets{
-    display:flex;
-    flex-direction:column;
-    flex-grow:1;
-}
-#userTweetsHeader {
-    flex-basis:13%;
-    background:#ccc;
-}
-#userTweetsContent{
-    flex-basis: 87%;
-    border:1px dotted black;
-}
-    
-    
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-table{width:100%;margin-bottom:18px;padding:0;font-size:13px;border-collapse:collapse;}
-table th,table td{padding:10px 10px 9px;line-height:18px;text-align:left;}
-table th{padding-top:9px;font-weight:bold;vertical-align:middle;}
-table td{vertical-align:top;border-top:1px solid #ddd;}
-table tbody th{border-top:1px solid #ddd;vertical-align:top;}
-.condensed-table th,.condensed-table td{padding:5px 5px 4px;}
-.bordered-table{border:1px solid #ddd;border-collapse:separate;*border-collapse:collapse;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}.bordered-table th+th,.bordered-table td+td,.bordered-table th+td{border-left:1px solid #ddd;}
-.bordered-table thead tr:first-child th:first-child,.bordered-table tbody tr:first-child td:first-child{-webkit-border-radius:4px 0 0 0;-moz-border-radius:4px 0 0 0;border-radius:4px 0 0 0;}
-.bordered-table thead tr:first-child th:last-child,.bordered-table tbody tr:first-child td:last-child{-webkit-border-radius:0 4px 0 0;-moz-border-radius:0 4px 0 0;border-radius:0 4px 0 0;}
-.bordered-table tbody tr:last-child td:first-child{-webkit-border-radius:0 0 0 4px;-moz-border-radius:0 0 0 4px;border-radius:0 0 0 4px;}
-.bordered-table tbody tr:last-child td:last-child{-webkit-border-radius:0 0 4px 0;-moz-border-radius:0 0 4px 0;border-radius:0 0 4px 0;}
 
-</style>
+<div class="getUserInfo">
+    {{ div(style="display: inline-block;vertical-align:top; width: 150px; margin-right:35px;", textInput("userId", "User ID :", "youm7") )}}
+    {{  withBusyIndicatorUI( actionButton("getUser", "Analyze Profile") )}}
+</div>
+<div id="userAnalysisInfo">
+     
+    <div id="userProfile">
+        <div id="userDetailsInfo">
+            <div id="userImage">
+                <a href="" data-lightbox="UserImage" data-title="User Profile Image">
+                    <img id="userProfileImage" src="" width="200" height="200">
+                </a>
+            </div>
 
-<div class="userAnalysisInfo">
-	<div class="userProfile">
-		<div class="getUserInfo well">
-			{{ textInput("userId", "User ID :", "") }}
-			{{ actionButton("getUser", "Analyze Profile") }}
-		</div>
-		<div class="userDescInfo">
-			<div class="userImage">
-				<img id="userProfileImage" src="images/userImage.jpg" width="100" height="100" >
-			</div>
+            <div id="userInfo">
+                <div id="userInfoTable" style=""></div>
+            </div>
+        </div>
+        <div id="userTweets" class="blockItem">
+            <div id="userTweetsHeader">
+                <span  class="fa fa-twitter" >&nbsp;Tweets</span>
+                <!--{{ actionButton("downloadUserTweets", "Download Tweets") }}-->
+                <!--<button id="userTweetsBtn" class="btn fa fa-minus"></button>-->
+            </div>
+            <div id="userTweetsContent">
 
-			<div class="userInfo">
-				<table class="userInfoTable">
-					
-				</table>
-			</div>
-		</div>
-		<div id="userTweets" class="blockItem">
-			<div id="userTweetsHeader">
-				
-			</div>
-			<div id="userTweetsContent">
-
-			</div>
-		</div>
-	</div>
-
-
+            </div>
+        </div>
+    </div>
 </div>

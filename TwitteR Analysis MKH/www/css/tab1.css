@@ -125,7 +125,7 @@ hr{
   color: red;
 }
 
-/* Hide useless button called clearAll on map*/
+/* Hide useless button called clearAll & attribution on map*/
 a[title='clear all layers.'], .leaflet-control-attribution {
     visibility: hidden;
 }

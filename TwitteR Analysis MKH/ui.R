@@ -3,22 +3,19 @@ shinyUI(
     useShinyjs(),
     includeCleave(),
     #themeSelector(),
-    HTML('<meta charset="UTF-8">'), # To make browser show any language,
-    navbarPage(
-      title="Twitter Analysis",
-      collapsible = T,inverse = F, fluid = T, #selected = "Trends", 
+    HTML('<meta charset="UTF-8">'), # To make browser show any language,   
+    tags$head(
+         includeCSS("www\\css\\style.css")),
+
+    navbarPage(id = "tabs",
+      title="Twitter Analysis", collapsible = T,inverse = F, fluid = T, selected = "Profile", 
       #---------------------------------------- TAB 1 Twitter Mining --------------------------------------#
       source(file.path("ui", "tab1_MiningTweets_UI.R"), local = TRUE)$value,
-       source(file.path("ui", "tab2_UserTimeline_UI.R"), local = TRUE)$value
-      
-      #---------------------------------------- TAB 2 GetTrends -------------------------------------------#
-      #source(file.path("ui", "tab2_GetTrends_UI.R"), local = TRUE)$value
 
-        
-      #source(file.path("ui", "tab3_UserTimeline_UI.R"), local = TRUE)$value
+      #---------------------------------------- TAB 2 User Analysis -------------------------------------------#
+      source(file.path("ui", "tab2_UserProfile_UI.R"), local = TRUE)$value
+
       
     )#End NavBar
   )#End Tag Container Created exclusively to extra libraries
-  
-  
 )

@@ -7,13 +7,19 @@ $(document).ready(function () {
             this.value = this.value.slice(0, 5);
     }
     //Listen For Enter key if button is disabled then dont work 
-    $(document).keypress(function (e) {
-        if ($('#btnAnalyze').prop('disabled')) return
-        else {
-            if (e.which == 13 || e.keyCode == 13) {
+    $(document).keypress(function (e) {        
+        if (e.which == 13 || e.keyCode == 13) {
+            var selectedTab = $("li.active a").html();
+            if (selectedTab == "Search") {
+                if ($('#btnAnalyze').prop('disabled')) return
                 $("#btnAnalyze").click();
             }
+            if (selectedTab == "Profile") {
+                if ($('#getUser').prop('disabled')) return
+                $("#getUser").click();
+            }
         }
+        
 	});
     //On moving slider value of notweet input will be changed..
 	$("#noTweetsSlider").on("change", function () {
@@ -39,7 +45,6 @@ $(document).ready(function () {
 	        });
 	    }
     });
-
 
 $('.region-button-checkbox').each(function () {
 
@@ -106,5 +111,4 @@ $('.region-button-checkbox').each(function () {
         init();
     });
 
-   
 });

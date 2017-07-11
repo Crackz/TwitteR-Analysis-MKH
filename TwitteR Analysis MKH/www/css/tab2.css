@@ -1,53 +1,155 @@
-.outer {
-  position: fixed;
-  top: 41px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  padding: 0;
+
+
+.tweetHeader {
+    display: flex;
+    justify-content: space-between;
+}
+/* Container All*/
+#userAnalysisInfo {
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+}
+/* First Row Show User Info */
+#userProfile {
+    display: flex;
+    justify-content: space-between;
+    /*align-items: center;*/    
+}
+#userDetailsInfo,
+#userTweets {
+    display: flex;
+    flex: 1 1 50%;
+    margin: 15px 10px;
+}
+/* User Profile Info Shown in the middle */
+#userDetailsInfo {
+    width: 500px;
 }
 
-/* Customize fonts */
-body, label, input, button, select { 
-  font-family: 'Helvetica Neue', Helvetica;
-  font-weight: 200;
+#userImage {
+    flex-basis: 20px;
+    margin-right: 4%;
+}
+/* User Tweets */
+#userTweets {
+    align-content: space-between;
+    flex-direction: column;
 }
 
-#trendsControls,#trendsPanel {
-  /* Appearance */
-  background-color: white;
-  padding: 0 20px 20px 20px;
-  cursor: move;
-  /* Fade out while not hovering */
-  opacity: 0.60;
-  zoom: 0.9;
-  transition: opacity 500ms 1s;
-}
-#trendsControls:hover{
-  /* Fade in while hovering */
-  opacity: 0.90;
-  transition-delay: 0;
-}
-#trendsPanel:hover{
-  opacity: 0.99;
-  transition-delay: 0;
-  
+#userTweetsHeader {
+    padding: 5px;
+    font-size: 18px;
+    flex-basis: 10%;
+    background: #9ad4ff;
+    border-radius: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 50px;
 }
 
-#trendsControls h3{
-  text-align:center;
-  margin-bottom:15px;
-  font-weight:bold; 
-}
-/* If not using map tiles, show a white background */
-.leaflet-container {
-  background-color: white !important;
+#userTweetsContent {
+    flex-basis: 87%;
+    /*border: 1px solid #0084b4;*/
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 350px;
+    overflow-y: auto;
+    text-align:right;
 }
 
-#closeTrendsPanel
-{
-	position:absolute;
-	top:0;
-	right:0;
+.userTweet {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid grey;
+    padding: 3px 10px;
+}
+
+
+.getUserInfo {
+    display: flex;
+    align-items: flex-start;
+    margin-left:15px;
+}
+
+#userId {
+    width: auto;
+}
+
+#getUser {
+    margin-top: 25px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table {
+    margin-bottom: 18px;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px 10px 9px;
+    line-height: 18px;
+    text-align: left;
+}
+
+table th {
+    padding-top: 9px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+table td {
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+table tbody th {
+    border-top: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.condensed-table th, .condensed-table td {
+    padding: 5px 5px 4px;
+}
+
+.bordered-table {
+    border: 1px solid #ddd;
+    border-collapse: separate;
+    *border-collapse: collapse;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.bordered-table th + th, .bordered-table td + td, .bordered-table th + td {
+    border-left: 1px solid #ddd;
+}
+
+.bordered-table thead tr:first-child th:first-child, .bordered-table tbody tr:first-child td:first-child {
+    -webkit-border-radius: 4px 0 0 0;
+    -moz-border-radius: 4px 0 0 0;
+    border-radius: 4px 0 0 0;
+}
+
+.bordered-table thead tr:first-child th:last-child, .bordered-table tbody tr:first-child td:last-child {
+    -webkit-border-radius: 0 4px 0 0;
+    -moz-border-radius: 0 4px 0 0;
+    border-radius: 0 4px 0 0;
+}
+
+.bordered-table tbody tr:last-child td:first-child {
+    -webkit-border-radius: 0 0 0 4px;
+    -moz-border-radius: 0 0 0 4px;
+    border-radius: 0 0 0 4px;
+}
+
+.bordered-table tbody tr:last-child td:last-child {
+    -webkit-border-radius: 0 0 4px 0;
+    -moz-border-radius: 0 0 4px 0;
+    border-radius: 0 0 4px 0;
 }

@@ -3,8 +3,8 @@ tabPanel("Search",
     #Imports <head>
     tags$head(
             includeCSS("www\\css\\tab1.css"),
-            tags$script(src = "js\\tab1.js"),
-            tags$script(src = "js\\shinyTweets.js"),
+            tags$script(src = "js\\tab1_MiningTweets.js"),
+            tags$script(src = "js\\tab1_MiningTweets_R.js"),
             tags$script(src = "js\\jquery.twbsPagination.min.js")
             ),
     #Specify Layout of page
