@@ -15,7 +15,8 @@ Shiny.addCustomMessageHandler("CreateTweets", function (tweetsJson) {
 	 });
 
 
-	 function renderTweetsOnPage(page, pageSize) {
+     function renderTweetsOnPage(page, pageSize) {
+         //remove existing tweets
 	     $(".tweetsContainer").empty();
 
 	     var tweetsContent = "";
@@ -28,8 +29,8 @@ Shiny.addCustomMessageHandler("CreateTweets", function (tweetsJson) {
                 <div class="tweet">
                     <time class="createdAt">
                         <a href="#">${tweet.created_at}</a>
-                    </time> 
-                    <a href="#" class="user">${tweet.screen_name}</a>
+                    </time>
+                    <button onclick="javascript:analyzeUser($(this).text());" class="userScreenName">${tweet.screen_name}</button>
                     <p class="tweetContent" >${tweet.text}</p>
                 </div>
             `

@@ -41,3 +41,9 @@ req(input$userId)
 })
 
 
+observeEvent(input$requestUserAnalysis, {
+    print(input$requestUserAnalysis)
+    updateNavbarPage(session, "tabs", selected = "Profile")
+    updateTextInput(session, "userId", value = input$requestUserAnalysis)
+    session$sendCustomMessage("simulateButtonClick", "#getUser")
+})

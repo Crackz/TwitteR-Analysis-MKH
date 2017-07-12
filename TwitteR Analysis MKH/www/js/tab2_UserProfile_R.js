@@ -6,7 +6,7 @@ Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
     this.userInfo = userInfo;
 
     $("#userProfileImage").attr("src", getPictureURL(userInfo.profile_image_url));
-    $("#userProfileImage a").attr("href", getPictureURL(userInfo.profile_image_url));
+    $("#userProfileImg").attr("href", getPictureURL(userInfo.profile_image_url));
 
     var userInfoContent =
         `
@@ -27,9 +27,9 @@ Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
         ${ userInfo.description ? `<div style="color:#707070;line-height: 16px; margin: 10px auto; font-family: Georgia, Times New Roman, serif; font-style: italic;">${userInfo.description}</div> `: ''}
 
         <div style="margin-top:5px;">
-            location &nbsp;<span style="margin-right:5px;" class="label label-orange">${userInfo.location}</span>
-            language &nbsp;<span style="margin-right:5px;" class="label label-blue">${userInfo.lang}</span>
-            timezone &nbsp;<span style="margin-right:5px;" class="label label-purple">${userInfo.time_zone}</span>
+            location: &nbsp;<span style="margin-right:5px;" class="label label-orange">${userInfo.location}</span>
+            language: &nbsp;<span style="margin-right:5px;" class="label label-blue">${userInfo.lang}</span>
+            timezone: &nbsp;<span style="margin-right:5px;" class="label label-purple">${userInfo.time_zone}</span>
         </div<
         `    
     

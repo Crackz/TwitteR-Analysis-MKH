@@ -21,31 +21,33 @@ cleave(session, "#noTweets", list(
     numeralDecimalScale = 0
 ))
 
-output$countryMap <- renderLeaflet({
-    leaflet(options = leafletOptions(minZoom = 1, maxZoom = 10, dragging = T, doubleClickZoom = T, worldCopyJump = T)) %>%
 
-                    addProviderTiles(providers$Esri.WorldStreetMap, options = providerTileOptions()) %>%
-                    addDrawToolbar(targetGroup = 'selectedRegion', singleFeature = T,
-                                    circleOptions = drawCircleOptions(showRadius = T), editOptions = editToolbarOptions(), #metric = T, feet = F, nautic =F
-                                    polylineOptions = F, polygonOptions = F, rectangleOptions = F, markerOptions = F) %>%                 
-                    addFullscreenControl() %>%
-                    addEasyButton(easyButton(icon = "fa-times", id = "closeMap", position = "topright", title = "Close Map",
-                    onClick = JS("function(btn, map){ 
-                                                if (map.isFullscreen()) map.toggleFullscreen();
-                                                $('#btnMap').click();
+countryMap<- leaflet(options = leafletOptions(minZoom = 1, maxZoom = 10, dragging = T, doubleClickZoom = T, worldCopyJump = T)) %>%
+
+                addProviderTiles(providers$Esri.WorldStreetMap, options = providerTileOptions()) %>%
+                addDrawToolbar(targetGroup = 'selectedRegion', singleFeature = T,
+                                circleOptions = drawCircleOptions(showRadius = T), editOptions = editToolbarOptions(), #metric = T, feet = F, nautic =F
+                                polylineOptions = F, polygonOptions = F, rectangleOptions = F, markerOptions = F) %>%                 
+                addFullscreenControl() %>%
+                addEasyButton(easyButton(icon = "fa-times", id = "closeMap", position = "topright", title = "Close",
+                onClick = JS("function(btn, map){ 
+                                            if (map.isFullscreen()) map.toggleFullscreen();
+                                            $('#btnMap').click();
                                                             
-                                            }"))) %>%
-                    addEasyButton(easyButton(icon = "fa-check", id = "doneMap", position = "topright", title = "Finish",
-                    onClick = JS("function(btn, map){ 
-                                                if (map.isFullscreen()) map.toggleFullscreen();
-                                                $('#btnMap').click().addClass('active');
-                                                $('#btnMap i').addClass('fa-check-square-o').removeClass('fa-square-o');
-                                                var $select = $('#currentSelectedCountry').selectize();
-                                                var selectize = $select[0].selectize;
-                                                selectize.addOption({ value: 'Selected Region', label: 'Selected Region' });
-                                                selectize.addItem('Selected Region');
-                                            }")))
-})
+                                        }"))) %>%
+                addEasyButton(easyButton(icon = "fa-check", id = "doneMap", position = "topright", title = "Finish", 
+                onClick = JS("function(btn, map){ 
+                                            if (map.isFullscreen()) map.toggleFullscreen();
+                                            $('#btnMap').click().addClass('active');
+                                            $('#btnMap i').addClass('fa-check-square-o').removeClass('fa-square-o');
+                                            var $select = $('#currentSelectedCountry').selectize();
+                                            var selectize = $select[0].selectize;
+                                            selectize.addOption({ value: 'Selected Region', label: 'Selected Region' });
+                                            selectize.addItem('Selected Region');
+                                        }")))
+
+
+output$countryMap <- renderLeaflet({ countryMap })
 # Never suspend Map causing some issuess in  Rendering
 outputOptions(output, "countryMap", suspendWhenHidden = FALSE)
 
@@ -55,10 +57,12 @@ observeEvent(input$countryMap_field_draw_features, {
     str(input$countryMap_field_draw_features)
 
 })
-observeEvent(input$countryMap_draw_deleted_features, {
-
+observeEvent(c(input$countryMap_draw_deleted_features, input$countryMap_draw_deletestart), {
+    disable("doneMap")
 })
-
+observeEvent(c(input$countryMap_draw_new_feature),{
+    enable("doneMap")
+})
 
 observeEvent(input$noTweets, {
     if (!is.na(as.numeric(input$noTweets)))
@@ -88,22 +92,24 @@ countryLanguages <- reactive({
 observeEvent(input$currentSelectedCountry,{
 
     if (isTruthy(input$currentSelectedCountry)) {
-    # Notice : countryLanguages returns at least c("")
+    # Note: countryLanguages returns at least c("") 
         if (length(countryLanguages()) != 1) {
             updateSelectizeInput(session, 'selectedLang',
                                   choices = list("Most Used" = countryLanguages(), "Others" = setdiff(getCountriesLanguages(), countryLanguages())),
                                   selected = countryLanguages()[1])
         } else updateSelectizeInput(session, 'selectedLang', choices = getCountriesLanguages() , selected = "")
         
-        if (input$currentSelectedCountry != "Worldwide" && input$currentSelectedCountry != "Selected Region") {
+        if (input$currentSelectedCountry != "Selected Region") {
                 updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$currentSelectedCountry), server = TRUE)
-
-                countryBoundary <- as.list(lookup_coords(input$currentSelectedCountry))
-                countryCenter <- c("long" = mean(countryBoundary$long1, countryBoundary$lat1), "lat" = mean(countryBoundary$long2, countryBoundary$lat2))
-                leafletProxy("countryMap") %>%
-                       setMaxBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]]) %>%
-                       fitBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
+                if (input$currentSelectedCountry != "Worldwide") {
+                    countryBoundary <- as.list(lookup_coords(input$currentSelectedCountry))
+                    countryCenter <- c("long" = mean(countryBoundary$long1, countryBoundary$lat1), "lat" = mean(countryBoundary$long2, countryBoundary$lat2))
+                    leafletProxy("countryMap") %>%
+                    setMaxBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]]) %>%
+                    fitBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
+                }
             }
+        }
         else {
                # mapBounds <- input$countryMap_bounds
                 #print(mapBounds)
@@ -111,7 +117,6 @@ observeEvent(input$currentSelectedCountry,{
                 #center <- c(mean(mapBounds$north, mapBounds$south), mean(mapBounds$east, mapBounds$west))
                 #leafletProxy("countryMap") %>% setView(center[1], center[2], zoom = 1)
         }
-    }
     
 })
 
@@ -135,5 +140,6 @@ observeEvent(input$btnAnalyze, {
 observeEvent(input$resetSearchPanel, {
     reset("searchPanel")
     runjs("clearTweets();")
+    output$countryMap <- renderLeaflet({ countryMap })
 })
 

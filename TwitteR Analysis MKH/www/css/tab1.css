@@ -90,28 +90,39 @@ hr{
 .tweet p {
   margin: 0;
 }
-.tweet a {
-  color: grey;
-  text-decoration: none;
-}
-.tweet a:hover {
+.tweet button:hover {
   text-decoration: underline;
 }
-.tweet a.user {
-  font-weight: bold;
-  color: #444;
-  text-decoration: none;
-  display:inline-block;
-  position:relative;
-  top:-10px;
+.tweet button.userScreenName {
+    font-weight: bold;
+    color: #444;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    top: -10px;
 }
-.tweet a.user:hover {
-  color: lightgreen;
+.tweet button.userScreenName:hover {
+    color: lightgreen;
 }
-.tweet a.user small {
-  font-weight: normal;
-  color: #aaaaaa;
+.tweet button.userScreenName small {
+    font-weight: normal;
+    color: #aaaaaa;
 }
+.tweet button {
+    background: none;
+    border: none;
+    display: inline;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    outline-offset: 0;
+    cursor: pointer;
+    color: grey;
+}
+
+
+
 /* Loading & Error Styles */
 .btn-loading-container {
   margin-left: 10px;
@@ -140,6 +151,7 @@ a[title='clear all layers.'], .leaflet-control-attribution {
 }
 #doneMap {
     color: #5cb85c;
+
 }
 #closeMap:hover {
     background-color: #d9534f;

@@ -5,10 +5,14 @@ shinyUI(
     #themeSelector(),
     HTML('<meta charset="UTF-8">'), # To make browser show any language,   
     tags$head(
-         includeCSS("www\\css\\style.css")),
+         includeCSS("www\\css\\style.css"),
+         tags$script(src = "js\\global.js"),
+         tags$script(src = "js\\arrive.min.js")
+
+         ),
 
     navbarPage(id = "tabs",
-      title="Twitter Analysis", collapsible = T,inverse = F, fluid = T, selected = "Profile", 
+      title="Twitter Analysis", collapsible = T,inverse = F, fluid = T, selected = "Search", 
       #---------------------------------------- TAB 1 Twitter Mining --------------------------------------#
       source(file.path("ui", "tab1_MiningTweets_UI.R"), local = TRUE)$value,
 

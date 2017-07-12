@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     //Add Validation to No Tweets Input
     //$('#noTweets').attr('maxlength', 4).prop('required', true);
     noTweets.oninput = function () {
@@ -46,6 +45,9 @@ $(document).ready(function () {
 	    }
     });
 
+
+
+//Region Map Button
 $('.region-button-checkbox').each(function () {
 
         // Settings
@@ -110,5 +112,8 @@ $('.region-button-checkbox').each(function () {
         }
         init();
     });
-
+});
+$(document).arrive("#doneMap", function (doneMap) {
+    $("#doneMap").attr("disabled", true).addClass("disabled")
+    $(document).unbindArrive();
 });

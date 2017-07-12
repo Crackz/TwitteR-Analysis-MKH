@@ -5,8 +5,6 @@ tabPanel("Profile",
          tags$script(src = "js\\lightbox.min.js"),
          tags$script(src = "js\\tab2_UserProfile.js"),
          tags$script(src = "js\\tab2_UserProfile_R.js")
-        
-
          ),
            htmlTemplate("profile.html", document_ = F) 
         
