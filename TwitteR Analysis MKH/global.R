@@ -1,27 +1,32 @@
 # NOTE: Can't use Reactivity HERE!!
 # Designed To contain Global Funs that can be accessed by ui and server ..
 # global.r vs server.r => server.r will be Established for every client Session
+
+snapShotDate = "2017-07-20"
+
 options(
+  repos = c(CRAN = paste0('https://mran.microsoft.com/snapshot/',snapShotDate)),
+  stringsAsFactors = FALSE,
   shiny.reactlog = F,
   shiny.autoreload = F,
-  shiny.trace = T,
+  shiny.trace = F,
   shiny.error = browser,
-  shiny.minified = F,
-  stringsAsFactors = FALSE
+  shiny.minified = F
 )
 
+
 # Establish Load Libraries processing
-EnsurePackage <- function(x, github = FALSE, version="") {
+EnsurePackage <- function(x, github = FALSE) {
   x <- as.character(x)
   if(github){
     y<- x
     x <- gsub(".*/", "", x)
   }
   if (!require(x, character.only = TRUE)) {
-  #if (!x %in% installed.packages()) {
+    #if (!x %in% installed.packages()) {
     
     if (!github)
-      install_version(pkgs = x,version=version, repos = "http://cloud.r-project.org")
+      install.packages(x)
     else devtools::install_github(y)
     
     library (x, character.only = TRUE)
@@ -31,8 +36,7 @@ EnsurePackage <- function(x, github = FALSE, version="") {
 LoadLibraries <- function() {
   EnsurePackage("devtools")
   EnsurePackage("rtweet")
-  EnsurePackage("future",version = "1.5.0")
-  EnsurePackage("listenv")
+  EnsurePackage("future")
   EnsurePackage("shiny")
   EnsurePackage("shinyjs")
   EnsurePackage("V8")
@@ -41,7 +45,7 @@ LoadLibraries <- function() {
   EnsurePackage("carlganz/shinyCleave", github = T) #UI Notification Library
   EnsurePackage("rstudio/leaflet", github = T)
   EnsurePackage("bhaskarvk/leaflet.extras", github = T)
-  EnsurePackage("ramnathv/rCharts",github = T)
+  #EnsurePackage("ramnathv/rCharts",github = T)
   #EnsurePackage("sqldf")
   #EnsurePackage("stringr")
   #EnsurePackage("rgdal")
@@ -49,6 +53,7 @@ LoadLibraries <- function() {
   #EnsurePackage("shinythemes")
   
 }
+
 LoadLibraries()
 plan(multicore)
 #source("config.R") # ToDo Implementation
