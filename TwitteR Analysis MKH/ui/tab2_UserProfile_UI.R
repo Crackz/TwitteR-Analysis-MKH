@@ -6,6 +6,6 @@ tabPanel("Profile",
          tags$script(src = "js\\tab2_UserProfile.js"),
          tags$script(src = "js\\tab2_UserProfile_R.js")
          ),
-           htmlTemplate("profile.html", document_ = F) 
+           htmlTemplate("www\\html\\profile.html", document_ = F) 
         
 )#End Tab User Profile

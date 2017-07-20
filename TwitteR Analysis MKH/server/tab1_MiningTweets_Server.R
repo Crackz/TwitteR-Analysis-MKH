@@ -95,18 +95,18 @@ observeEvent(input$currentSelectedCountry,{
     # Note: countryLanguages returns at least c("") 
         if (length(countryLanguages()) != 1) {
             updateSelectizeInput(session, 'selectedLang',
-                                  choices = list("Most Used" = countryLanguages(), "Others" = setdiff(getCountriesLanguages(), countryLanguages())),
+                                  choices = list("Most Spoken" = countryLanguages(), "Others" = setdiff(getCountriesLanguages(), countryLanguages())),
                                   selected = countryLanguages()[1])
         } else updateSelectizeInput(session, 'selectedLang', choices = getCountriesLanguages() , selected = "")
         
         if (input$currentSelectedCountry != "Selected Region") {
                 updateSelectizeInput(session, 'searchQuery', choices = getCountryTrendsNames(input$currentSelectedCountry), server = TRUE)
                 if (input$currentSelectedCountry != "Worldwide") {
-                    countryBoundary <- as.list(lookup_coords(input$currentSelectedCountry))
-                    countryCenter <- c("long" = mean(countryBoundary$long1, countryBoundary$lat1), "lat" = mean(countryBoundary$long2, countryBoundary$lat2))
+                    countryBoundary <- lookup_coords(input$currentSelectedCountry)@box
+                    #countryCenter <- c("long" = mean(countryBoundary[1], countryBoundary[2]), "lat" = mean(countryBoundary[3], countryBoundary[4]))
                     leafletProxy("countryMap") %>%
-                    setMaxBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]]) %>%
-                    fitBounds(countryBoundary[["long1"]], countryBoundary[["lat1"]], countryBoundary[["long2"]], countryBoundary[["lat2"]])
+                    setMaxBounds(countryBoundary) %>%
+                    fitBounds(countryBoundary)
                 }
             }
         }
@@ -138,8 +138,10 @@ observeEvent(input$btnAnalyze, {
 
 #Reset Form Values when Button Reset clicked !
 observeEvent(input$resetSearchPanel, {
+    #reset all inputs and text inpupts to default null or default values..
     reset("searchPanel")
     runjs("clearTweets();")
+    # rerender map
     output$countryMap <- renderLeaflet({ countryMap })
 })
 
