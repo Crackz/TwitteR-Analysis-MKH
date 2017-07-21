@@ -185,3 +185,7 @@ a[title='clear all layers.'], .leaflet-control-attribution {
     top: 10%;
     left: 33%;
 }
+
+#filterByMedia{
+  text-align:center;
+}

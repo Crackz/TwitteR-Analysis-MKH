@@ -1,48 +1,67 @@
 library("future")
 library("rtweet")
 #plan(multiprocess)
-arabCountriesNames <-
-  read.csv2("ShapeCountries/Arab_Countries.csv", header = F)$V1
+arabCountriesCodes <-
+  read.csv2(
+    "ShapeCountries/Arab_Countries.csv",
+    header = F,
+    stringsAsFactors = F
+  )$V1
 
-plan(transparent)
+plan(mutlicore)
 printLine <- function() {
   cat("------------------------------------------------------------------")
 }
 
 startListeningWorldTweets <-
-  function(listenFor = 30,
+  function(queryString = "",
+           listenFor = 30,
            gzipEnabled = T,
            worldCoords = c(-180, -90, 180, 90),
+           includeRts = F,
            logging = T) {
     fileName = ""
     repeat {
-      if (logging)
-        fileName = paste0("LoggedData/WorldTweets/",
-                          format(Sys.time(), "%Y-%m-%d_%H-%M-%S_%p"))
-      
-      listenCountriesTweets <- future({
+      listenWorldTweets <- future({
+        if (logging)
+          fileName = paste0("LoggedData/WorldTweets/",
+                            format(Sys.time(), "%Y-%m-%d_%H-%M-%S_%p"))
+        
         worldTweets <- stream_tweets(
+          q = queryString,
           worldCoords,
           timeout = listenFor,
           gzip = gzipEnabled,
-          file_name = fileName
+          file_name = fileName,
+          include_rts = includeRts
         )
-        if (is.na(countriesTweets$text[1]) ||
-            is.na(countriesTweets)) {
+        if (!is.data.frame(worldTweets) ||
+            is.na(worldTweets$text[1]) ||
+            is.na(worldTweets)) {
           cat("Couldn't Stream WorldTweets..")
           next
         }
-        countArabCountriesTweets(worldTweets)
+        # assign to left side variable
+        worldTweets
       })
+      
+      updateCountriesAnalytics <- future({
+        while (!resolved(listenWorldTweets)) {
+          print("Waiting for listenWorldTweets to finish ...")
+        }
+        worldTweets <- value(listenWorldTweets)
+        print(paste0("World Tweets: " , length(worldTweets$text)))
+        arabCountriesTweets <-
+          subset(worldTweets , country_code %in% arabCountriesCodes)
+        #worldTweets[worldTweets$country_code %in% arabCountriesNames,]
+        print(paste0(
+          "Arab Countries Tweets: " ,
+          length(arabCountriesTweets$text)
+        ))
+      })
+      
       printLine()
     }
   }
-
-countArabCountriesTweets <- function (worldTweets) {
-  print(paste0("World Tweets: " , length(worldTweets)))
-  arabCountriesTweets <- worldTweets[arabCountriesNames]
-  print(paste0("Arab Countries Tweets " , length(arabCountriesTweets)))
-  Sys.setenv(arabCountriesTweets)
-}
 
 startListeningWorldTweets()

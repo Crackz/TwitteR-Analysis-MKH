@@ -46,7 +46,11 @@ tabPanel("Search",
 
         #sliderInput("searchDateRange", "DateRange : ", min = Sys.Date() - 7, max = Sys.Date(), ticks = TRUE, value = c(Sys.Date() - 7 ,  Sys.Date()),
                             #dragRange = T),
+#-------------------------------------------------------------  Filter Media RadioButtons -------------------------------------------------------------#
 
+    # fluidRow(
+    #   column(12,radioButtons("filterByMedia", "Tweets Media: ",choiceNames = filterByMediaNames(),choiceValues = filterByMediaValues(), selected = "All", inline = T))
+    # ),
 #-------------------------------------------------------------  SEARCH TEXT BOX -------------------------------------------------------------#
     div(id="searchQueryID", #used to be targeted in css
         selectizeInput("searchQuery", "Search For : ", choices = NULL, multiple = T,

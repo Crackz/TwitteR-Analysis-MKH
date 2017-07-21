@@ -1,70 +1,8 @@
-# NOTE: Can't use Reactivity HERE!!
-# Designed To contain Global Funs that can be accessed by ui and server ..
+# NOTE: Can't use Reactivity HERE!
+# Designed To contain Global Funs that can be accessed by ui and server 
 # global.r vs server.r => server.r will be Established for every client Session
 
-snapShotDate = "2017-07-20"
-
-options(
-  repos = c(CRAN = paste0('https://mran.microsoft.com/snapshot/',snapShotDate)),
-  stringsAsFactors = FALSE,
-  shiny.reactlog = F,
-  shiny.autoreload = F,
-  shiny.trace = F,
-  shiny.error = browser,
-  shiny.minified = F
-)
-
-
-# Establish Load Libraries processing
-EnsurePackage <- function(x, github = FALSE) {
-  x <- as.character(x)
-  if(github){
-    y<- x
-    x <- gsub(".*/", "", x)
-  }
-  if (!require(x, character.only = TRUE)) {
-    #if (!x %in% installed.packages()) {
-    
-    if (!github)
-      install.packages(x)
-    else devtools::install_github(y)
-    
-    library (x, character.only = TRUE)
-  }
-}
-
-LoadLibraries <- function() {
-  EnsurePackage("devtools")
-  EnsurePackage("rtweet")
-  EnsurePackage("future")
-  EnsurePackage("shiny")
-  EnsurePackage("shinyjs")
-  EnsurePackage("V8")
-  EnsurePackage("jsonlite")
-  EnsurePackage("dplyr")
-  EnsurePackage("carlganz/shinyCleave", github = T) #UI Notification Library
-  EnsurePackage("rstudio/leaflet", github = T)
-  EnsurePackage("bhaskarvk/leaflet.extras", github = T)
-  #EnsurePackage("ramnathv/rCharts",github = T)
-  #EnsurePackage("sqldf")
-  #EnsurePackage("stringr")
-  #EnsurePackage("rgdal")
-  #EnsurePackage("ggmap")
-  #EnsurePackage("shinythemes")
-  
-}
-
-LoadLibraries()
-plan(multicore)
-#source("config.R") # ToDo Implementation
-##########################################################    Shared Code    #############################################################
-# Create Enviroment Variable Holding our token
-create_token(
-  app = "Twitter Analysis MKH",
-  consumer_key = readLines("tokens.txt")[1],
-  consumer_secret = readLines("tokens.txt")[2],
-  cache = TRUE
-)
+source(file.path("global", "LoadOptions&Packages.R"), local = TRUE)
 
 ##########################################################    Search Tweets  ##############################################################
 
@@ -75,6 +13,7 @@ getTweets <- function (searchQuery, noTweets, selectedLang) {
     selectedLang <-
       subset(availableCountriesLanaguagesCodes,
              lang_fullname == selectedLang)[["lang_abbr"]]
+  
     twtdf <-
       search_tweets (
         searchQuery,
@@ -86,7 +25,7 @@ getTweets <- function (searchQuery, noTweets, selectedLang) {
       )
     # Strange behaviour in parameter (include_entitites=T) returning twt as a list
     
-    save_as_csv(twtdf, "LoggedData/Saved_Tweets.csv")
+    #save_as_csv(twtdf, "LoggedData/Saved_Tweets.csv")
     
     # Check if got results or not
     if (!is.na(twtdf$text[1])) {
@@ -125,48 +64,50 @@ availableTrendLocations$countryLanguages <-
   })
 
 getCountriesNames <- function() {
-  #remove any empty cell first then and any duplication then sort
+  # remove any empty cell first then and any duplication then sort
   return (sort(unique(availableTrendLocations$country[availableTrendLocations$country != ""])))
 }
 
-getCountryTrends <- function (currentCountryName) {
-  if (currentCountryName == 'Selected Region') {
+getCountryTrends <- function (countryName) {
+  if (countryName == 'Selected Region') {
     # New Way to get Trends
     return()
   }
   if (getRateLimitFor("trends/place")$remaining > 0) {
     #Get woeid(Where On Earth) of selected country
     currentCountryWoeid <-
-      subset(availableTrendLocations, name == currentCountryName)[["woeid"]]
+      subset(availableTrendLocations, name == countryName)[["woeid"]]
     
     return (get_trends(currentCountryWoeid))
-  } else {
+  } else
     return (exceedsTwitterLimits("trends/place"))
-  }
 }
 
-getCountryTrendsNames <- function(currentCountryName) {
-  return (getCountryTrends(currentCountryName)$trend)
+getCountryTrendsNames <- function(countryName) {
+  return (getCountryTrends(countryName)$trend)
 }
 
-CountriesLanguages <-
-  sort(unique(unlist(
-    availableTrendLocations$countryLanguages
-  )))
 getCountriesLanguages <- function () {
-  return(CountriesLanguages)
+  return(sort(unique(
+    unlist(availableTrendLocations$countryLanguages)
+  )))
 }
 
-getCountryLanguages <- function (currentCountryName) {
-  if (currentCountryName == "Worldwide")
-    return(c("English"))
-  if (currentCountryName == "" ||
-      currentCountryName == "Selected Region")
+getCountryLanguages <- function (countryName) {
+  # if (countryName == "Worldwide")
+  #   return(c("English"))
+  if (countryName == "Worldwide" ||
+      countryName == "" ||
+      countryName == "Selected Region")
     return(vector())
   
   countrylanguages <-
-    availableTrendLocations[which(availableTrendLocations$country == currentCountryName), ]$countryLanguages[1]
+    availableTrendLocations[which(availableTrendLocations$country == countryName),]$countryLanguages[1]
   return(unlist(countrylanguages))
+}
+
+getCountryBoundary<- function(countryName){
+  return ( as.list(lookup_coords(countryName)) )
 }
 
 getRateLimitFor <- function (queryRateLimit) {
@@ -184,3 +125,4 @@ exceedsTwitterLimits <- function (queryRateLimit) {
   print(textLimitReach)
   return (textLimitReach)
 }
+
