@@ -5,7 +5,7 @@
 [Ss]aved_*.js
 LoggedData/*.csv
 LoggedData/*.json
-
+LoggedData/WorldTweets/*.json
 # History files
 .Rhistory
 .Rapp.history
