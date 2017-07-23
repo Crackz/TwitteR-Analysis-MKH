@@ -1,6 +1,10 @@
 .Ruserdata
 .vs
+
+# Logged Files
 [Ss]aved_*.js
+LoggedData/*.csv
+LoggedData/*.json
 
 # History files
 .Rhistory

@@ -7,7 +7,7 @@ options(
     'https://mran.microsoft.com/snapshot/', snapShotDate
   )),
   stringsAsFactors = FALSE,
-  shiny.reactlog = F,
+  shiny.reactlog =T,
   shiny.autoreload = F,
   shiny.trace = F,
   shiny.error = browser,
@@ -56,7 +56,7 @@ LoadLibraries <- function() {
 LoadLibraries()
 
 # Used By Future Package To enable multithreading
-plan(multicore)
+plan(transparent)
 
 # Create Enviroment Variable Holding our token
 create_token(

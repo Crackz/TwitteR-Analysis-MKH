@@ -20,8 +20,7 @@ getTweets <- function (searchQuery, noTweets, selectedLang) {
         n = noTweets,
         lang = selectedLang,
         include_rts = FALSE,
-        full_text = TRUE,
-        parse = TRUE
+        full_text = TRUE
       )
     # Strange behaviour in parameter (include_entitites=T) returning twt as a list
     
@@ -49,6 +48,13 @@ availableCountriesLanaguages <-
 availableTrendLocations <-
   left_join(availableTrendLocations, availableCountriesLanaguages, by = "countryCode")
 
+arabCountries <-
+  read.csv2(
+    "ShapeCountries/ArabCountries.csv",
+    header = T,
+    stringsAsFactors = F,
+    sep = ","
+  )
 #Convert countryLanguages to List Of Vectors
 availableTrendLocations$countryLanguages <-
   lapply(availableTrendLocations$countryLanguages, function(countryLanguagesCell) {
@@ -66,6 +72,10 @@ availableTrendLocations$countryLanguages <-
 getCountriesNames <- function() {
   # remove any empty cell first then and any duplication then sort
   return (sort(unique(availableTrendLocations$country[availableTrendLocations$country != ""])))
+}
+
+getArabCountriesNames <- function() {
+  return(arabCountries$countryName)
 }
 
 getCountryTrends <- function (countryName) {
@@ -114,6 +124,10 @@ getRateLimitFor <- function (queryRateLimit) {
   return (rate_limit(queryRateLimit, token = NULL))
 }
 
+getForiegnCountriesNames<- function(){
+  return(NULL)
+}
+
 exceedsTwitterLimits <- function (queryRateLimit) {
   textLimitReach <-
     paste0(
@@ -126,3 +140,6 @@ exceedsTwitterLimits <- function (queryRateLimit) {
   return (textLimitReach)
 }
 
+printLine <- function() {
+  cat("------------------------------------------------------------------")
+}

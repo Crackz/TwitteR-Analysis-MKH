@@ -1,5 +1,5 @@
 tabPanel(
-  "Countires Analytics",
+  "Countires",
   tags$head(
     includeCSS("www\\css\\tab3.css"),
     tags$script(src = "js\\tab3_countriesAnalytics.js"),
@@ -11,22 +11,19 @@ tabPanel(
     sidebarPanel(
       selectizeInput(
         "arabCountries",
-        "Search For : ",
-        choices = NULL,
+        "Arab Countries : ",
+        choices = getArabCountriesNames(),
         multiple = T,
+        select= getArabCountriesNames(),
         options = list(
-          create = TRUE,
-          placeholder = "Enter your search query",
-          closeAfterSelect = T,
-          createOnBlur = T,
-          maxItems = 5,
-          plugins = list("remove_button", "drag_drop")
+          placeholder = "Select Arab County/Countires",
+          plugins = list("remove_button")
         )
       ),
       selectizeInput(
-        "searchQuery",
-        "Search For : ",
-        choices = NULL,
+        "foriegnCountries",
+        "Foreign Countries: ",
+        choices = getForiegnCountriesNames(),
         multiple = T,
         options = list(
           create = TRUE,
@@ -45,6 +42,5 @@ tabPanel(
       htmlTemplate("www\\html\\countriesAnalytics.html", document_ = F)
     )
   )
-  
   
 )#End Tab User Profile
