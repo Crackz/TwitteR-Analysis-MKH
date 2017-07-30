@@ -1,13 +1,13 @@
 
 # Hold packages Versions at a particular date So it can be the same on Others Machines
-snapShotDate = "2017-07-20"
+snapShotDate = "2017-07-23"
 
 options(
   repos = c(CRAN = paste0(
     'https://mran.microsoft.com/snapshot/', snapShotDate
   )),
-  stringsAsFactors = FALSE,
-  shiny.reactlog =T,
+  stringsAsFactors = F,
+  shiny.reactlog =F,
   shiny.autoreload = F,
   shiny.trace = F,
   shiny.error = browser,
@@ -42,21 +42,15 @@ LoadLibraries <- function() {
   EnsurePackage("V8")
   EnsurePackage("jsonlite")
   EnsurePackage("dplyr")
-  EnsurePackage("carlganz/shinyCleave", github = T) #UI Notification Library
-  EnsurePackage("rstudio/leaflet", github = T)
-  EnsurePackage("bhaskarvk/leaflet.extras", github = T)
-  #EnsurePackage("ramnathv/rCharts",github = T)
-  #EnsurePackage("sqldf")
-  #EnsurePackage("stringr")
-  #EnsurePackage("rgdal")
-  #EnsurePackage("ggmap")
-  #EnsurePackage("shinythemes")
-  
+  EnsurePackage("shinyCleave") #UI Notification Library
+  EnsurePackage("leaflet")
+  EnsurePackage("leaflet.extras")
+  EnsurePackage("plotly")
+  EnsurePackage("futile.logger")
+ 
 }
 LoadLibraries()
 
-# Used By Future Package To enable multithreading
-plan(transparent)
 
 # Create Enviroment Variable Holding our token
 create_token(

@@ -45,6 +45,7 @@ availableCountriesLanaguagesCodes <-
   read.csv("ShapeCountries/language-codes.csv", stringsAsFactors = FALSE)
 availableCountriesLanaguages <-
   read.csv("ShapeCountries/CountriesLanguages.csv", stringsAsFactors = FALSE)
+avialableCountries<- read.csv("ShapeCountries/countriesNames.csv", stringsAsFactors = F)
 availableTrendLocations <-
   left_join(availableTrendLocations, availableCountriesLanaguages, by = "countryCode")
 
@@ -117,7 +118,7 @@ getCountryLanguages <- function (countryName) {
 }
 
 getCountryBoundary<- function(countryName){
-  return ( as.list(lookup_coords(countryName)) )
+  return ( as.list(lookup_coords(countryName)@box) )
 }
 
 getRateLimitFor <- function (queryRateLimit) {
@@ -126,6 +127,22 @@ getRateLimitFor <- function (queryRateLimit) {
 
 getForiegnCountriesNames<- function(){
   return(NULL)
+}
+
+getLatestWorldTweets<- function(){
+  worldTweetsPath = file.path(getwd(),"LoggedData/WorldTweets")
+  worldTweetsFiles = list.files(worldTweetsPath)
+  if(length(worldTweetsFiles) == 0) return(NULL)
+  tailNumber = 1
+  repeat{
+    lastFileName <- tail(worldTweetsFiles,n = tailNumber)[1]
+    if(file.info(file.path(worldTweetsPath,lastFileName))$size > 0 || tailNumber == length(worldTweetsFiles)){
+      break
+    }
+    tailNumber <- tailNumber + 1 
+  }
+  print(lastFileName)
+  return(parse_stream(file.path(worldTweetsPath,lastFileName)))
 }
 
 exceedsTwitterLimits <- function (queryRateLimit) {

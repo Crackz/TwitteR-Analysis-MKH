@@ -1,63 +1,118 @@
+
+
+# Used By Future Package To enable multithreading
+plan(sequential)
+
+
 # Holder For The Leastest Tweets
-tweets <- reactiveValues(All=NULL, World = NULL, Arab = NULL)
+tweets <-
+  reactiveValues(World = getLatestWorldTweets(), Arab = NULL)
 countiresNames <-
   reactiveValues(Arab = arabCountries$countryName, Foriegn = NULL)
 
 startListeningToWorldTweets <-
   function(queryString = "",
-           listenFor = 20,
+           listenFor = 3600,
            gzipEnabled = F,
            worldCoords = c(-180, -90, 180, 90),
            includeRts = T,
            logging = T) {
     fileName = ""
     countiresAnalytics %<-% {
-      repeat {
-        getWorldTweets <- future({
-          if (logging)
-            fileName = paste0("LoggedData/WorldTweets/",
-                              format(Sys.time(), "%Y-%m-%d_%H-%M-%S_%p"))
-          
-          worldTweets <- stream_tweets(
-            q = queryString,
-            worldCoords,
-            timeout = listenFor,
-            gzip = gzipEnabled,
-            file_name = fileName,
-            include_rts = includeRts
-          )
-          if (length(worldTweets$text) < 1) {
-            print("Couldn't Stream WorldTweets..")
-            next
-          }
-          tweets$World <-
-            worldTweets[complete.cases(worldTweets$text), ]
-          tweets$Arab <-
-            subset(worldTweets ,
-                   worldTweets$country_code %in% arabCountries$countryCode)
-          
-          print(paste0("World Tweets: " , length(isolate(
-            tweets$World
-          )$text)))
-          
-          print(paste0("Arab Countries Tweets: " ,
-                       length(isolate(
-                         tweets$Arab
-                       )$text)))
-          setForiegnCountriesNames()
-        })
+      #repeat {
+      getWorldTweets <- future({
+        if (logging)
+          fileName = paste0("LoggedData/WorldTweets/",
+                            format(Sys.time(), "%Y-%m-%d_%H-%M-%S_%p"))
         
-        printLine()
-      }
+        stream_tweets(
+          q = queryString,
+          worldCoords,
+          timeout = listenFor,
+          gzip = gzipEnabled,
+          file_name = fileName,
+          include_rts = includeRts,
+        )
+      })
+      
+      
+      updateWorldTweets <- future({
+        
+        worldTweets <- value(getWorldTweets)
+        if (length(worldTweets$text) <= 1) {
+          print("Couldn't Stream WorldTweets..")
+          #next
+        }
+        
+        tweets$World <- worldTweets <- 
+          worldTweets[complete.cases(worldTweets$text),]
+        tweets$Arab <-
+          worldTweets[worldTweets$country_code %in% arabCountries$countryCode,]
+        
+        print(paste0("World Tweets: " , length(isolate(tweets$World)$text)))
+        
+        print(paste0("Arab Tweets: " ,
+                     length(isolate(tweets$Arab)$text)))
+      })
+      
+      printLine()
+      #} #end Repeat
     }
   }
 
-setForiegnCountriesNames <- function ()
-{
-  countriesNames$All <- isolate(tweets$World)$country
-  countiresNames$Foriegn <- setdiff(isolate(countriesNames$All), isolate(countriesNames$Arab))
-  print(isolate(countiresNames$Foriegn))
+observeEvent(input$arabCountries, {
+  req(input$arabCountries)
+  drawarabCountriesPieChart()
+})
+
+drawarabCountriesPieChart <- function() {
+  worldTweets <- isolate(tweets$World)
+  # Null if there is no files in the directory
+  if (is.null(worldTweets)) {
+    print("World Tweets is null")
+    return()
+  }
+  print("I was here ..")
+  arabTweets <- isolate(tweets$Arab)
+  
+  noOfWorldTweets <- nrow(worldTweets)
+  noOfCountryTweets <- c()
+  for (countryCode in arabCountries$countryCode) {
+    percentageOfCountryTweets <-
+      c(noOfCountryTweets,
+        (nrow(arabTweets[which(arabTweets$country_code == countryCode),]) / noOfWorldTweets) * 100)
+  }
+  
+  arabCountriesStatistics <-
+    data.frame("countryName" = arabCountries$countryName, percentageOfCountryTweets)
+  noOfOthersTweets <- noOfWorldTweets - length(arabTweets)
+  arabCountriesStatistics[nrow(arabCountriesStatistics) + 1, ] = c("Others", noOfOthersTweets /
+                                                                     noOfWorldTweets)
+  
+  output$arabCountriesPieChart <- renderPlotly({
+    p <-
+      plot_ly(
+        arabCountriesStatistics,
+        labels = ~ countryName,
+        values = ~ noOfCountryTweets,
+        type = 'pie'
+      ) %>%
+      layout(
+        title = 'Arab Countries Tweets Last Hour',
+        xaxis = list(
+          showgrid = FALSE,
+          zeroline = FALSE,
+          showticklabels = FALSE
+        ),
+        yaxis = list(
+          showgrid = FALSE,
+          zeroline = FALSE,
+          showticklabels = FALSE
+        )
+      )
+    
+  })
 }
 
 
-startListeningToWorldTweets()
+startListeningToWorldTweets(listenFor = 1000)

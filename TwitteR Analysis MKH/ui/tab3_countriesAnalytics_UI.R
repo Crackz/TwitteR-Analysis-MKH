@@ -6,41 +6,24 @@ tabPanel(
     tags$script(src = "js\\tab3_countriesAnalytics_R.js")
   ),
   
-  sidebarLayout(
-    # Sidebar with a slider input
+  sidebarLayout(# Sidebar with a slider input
     sidebarPanel(
       selectizeInput(
         "arabCountries",
         "Arab Countries : ",
         choices = getArabCountriesNames(),
         multiple = T,
-        select= getArabCountriesNames(),
-        options = list(
-          placeholder = "Select Arab County/Countires",
-          plugins = list("remove_button")
-        )
-      ),
-      selectizeInput(
-        "foriegnCountries",
-        "Foreign Countries: ",
-        choices = getForiegnCountriesNames(),
-        multiple = T,
-        options = list(
-          create = TRUE,
-          placeholder = "Enter your search query",
-          closeAfterSelect = T,
-          createOnBlur = T,
-          maxItems = 5,
-          plugins = list("remove_button", "drag_drop")
-        )
+        select = getArabCountriesNames(),
+        options = list(placeholder = "Select Arab County/Countires",
+                       plugins = list("remove_button"))
       )
-      
     ),
-    
-    # Show a plot of the generated distribution
-    mainPanel(
-      htmlTemplate("www\\html\\countriesAnalytics.html", document_ = F)
-    )
-  )
   
+  # Show a plot of the generated distribution
+  mainPanel(
+   # htmlTemplate("www\\html\\countriesAnalytics.html", document_ = F)
+    plotlyOutput("arabCountriesPieChart")
+  )
+)
+
 )#End Tab User Profile

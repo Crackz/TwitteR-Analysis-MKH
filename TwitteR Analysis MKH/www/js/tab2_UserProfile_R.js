@@ -1,7 +1,7 @@
 var userInfo;
 Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
     $("#userInfoTable").empty();
-    console.log(userInfo, "UserInfo")
+    console.log(userInfo, "UserInfo");
     userInfo = userInfo[0];
     this.userInfo = userInfo;
 

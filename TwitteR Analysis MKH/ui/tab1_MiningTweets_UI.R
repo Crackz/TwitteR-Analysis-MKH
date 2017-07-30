@@ -23,7 +23,7 @@ tabPanel("Search",
                             actionButton("btnMap", "", icon = NULL, width = NULL, "data-color" = "default"),
                             hidden(checkboxInput("isMapOn", "", value = F)))
                    ),
-            column(5, selectizeInput("selectedLang", "Language :", choices = c("English"),
+            column(5, selectizeInput("selectedLang", "Language :", choices = NULL,
                                         options = list(placeholder = 'Select a language')))
         ),
         div(id = "animation",
