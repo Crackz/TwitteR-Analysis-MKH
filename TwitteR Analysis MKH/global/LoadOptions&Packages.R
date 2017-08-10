@@ -34,11 +34,12 @@ EnsurePackage <- function(x, github = FALSE) {
 }
 
 LoadLibraries <- function() {
-  EnsurePackage("devtools")
+  #EnsurePackage("devtools")
   EnsurePackage("rtweet")
   EnsurePackage("future")
   EnsurePackage("shiny")
   EnsurePackage("shinyjs")
+  EnsurePackage("shinycssloaders")
   EnsurePackage("V8")
   EnsurePackage("jsonlite")
   EnsurePackage("dplyr")
@@ -46,8 +47,11 @@ LoadLibraries <- function() {
   EnsurePackage("leaflet")
   EnsurePackage("leaflet.extras")
   EnsurePackage("plotly")
-  EnsurePackage("futile.logger")
- 
+  EnsurePackage("futile.logger") # For Logging
+  EnsurePackage("tm")  # for text mining
+  EnsurePackage("SnowballC") # for text stemming
+  EnsurePackage("wordcloud") # word-cloud generator 
+  EnsurePackage("RColorBrewer") # color palettes
 }
 LoadLibraries()
 

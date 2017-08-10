@@ -1,7 +1,7 @@
 tabPanel(
   "Countires",
   tags$head(
-    includeCSS("www\\css\\tab3.css"),
+    includeCSS("www\\css\\CountriesTab.css"),
     tags$script(src = "js\\tab3_countriesAnalytics.js"),
     tags$script(src = "js\\tab3_countriesAnalytics_R.js")
   ),
@@ -22,7 +22,7 @@ tabPanel(
   # Show a plot of the generated distribution
   mainPanel(
    # htmlTemplate("www\\html\\countriesAnalytics.html", document_ = F)
-    plotlyOutput("arabCountriesPieChart")
+    plotlyOutput("arabCountriesPieChart")  #%>% withSpinner()
   )
 )
 

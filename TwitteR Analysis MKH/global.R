@@ -129,20 +129,27 @@ getForiegnCountriesNames<- function(){
   return(NULL)
 }
 
-getLatestWorldTweets<- function(){
+getLatestWorldTweets<- function() {
   worldTweetsPath = file.path(getwd(),"LoggedData/WorldTweets")
   worldTweetsFiles = list.files(worldTweetsPath)
   if(length(worldTweetsFiles) == 0) return(NULL)
   tailNumber = 1
   repeat{
     lastFileName <- tail(worldTweetsFiles,n = tailNumber)[1]
-    if(file.info(file.path(worldTweetsPath,lastFileName))$size > 0 || tailNumber == length(worldTweetsFiles)){
+    if(file.info(file.path(worldTweetsPath,lastFileName))$size > 1000 || tailNumber == length(worldTweetsFiles)){
       break
     }
     tailNumber <- tailNumber + 1 
   }
-  print(lastFileName)
-  return(parse_stream(file.path(worldTweetsPath,lastFileName)))
+  print(paste0("Loading ",lastFileName))
+  worldTweets<- parse_stream(file.path(worldTweetsPath,lastFileName))
+  worldTweets <-
+    worldTweets[complete.cases(worldTweets$country_code),]
+  return(worldTweets)
+}
+
+getArabTweets<-function(worldTweets){
+  return( worldTweets[worldTweets$country_code %in% arabCountries$countryCode,] )  
 }
 
 exceedsTwitterLimits <- function (queryRateLimit) {

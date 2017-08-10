@@ -1,0 +1,191 @@
+#searchPanel {
+    position:relative;
+}
+
+#twitterAnalysisOptions {
+    font-family: 'Questrial', Verdana, sans-serif;
+    text-align: center;
+    font-size: 30px;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+hr{
+    border-top: 1px solid #8c8b8b;
+}
+
+#noTweetsSlider {
+    display: inline-block;
+    margin-top: -3%;
+}
+
+/* Reset Button Style*/
+#resetSearchPanel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: black;
+    width: 35px;
+    height: 35px;
+    padding: 2px 10px;
+    margin: 0;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    background-color: #f5f5f0;
+    border: 1px solid #e3e3e3;
+    border-radius: 10%;
+    text-align: center;
+}
+#resetSearchPanel:hover {
+    background-color:white;
+}
+#resetSearchPanel:active {
+    color: grey;
+    border-color: #002cf4;
+}
+
+/* Search Query Input */
+.selectize-dropdown {
+    z-index: 1001 !important;
+}
+#searchQueryID .selectize-input {
+    line-height: 30px !important;
+}
+#searchQueryID .selectize-dropdown {
+    line-height: 30px !important;
+}
+
+/* Style of Tweets Posts*/
+.tweet {
+    position: relative;
+    margin-top: 3%;
+    margin-bottom: 1%;
+    padding: 1.2em 1em 1.2em 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 0 0.5em rgba(68, 68, 68, 0.2);
+    background: white;
+}
+.tweet:first-child{ margin-top:1%; }
+
+.tweet:before {
+  content: ' ';
+  position: relative;
+  top: 1em;
+  left: 1em;
+  width: 1em;
+  height: 3em;
+}
+.tweet time {
+  position: absolute;
+  top: 5px;
+
+}
+.tweet time a {
+  font-size: 0.8667em;
+  color: #aaaaaa;
+}
+.tweet time a:hover {
+  color: grey;
+}
+.tweet p {
+  margin: 0;
+}
+.tweet button:hover {
+  text-decoration: underline;
+}
+.tweet button.userScreenName {
+    font-weight: bold;
+    color: #444;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    top: -10px;
+}
+.tweet button.userScreenName:hover {
+    color: lightgreen;
+}
+.tweet button.userScreenName small {
+    font-weight: normal;
+    color: #aaaaaa;
+}
+.tweet button {
+    background: none;
+    border: none;
+    display: inline;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    outline-offset: 0;
+    cursor: pointer;
+    color: grey;
+}
+
+
+
+/* Loading & Error Styles */
+.btn-loading-container {
+  margin-left: 10px;
+  font-size: 1.2em;
+}
+.btn-done-indicator {
+  color: green;
+}
+.btn-err {
+  margin-top: 10px;
+  color: red;
+}
+
+/* Hide useless button called clearAll & attribution on map*/
+a[title='clear all layers.'], .leaflet-control-attribution {
+    visibility: hidden;
+}
+
+#closeMap, #doneMap {
+    background-color: transparent;
+    color: inherit;
+    transition: all .5s;
+}
+#closeMap {
+    color: #d9534f;
+}
+#doneMap {
+    color: #5cb85c;
+
+}
+#closeMap:hover {
+    background-color: #d9534f;
+    color: red;
+    cursor: pointer;
+}
+#doneMap:hover {
+    background-color: #5cb85c;
+    color: lightgreen;
+    cursor: pointer;
+}
+
+#btnMap {
+    background-image: url( 'images/map.svg' );
+    background-repeat: no-repeat;
+    background-position:center;
+}
+
+.region-button-checkbox {
+    position: relative;
+    top: 25px;
+    right: 10px;
+}
+.state-icon{
+    position:relative;
+    left:30px;
+}
+
+
+#shiny-notification-panel {
+    top: 10%;
+    left: 33%;
+}
+
+#filterByMedia{
+  text-align:center;
+}

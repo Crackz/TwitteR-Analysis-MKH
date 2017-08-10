@@ -2,7 +2,7 @@ source("UI/UIHelpers/ButtonBusyIndicator.R") # Load all the code needed to show 
 tabPanel("Search",
     #Imports <head>
     tags$head(
-            includeCSS("www\\css\\tab1.css"),
+            includeCSS("www\\css\\SearchTab.css"),
             tags$script(src = "js\\tab1_MiningTweets.js"),
             tags$script(src = "js\\tab1_MiningTweets_R.js"),
             tags$script(src = "js\\jquery.twbsPagination.min.js")

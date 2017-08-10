@@ -1,0 +1,44 @@
+
+<div class="getUserInfo">
+    {{ div(style="display: inline-block;vertical-align:top; width: 150px; margin-right:35px;", textInput("userId", "User ID :", "") )}}
+    {{  withBusyIndicatorUI( actionButton("getUser", "Analyze Profile") )}}
+</div>
+<div id="userAnalysisInfo">
+     
+    <div id="userProfile">
+        <div id="userDetailsInfo">
+            <div id="userImage">
+                <a id ="userProfileImg" href="" style="cursor:zoom-in;" data-lightbox="UserImage" data-title="Profile Image">
+                    <img id="userProfileImage" src="" width="200" height="200">
+                </a>
+            </div>
+
+            <div id="userInfo">
+                <div id="userInfoTable" style=""></div>
+            </div>
+        </div>
+        <div id="userTweets">
+            <div class="blockHeader">
+                <span  class="fa fa-twitter" >&nbsp;Tweets</span>
+                <!--{{ actionButton("downloadUserTweets", "Download Tweets") }}-->
+                <!--<button id="userTweetsBtn" class="btn fa fa-minus"></button>-->
+            </div>
+            <div id="userTweetsContent" class="blockContent">
+				
+            </div>
+        </div>
+    </div>
+	<div id="userProfileStatistics">
+		<div class = "blockHeader">
+			<span>Profile Analysis</span>
+		</div>
+		<div class = "blockContent">
+			<span class="twoElementInRow">
+				{{ plotOutput("profileWordCloud") }}
+				{{ plotOutput("profileWordCloudAsBarChart") }}
+			<span>
+		</div>
+	</div>
+	<hr>
+	
+</div>

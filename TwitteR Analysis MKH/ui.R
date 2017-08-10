@@ -6,7 +6,7 @@ shinyUI(tagList(
   HTML('<meta charset="UTF-8">'),
   # To make browser show any language,
   tags$head(
-    includeCSS("www\\css\\style.css"),
+    includeCSS("www\\css\\styles.css"),
     tags$script(src = "js\\global.js"),
     tags$script(src = "js\\arrive.min.js")
     

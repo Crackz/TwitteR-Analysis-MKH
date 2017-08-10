@@ -22,12 +22,13 @@ Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
             <span class="label label-success" style="margin-left: 10px;">${userInfo.followers_count}</span> followers
             <span class="label label-important" style="margin-left: 10px;">${userInfo.listed_count}</span> listed</div>
         </div>
-        <div style="margin-bottom: 2px;">Joined Twitter on <span>${userInfo.created_at}</span> as user #<span id="userId">${userInfo.user_id}</span></div>
+        <div style="margin-bottom: 2px;">Joined Twitter on <span>${userInfo.account_created_at}</span> as user #<span id="userId">${userInfo.user_id}</span>
+        </div>
 
         ${ userInfo.description ? `<div style="color:#707070;line-height: 16px; margin: 10px auto; font-family: Georgia, Times New Roman, serif; font-style: italic;">${userInfo.description}</div> `: ''}
 
         <div style="margin-top:5px;">
-            location: &nbsp;<span style="margin-right:5px;" class="label label-orange">${userInfo.location}</span>
+            location: &nbsp;<span style="margin-right:5px;" class="label label-orange">${userInfo.location != "" ? userInfo.location : "undefined"}</span>
             language: &nbsp;<span style="margin-right:5px;" class="label label-blue">${userInfo.lang}</span>
             timezone: &nbsp;<span style="margin-right:5px;" class="label label-purple">${userInfo.time_zone}</span>
         </div<
@@ -49,7 +50,7 @@ Shiny.addCustomMessageHandler("CreateUserTweets", function (userTweets) {
         var userTweet = userTweets[i];
         userTweetsContent +=
             `
-            <div class="userTweet">
+            <div class="blockTweet">
                 
                 <div class="tweetHeader">
                     <div class="goLeft">
@@ -72,11 +73,11 @@ Shiny.addCustomMessageHandler("CreateUserTweets", function (userTweets) {
             </div>
            `;
     }
-    userTweetsContent += `
-        <div class="userTweet">
-            <button style="align-self:center;" class="btn btn-primary fa fa-plus-circle">&nbsp;MoreTweets</button>
-        </div>
-    `
+   /*   userTweetsContent += `
+          <div class="userTweet">
+              <button style="align-self:center;" class="btn btn-primary fa fa-plus-circle">&nbsp;MoreTweets</button>
+          </div>
+      `*/
     $('#userTweetsContent').append(userTweetsContent);
     $("#userTweets").css('visibility', 'visible');
 

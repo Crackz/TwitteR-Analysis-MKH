@@ -2,13 +2,15 @@
 .vs
 
 # Logged Files
-[Ss]aved_*.js
 LoggedData/*.csv
 LoggedData/*.json
+LoggedData/[Ss]aved_*.json
 LoggedData/WorldTweets/*.json
+
 # History files
 .Rhistory
 .Rapp.history
+.RDataTmp
 
 # Session Data files
 .RData
