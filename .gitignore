@@ -2,10 +2,8 @@
 .vs
 
 # Logged Files
-LoggedData/*.csv
-LoggedData/*.json
-LoggedData/[Ss]aved_*.json
-LoggedData/WorldTweets/*.json
+LoggedData/
+LoggedData/WorldTweets/
 
 # History files
 .Rhistory

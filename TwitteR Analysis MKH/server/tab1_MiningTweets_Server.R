@@ -24,6 +24,7 @@ observe({
   # str(input$countryMap_group_selectedRegion)
 })
 
+
 # Configurations for Number of Tweets Input
 cleave(
   session,

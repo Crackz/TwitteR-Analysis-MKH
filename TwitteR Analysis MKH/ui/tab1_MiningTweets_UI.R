@@ -35,8 +35,9 @@ tabPanel("Search",
 #-------------------------------------------------------------No. TweetS AND Its SLIDER ---------------------------------------------------------#
         fluidRow(
             column(3,
+                   div(id="selectorNoTweets",
                 numericInput("noTweets", "No. Tweets :" , value = 100 , step = 100,min = 1)
-            ),
+            )),
             column(9,
                 #additional Options has been added to tab1.js (coz this related to ion.rangeSlider.js library)  
                 div(style="margin-top:-3%;",

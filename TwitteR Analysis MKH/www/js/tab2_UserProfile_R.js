@@ -1,7 +1,6 @@
 var userInfo;
 Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
-    $("#userInfoTable").empty();
-    console.log(userInfo, "UserInfo");
+    // console.log(userInfo, "UserInfo");
     userInfo = userInfo[0];
     this.userInfo = userInfo;
 
@@ -13,7 +12,8 @@ Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
         <div style="font-size: 20px; margin: 2px 0 5px 0;">
             <span style="font-size: 16px;">${userInfo.name}</span>
             <span style="font-size: 14px; font-weight: bold;">@${userInfo.screen_name}</span>
-            ${JSON.parse(userInfo.verified)? `<span style="padding-left: 10px;"><img src="images/verified.jpg" title="Twitter verified profile" width="15" height="15"></span>`:''}
+            ${ JSON.parse(userInfo.verified) ? 
+            `<span style="padding-left: 10px;"><img src="images/verified.jpg" title="Twitter verified profile" width="15" height="15"></span>`:''}
         </div>
 
         <div style="margin-bottom: 4px;">
@@ -29,7 +29,7 @@ Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
 
         <div style="margin-top:5px;">
             location: &nbsp;<span style="margin-right:5px;" class="label label-orange">${userInfo.location != "" ? userInfo.location : "undefined"}</span>
-            language: &nbsp;<span style="margin-right:5px;" class="label label-blue">${userInfo.lang}</span>
+            language: &nbsp;<span style="margin-right:5px;" class="label label-blue">${userInfo.account_lang}</span>
             timezone: &nbsp;<span style="margin-right:5px;" class="label label-purple">${userInfo.time_zone}</span>
         </div<
         `    
@@ -43,8 +43,7 @@ Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
 });
 
 Shiny.addCustomMessageHandler("CreateUserTweets", function (userTweets) {
-    $("#userTweetsContent").empty();
-    console.log(userTweets,"User Tweets");
+    // console.log(userTweets,"User Tweets");
     var userTweetsContent=``;
     for (var i = 0; i < userTweets.length; i++) {
         var userTweet = userTweets[i];
@@ -73,12 +72,19 @@ Shiny.addCustomMessageHandler("CreateUserTweets", function (userTweets) {
             </div>
            `;
     }
-   /*   userTweetsContent += `
-          <div class="userTweet">
-              <button style="align-self:center;" class="btn btn-primary fa fa-plus-circle">&nbsp;MoreTweets</button>
-          </div>
-      `*/
     $('#userTweetsContent').append(userTweetsContent);
     $("#userTweets").css('visibility', 'visible');
-
 });
+
+function ProtectedProfile(){
+  
+}
+
+function ShowProfileAnalysis() {
+  $("#userProfileAnalysis").css('visibility', 'visible');
+}
+
+function ClearUser() {
+  $("#userInfoTable,#userTweetsContent,#userProfileAnalysis.blockContent").empty();
+  $("#userDetailsInfo,#userTweets,#userProfileAnalysis").css('visibility', 'hidden');
+}

@@ -8,7 +8,7 @@
 #userAnalysisInfo {
     display: flex;
     flex-direction: column;
-    /*visibility: hidden; */
+    visibility: hidden; 
 }
 /* First Row Show User Info */
 #userProfile {

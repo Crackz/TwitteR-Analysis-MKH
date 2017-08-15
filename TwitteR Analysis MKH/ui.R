@@ -3,8 +3,9 @@ shinyUI(tagList(
   useShinyjs(),
   includeCleave(),
   #themeSelector(),
-  HTML('<meta charset="UTF-8">'),
   # To make browser show any language,
+  HTML('<meta charset="UTF-8">'),
+  
   tags$head(
     includeCSS("www\\css\\styles.css"),
     tags$script(src = "js\\global.js"),

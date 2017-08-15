@@ -119,4 +119,4 @@ drawArabCountriesPieChart <- function() {
 }
 
 
-#startListeningToWorldTweets()
+startListeningToWorldTweets()

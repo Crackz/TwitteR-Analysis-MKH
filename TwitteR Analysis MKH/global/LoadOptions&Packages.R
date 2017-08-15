@@ -1,10 +1,10 @@
 
 # Hold packages Versions at a particular date So it can be the same on Others Machines
-snapShotDate = "2017-07-23"
+packagesSnapShotDate = "2017-07-23"
 
 options(
   repos = c(CRAN = paste0(
-    'https://mran.microsoft.com/snapshot/', snapShotDate
+    'https://mran.microsoft.com/snapshot/', packagesSnapShotDate
   )),
   stringsAsFactors = F,
   shiny.reactlog =F,
@@ -15,7 +15,7 @@ options(
 )
 
 # Establish Load Libraries processing
-EnsurePackage <- function(x, github = FALSE) {
+EnsurePackage <- function(x, github = FALSE, repo="") {
   x <- as.character(x)
   if (github) {
     y <- x
@@ -25,7 +25,10 @@ EnsurePackage <- function(x, github = FALSE) {
     #if (!x %in% installed.packages()) {
     
     if (!github)
-      install.packages(x)
+      if(repo != "")
+        install.packages(x,repos=repo, type="source")
+      else
+        install.packages(x)
     else
       devtools::install_github(y)
     
@@ -43,12 +46,13 @@ LoadLibraries <- function() {
   EnsurePackage("V8")
   EnsurePackage("jsonlite")
   EnsurePackage("dplyr")
-  EnsurePackage("shinyCleave") #UI Notification Library
+  EnsurePackage("carlganz/shinyCleave",github= T) #UI Notification Library
   EnsurePackage("leaflet")
   EnsurePackage("leaflet.extras")
   EnsurePackage("plotly")
   EnsurePackage("futile.logger") # For Logging
   EnsurePackage("tm")  # for text mining
+  EnsurePackage("tm.lexicon.GeneralInquirer",repo="http://datacube.wu.ac.at")
   EnsurePackage("SnowballC") # for text stemming
   EnsurePackage("wordcloud") # word-cloud generator 
   EnsurePackage("RColorBrewer") # color palettes

@@ -1,6 +1,6 @@
 $(document).ready(function () {
+  
     //Add Validation to No Tweets Input
-    //$('#noTweets').attr('maxlength', 4).prop('required', true);
     noTweets.oninput = function () {
         if (this.value.length > 5)
             this.value = this.value.slice(0, 5);
