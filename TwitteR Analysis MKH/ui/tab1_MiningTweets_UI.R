@@ -60,7 +60,7 @@ tabPanel("Search",
 #------------------------------------------------------------ Submit Options For Analyze ----------------------------------------------------------#
         fluidRow(
             withBusyIndicatorUI(
-                actionButton("btnAnalyze", "Analyze", icon = icon("twitter"), width = "80%", class = "btn-lg", style = "margin-left:7%;")
+                actionButton("btnAnalyze", "Analyze", icon = icon("twitter"), width = "80%", class = "btn-primary btn-lg", style = "margin-left:7%;")
             ),
             #To Reset Options to Their Defaults
             actionButton("resetSearchPanel", "", icon = icon("refresh")

@@ -37,7 +37,8 @@ hr{
     text-align: center;
 }
 #resetSearchPanel:hover {
-    background-color:white;
+    /*background-color:#39A8E8;*/
+     box-shadow: 0 0 0 0.2em #45ADE9;
 }
 #resetSearchPanel:active {
     color: grey;
@@ -58,11 +59,11 @@ hr{
 /* Style of Tweets Posts*/
 .tweet {
     position: relative;
-    margin-top: 3%;
+    margin-top: 1%;
     margin-bottom: 1%;
     padding: 1.2em 1em 1.2em 1em;
     border-radius: 5px;
-    box-shadow: 0 0 0 0.5em rgba(68, 68, 68, 0.2);
+    box-shadow: 0 0 0 0.2em #45ADE9;
     background: white;
 }
 .tweet:first-child{ margin-top:1%; }

@@ -1,7 +1,7 @@
 .twoElementInRow{
     display: flex;
     justify-content: space-between;
-	margin:10px;
+	  margin:10px;
 }
 
 /* Container All*/
@@ -72,6 +72,11 @@
     text-align:right;
 }
 
+#profileAnalysisHeader{
+    background-color:#3EAAE9; 
+    border-radius:4%;
+    margin-top:5px;
+}
 .tweetHeader {
     display: flex;
     justify-content: space-between;

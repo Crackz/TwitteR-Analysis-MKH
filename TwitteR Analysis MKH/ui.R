@@ -2,7 +2,7 @@ shinyUI(tagList(
   # Tag Container Created exclusively to include Externel libraries
   useShinyjs(),
   includeCleave(),
-  #themeSelector(),
+  #shinythemes::themeSelector(),
   # To make browser show any language,
   HTML('<meta charset="UTF-8">'),
   
@@ -19,6 +19,7 @@ shinyUI(tagList(
     collapsible = T,
     inverse = F,
     fluid = T,
+    theme = shinytheme("cerulean"),
     selected = "Search",
     #---------------------------------------- TAB 1 Twitter Mining --------------------------------------#
     source(file.path("ui", "tab1_MiningTweets_UI.R"), local = TRUE)$value,

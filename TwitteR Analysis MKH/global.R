@@ -132,11 +132,15 @@ getForiegnCountriesNames<- function(){
 getLatestWorldTweets<- function() {
   worldTweetsPath = file.path(getwd(),"LoggedData/WorldTweets")
   worldTweetsFiles = list.files(worldTweetsPath)
-  if(length(worldTweetsFiles) == 0) return(NULL)
+  if (length(worldTweetsFiles) == 0)
+  {
+    print("There is no file in WorldTweets. waiting for next streaming")
+    return()
+  }
   tailNumber = 1
   repeat{
     lastFileName <- tail(worldTweetsFiles,n = tailNumber)[1]
-    if(file.info(file.path(worldTweetsPath,lastFileName))$size > 1000 || tailNumber == length(worldTweetsFiles)){
+    if(file.info(file.path(worldTweetsPath,lastFileName))$size > 50000 || tailNumber == length(worldTweetsFiles)){
       break
     }
     tailNumber <- tailNumber + 1 
@@ -167,3 +171,5 @@ exceedsTwitterLimits <- function (queryRateLimit) {
 printLine <- function() {
   cat("------------------------------------------------------------------")
 }
+
+

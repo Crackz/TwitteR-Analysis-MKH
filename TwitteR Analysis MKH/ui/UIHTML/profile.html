@@ -1,7 +1,7 @@
 
 <div class="getUserInfo">
     {{ div(style="display: inline-block;vertical-align:top; width: 150px; margin-right:35px;", textInput("userId", "User ID :", "") )}}
-    {{  withBusyIndicatorUI( actionButton("getUser", "Analyze Profile") )}}
+    {{  withBusyIndicatorUI( actionButton("getUser", "Analyze Profile", class="btn-primary") )}}
 </div>
 <div id="userAnalysisInfo">
      
@@ -20,8 +20,6 @@
         <div id="userTweets">
             <div class="blockHeader">
                 <span  class="fa fa-twitter" >&nbsp;Tweets</span>
-                <!--{{ actionButton("downloadUserTweets", "Download Tweets") }}-->
-                <!--<button id="userTweetsBtn" class="btn fa fa-minus"></button>-->
             </div>
             <div id="userTweetsContent" class="blockContent">
 				
@@ -29,7 +27,7 @@
         </div>
     </div>
 	<div id="userProfileAnalysis">
-		<div class = "blockHeader">
+		<div id="profileAnalysisHeader" class = "blockHeader">
 			<span>Profile Analysis</span>
 		</div>
 		<div class = "blockContent">
