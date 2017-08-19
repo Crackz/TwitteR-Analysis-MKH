@@ -37,3 +37,7 @@ p {
     word-break: break-all;
     white-space: normal;
 }
+
+.container-fluid{
+  margin:0 40px;
+}

@@ -1,6 +1,6 @@
 
 # Hold packages Versions at a particular date So it can be the same on Others Machines
-packagesSnapShotDate = "2017-07-23"
+packagesSnapShotDate = "2017-08-19"
 
 options(
   repos = c(CRAN = paste0(
@@ -9,7 +9,7 @@ options(
   stringsAsFactors = F,
   shiny.reactlog =F,
   shiny.autoreload = F,
-  shiny.trace = F,
+  shiny.trace = T,
   shiny.error = browser,
   shiny.minified = F
 )
@@ -38,29 +38,32 @@ EnsurePackage <- function(x, github = FALSE, repo="") {
 
 LoadLibraries <- function() {
   #EnsurePackage("devtools")
-  EnsurePackage("rtweet")
-  EnsurePackage("future")
-  EnsurePackage("shiny")
-  EnsurePackage("shinyjs")
-  EnsurePackage("shinycssloaders")
-  EnsurePackage("V8")
-  EnsurePackage("jsonlite")
-  EnsurePackage("dplyr")
-  EnsurePackage("carlganz/shinyCleave",github= T) #UI Notification Library
-  EnsurePackage("leaflet")
-  EnsurePackage("leaflet.extras")
-  EnsurePackage("plotly")
-  EnsurePackage("futile.logger") # For Logging
+  EnsurePackage("rtweet") # Provide Abstraction of Twitter APIs
+  EnsurePackage("future") # Enable MultiProcessing Mechanism
+  EnsurePackage("shiny")  # Web Server and Basic UI Elements in R
+  EnsurePackage("shinyjs") # shiny's Extension to enable easy ui manipulation
+  EnsurePackage("shinycssloaders") # shiny's Extension to show loading animation
+  EnsurePackage("shinythemes") # shiny
+  EnsurePackage("V8") # Engine Provided by google to enable processing javascript in Server side
+  EnsurePackage("jsonlite") # Convert to/from json
+  EnsurePackage("dplyr") # deep layer provides advanced filters and data manipulation
+  EnsurePackage("carlganz/shinyCleave", github= T) #UI Notification Library
+  EnsurePackage("leaflet") # Map based on widely known js library 
+  EnsurePackage("leaflet.extras") # Leaflet's extension provides more control over elements
+  EnsurePackage("plotly") # provide Charts 
+  # EnsurePackage("futile.logger") # For Logging
   EnsurePackage("tm")  # for text mining
-  EnsurePackage("tm.lexicon.GeneralInquirer",repo="http://datacube.wu.ac.at")
-  EnsurePackage("SnowballC") # for text stemming
+  # EnsurePackage("tm.lexicon.GeneralInquirer",repo="http://datacube.wu.ac.at")
+  # EnsurePackage("SnowballC") # for text stemming
   EnsurePackage("wordcloud") # word-cloud generator 
   EnsurePackage("RColorBrewer") # color palettes
+   
 }
 LoadLibraries()
 
 
-# Create Enviroment Variable Holding our token
+# Create Global Enviroment Variable Holding Tokens
+# inputs (appname , keys readed from token.txt file)
 create_token(
   app = "Twitter Analysis MKH",
   consumer_key = readLines("tokens.txt")[1],

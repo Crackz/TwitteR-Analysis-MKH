@@ -9,8 +9,7 @@ startListeningToWorldTweets <-
     fileName = ""
       repeat {
         getWorldTweets <- future({
-          fileName = paste0("LoggedData/WorldTweets/",
-                            format(Sys.time(), "%Y-%m-%d"))
+          fileName = paste0("LoggedData/WorldTweets/",format(Sys.time(), "%Y-%m-%d") ,".json")
           stream_tweets(
             # World coords
             c(-180, -90, 180, 90),

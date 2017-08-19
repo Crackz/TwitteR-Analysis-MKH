@@ -6,28 +6,28 @@ source(file.path("global", "LoadOptions&Packages.R"), local = TRUE)
 
 ##########################################################    Search Tweets  ##############################################################
 
-getTweets <- function (searchQuery, noTweets, selectedLang) {
+getTweets <- function (searchQuery, noTweets, selectedLang, geoCode = NULL) {
   if (getRateLimitFor("search/tweets")$remaining > 0) {
     # Concatenate chars vector in search box into one string with space between every word
     searchQuery <- paste0(searchQuery, collapse = " ")
     selectedLang <-
       subset(availableCountriesLanaguagesCodes,
              lang_fullname == selectedLang)[["lang_abbr"]]
-  
+    
     twtdf <-
       search_tweets (
         searchQuery,
         n = noTweets,
         lang = selectedLang,
+        geocode = geoCode,
         include_rts = FALSE,
         full_text = TRUE
       )
     # Strange behaviour in parameter (include_entitites=T) returning twt as a list
     
     #save_as_csv(twtdf, "LoggedData/Saved_Tweets.csv")
-    
-    # Check if got results or not
-    if (!is.na(twtdf$text[1])) {
+    # Check if got tweets or not
+    if (length(twtdf$text)>1) {
       twtJson <- toJSON(twtdf, pretty = TRUE)
       return(twtJson)
       
@@ -64,10 +64,8 @@ availableTrendLocations$countryLanguages <-
       countryLanguagesCell <-
         regmatches(countryLanguagesCell,
                    gregexpr("[A-za-z]+", countryLanguagesCell))[[1]]
-      return(countryLanguagesCell)
-      
-    } else
-      return(countryLanguagesCell)
+    }
+    return(countryLanguagesCell)
   })
 
 getCountriesNames <- function() {
@@ -105,8 +103,6 @@ getCountriesLanguages <- function () {
 }
 
 getCountryLanguages <- function (countryName) {
-  # if (countryName == "Worldwide")
-  #   return(c("English"))
   if (countryName == "Worldwide" ||
       countryName == "" ||
       countryName == "Selected Region")
@@ -117,8 +113,8 @@ getCountryLanguages <- function (countryName) {
   return(unlist(countrylanguages))
 }
 
-getCountryBoundary<- function(countryName){
-  return ( as.list(lookup_coords(countryName)@box) )
+getCountryCoords<- function(countryName){
+  return (lookup_coords(countryName) )
 }
 
 getRateLimitFor <- function (queryRateLimit) {

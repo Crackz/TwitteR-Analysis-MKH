@@ -1,4 +1,4 @@
-profile<- reactiveValues(info=NULL,tweets=NULL,isRequested=FALSE)
+profile<- reactiveValues(info=NULL, tweets=NULL, isRequested=FALSE)
 
 observe({
     toggleState("getUser", isTruthy(input$userId))
@@ -20,11 +20,9 @@ getProfileTweets <- function(user) {
     if (nrow(profileTweets) > 0) {
         return(profileTweets)
     } else {
-      print("i was here..")
         stop("couldn't get user tweets !")
     }
 }
-
 
 observeEvent(input$getUser, {
   req(input$userId)
@@ -124,7 +122,6 @@ cleanTweets<- function(tweetsAsVector, lang="en"){
   return(myCorpus)
 }
 
-
 getMostUsedWords <- function(userTweets, lang = "en") {
     
     myCorpus<- cleanTweets(userTweets)
@@ -135,7 +132,6 @@ getMostUsedWords <- function(userTweets, lang = "en") {
     # print(head(mostUsedWords, 10))
     return(mostUsedWords)
 }
-
 
 observeEvent(input$requestUserAnalysis, {
     updateNavbarPage(session, "tabs", selected = "Profile")

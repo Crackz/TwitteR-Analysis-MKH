@@ -2,8 +2,7 @@ shinyUI(tagList(
   # Tag Container Created exclusively to include Externel libraries
   useShinyjs(),
   includeCleave(),
-  #shinythemes::themeSelector(),
-  # To make browser show any language,
+  # Meta Data for browsers to be able to display any language
   HTML('<meta charset="UTF-8">'),
   
   tags$head(
