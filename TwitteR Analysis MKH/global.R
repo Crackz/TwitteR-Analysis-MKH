@@ -79,7 +79,6 @@ getArabCountriesNames <- function() {
 
 getCountryTrends <- function (countryName) {
   if (countryName == 'Selected Region') {
-    # New Way to get Trends
     return()
   }
   if (getRateLimitFor("trends/place")$remaining > 0) {
@@ -94,6 +93,10 @@ getCountryTrends <- function (countryName) {
 
 getCountryTrendsNames <- function(countryName) {
   return (getCountryTrends(countryName)$trend)
+}
+
+getSelectedRegionTrends<- function(coords){
+  return(get_trends_closest(lat = coords[2], long = coords[1])$trend)
 }
 
 getCountriesLanguages <- function () {

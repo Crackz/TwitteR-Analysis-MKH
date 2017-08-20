@@ -103,7 +103,6 @@ outputOptions(output, "countryMap", suspendWhenHidden = FALSE)
 
 currentDrawnCircle<- reactive({
   shapes <- input$countryMap_draw_all_features
-  
   if(length(shapes$features) == 0){
    return() 
   }
@@ -119,6 +118,15 @@ observeEvent(input$countryMap_draw_all_features, {
   shapes <- input$countryMap_draw_all_features
   if(length(shapes$features) != 0){
     enable("doneMap")
+    regionTrend<- getSelectedRegionTrends(currentDrawnCircle()$circleCoords)
+    print(regionTrend)
+    
+    updateSelectizeInput(
+      session,
+      'searchQuery',
+      choices = regionTrend,
+      server = TRUE
+    )
   }else{
     disable("doneMap")
   }
@@ -153,7 +161,7 @@ countryLanguages <- reactive({
     # added empty string to let lang render as list in updateSelectizeInput & ignore exception
     c(getCountryLanguages(input$currentSelectedCountry), "")
 })
-
+prev<- reactiveValues(language=NULL)
 observeEvent(input$currentSelectedCountry, {
   #browser()
   if (isTruthy(input$currentSelectedCountry)) {
@@ -168,12 +176,17 @@ observeEvent(input$currentSelectedCountry, {
         ),
         selected = countryLanguages()[1]
       )
-    } else
+      prev$language<- countryLanguages()[1]
+    } else{
+      if (input$currentSelectedCountry == "Selected Region")
+        selectedLang =  prev$language
+      else
+        selectedLang = ""
       updateSelectizeInput(session,
                            'selectedLang',
                            choices = getCountriesLanguages(),
-                           selected = "")
-    
+                           selected = selectedLang)
+    }
     if (input$currentSelectedCountry != "Selected Region") {
       updateSelectizeInput(
         session,
@@ -208,7 +221,7 @@ observeEvent(input$btnAnalyze, {
     geoCode=NULL
     if(input$currentSelectedCountry == "Selected Region"){
       shape<- currentDrawnCircle()
-      geoCode = paste(shape$circleCoords[1],shape$circleCoords[2],paste0(shape$circleRadius,shape$circleUnit),sep=",")
+      geoCode = paste(shape$circleCoords[2],shape$circleCoords[1],paste0(shape$circleRadius,shape$circleUnit),sep=",")
     }
     # Pass form values search tweets API
     tweetsJson <-

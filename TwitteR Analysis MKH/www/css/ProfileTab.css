@@ -24,7 +24,6 @@
 }
 /* User Profile Info Shown in the middle */
 #userDetailsInfo {
-    width: 500px;
 }
 
 #userImage {
@@ -86,6 +85,7 @@
     display: flex;
     align-items: flex-start;
     margin-left:15px;
+    flex-wrap:wrap;
 }
 
 #userId {
@@ -97,4 +97,24 @@
 }
 div[data-for-btn="getUser"] .btn-loading-indicator{
 	margin-top:18px;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+  #userAnalysisInfo{
+    flex-wrap:wrap;
+  }
+  #userProfile{
+    flex-wrap:wrap;
+  }
+  #userDetailsInfo, #userTweets{
+    flex-wrap:wrap;
+  }
+  #userInfo{
+    margin-top:20px;
+  }
+  .twoElementInRow{
+    flex-wrap:wrap;
+  }
 }

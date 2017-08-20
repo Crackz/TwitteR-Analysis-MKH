@@ -190,3 +190,23 @@ a[title='clear all layers.'], .leaflet-control-attribution {
 #filterByMedia{
   text-align:center;
 }
+
+
+@media only screen and (max-width: 768px) {
+
+  .region-button-checkbox{
+    position:static;
+    margin:12px 0;
+    display:block;
+    text-align:center;
+    
+  }
+  #btnMap{
+    margin: 0 auto;
+  }
+  #resetSearchPanel{
+    height:30px;
+    width:30px;
+    padding:1px 7px;
+  }
+}
