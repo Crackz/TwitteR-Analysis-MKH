@@ -1,5 +1,5 @@
 # Used By Future Package To enable multithreading
-plan(multiprocess)
+plan(transparent)
 tweets <- reactiveValues(World = NULL, Arab = NULL)
 
 startListeningToWorldTweets <-
@@ -27,7 +27,6 @@ startListeningToWorldTweets <-
         })
       } #End Repeat
   }
-
 
 drawArabCountriesPieChart <- function() {
 
@@ -79,10 +78,10 @@ drawArabCountriesPieChart <- function() {
       )
   })
 }
-
-# observeEvent(input$arabCountries,priority = -1,{
-#   req(input$arabCountries)
-#   drawArabCountriesPieChart()
-# })
 # 
-# startListeningToWorldTweets()
+# observeEvent(input$arabCountries,priority = -1,{
+#    req(input$arabCountries)
+#    drawArabCountriesPieChart()
+#  })
+# 
+#  startListeningToWorldTweets()

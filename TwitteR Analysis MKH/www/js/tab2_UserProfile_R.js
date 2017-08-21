@@ -1,6 +1,6 @@
 var userInfo;
 Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
-    // console.log(userInfo, "UserInfo");
+    console.log(userInfo, "UserInfo");
     userInfo = userInfo[0];
     this.userInfo = userInfo;
 
@@ -16,7 +16,7 @@ Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
             `<span style="padding-left: 10px;"><img src="images/verified.jpg" title="Twitter verified profile" width="15" height="15"></span>`:''}
         </div>
 
-        <div style="margin-bottom: 4px;">
+        <div style="margin:15px 0;">
             <span class="label label-black" >${userInfo.statuses_count}</span> tweets
             <span class="label label-info" style="margin-left: 10px;">${userInfo.friends_count}</span> following
             <span class="label label-success" style="margin-left: 10px;">${userInfo.followers_count}</span> followers
@@ -25,13 +25,12 @@ Shiny.addCustomMessageHandler("CreateUserInfo", function (userInfo) {
         <div style="margin-bottom: 2px;">Joined Twitter on <span>${userInfo.account_created_at}</span> as user #<span id="userId">${userInfo.user_id}</span>
         </div>
 
-        ${ userInfo.description ? `<div style="color:#707070;line-height: 16px; margin: 10px auto; font-family: Georgia, Times New Roman, serif; font-style: italic;">${userInfo.description}</div> `: ''}
+        ${ userInfo.description ? `<div class="well" style="color:#707070;line-height: 16px; margin: 10px auto; font-family: Georgia, Times New Roman, serif; font-style: italic;">${userInfo.description}</div> `: ''}
 
-        <div style="margin-top:5px;">
-            location: &nbsp;<span style="margin-right:5px;" class="label label-orange">${userInfo.location != "" ? userInfo.location : "undefined"}</span>
-            language: &nbsp;<span style="margin-right:5px;" class="label label-blue">${userInfo.account_lang}</span>
-            timezone: &nbsp;<span style="margin-right:5px;" class="label label-purple">${userInfo.time_zone}</span>
-        </div<
+        <div style="margin-top:15px;">
+            Location: &nbsp;<span style="margin-right:5px;" class="label label-orange">${userInfo.location != "" ? userInfo.location : "undefined"}</span>
+            Language: &nbsp;<span style="margin-right:5px;" class="label label-blue">${userInfo.account_lang}</span>
+        </div>
         `    
     
     $("#userInfoTable").append(userInfoContent);

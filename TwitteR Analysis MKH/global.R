@@ -26,6 +26,7 @@ getTweets <- function (searchQuery, noTweets, selectedLang, geoCode = NULL) {
     # Strange behaviour in parameter (include_entitites=T) returning twt as a list
     
     #save_as_csv(twtdf, "LoggedData/Saved_Tweets.csv")
+    
     # Check if got tweets or not
     if (length(twtdf$text)>1) {
       twtJson <- toJSON(twtdf, pretty = TRUE)

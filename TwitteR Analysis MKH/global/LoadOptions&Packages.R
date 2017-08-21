@@ -37,7 +37,7 @@ EnsurePackage <- function(x, github = FALSE, repo="") {
 }
 
 LoadLibraries <- function() {
-  #EnsurePackage("devtools")
+  EnsurePackage("devtools")
   EnsurePackage("rtweet") # Provide Abstraction of Twitter APIs
   EnsurePackage("future") # Enable MultiProcessing Mechanism
   EnsurePackage("shiny")  # Web Server and Basic UI Elements in R
@@ -51,13 +51,9 @@ LoadLibraries <- function() {
   EnsurePackage("leaflet") # Map based on widely known js library 
   EnsurePackage("leaflet.extras") # Leaflet's extension provides more control over elements
   EnsurePackage("plotly") # provide Charts 
-  # EnsurePackage("futile.logger") # For Logging
   EnsurePackage("tm")  # for text mining
-  # EnsurePackage("tm.lexicon.GeneralInquirer",repo="http://datacube.wu.ac.at")
-  # EnsurePackage("SnowballC") # for text stemming
   EnsurePackage("wordcloud") # word-cloud generator 
   EnsurePackage("RColorBrewer") # color palettes
-   
 }
 LoadLibraries()
 
