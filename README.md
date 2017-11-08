@@ -28,7 +28,7 @@ click Run App!
 LoadConfig       Mining Tweets  UserProfile CountriesAnalysis         UIHelpers Mining Tweets  UserProfile CountriesAnalysis   HTML+JS Native
 
 ```
-Global is used for non-related shiny stuff , purely for core code , stuff related to server,ui
-Server is used for handling server logic
-UI is used for styling your pages
-WWWRoot is used for Native web technologies when flexability is needed 
+* Global is used for non-related shiny stuff , purely for core code , stuff related to server,ui
+* Server is used for handling server logic
+* UI is used for styling your pages
+* WWWRoot is used for Native web technologies when flexability is needed 
