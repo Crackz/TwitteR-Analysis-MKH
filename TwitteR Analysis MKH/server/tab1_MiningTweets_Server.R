@@ -120,13 +120,16 @@ observeEvent(input$countryMap_draw_all_features, {
     enable("doneMap")
     regionTrend<- getSelectedRegionTrends(currentDrawnCircle()$circleCoords)
     print(regionTrend)
-    
+    if(length(regionTrend)==0) 
+      regionTrend<- "Couldn't find any trends"
     updateSelectizeInput(
       session,
       'searchQuery',
       choices = regionTrend,
       server = TRUE
     )
+    
+    
   }else{
     disable("doneMap")
   }

@@ -97,7 +97,7 @@ getCountryTrendsNames <- function(countryName) {
 }
 
 getSelectedRegionTrends<- function(coords){
-  return(get_trends_closest(lat = coords[2], long = coords[1])$trend)
+  return(get_trends(lat = coords[[2]], lng = coords[[1]])$trend)
 }
 
 getCountriesLanguages <- function () {
