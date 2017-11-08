@@ -1,7 +1,7 @@
 
 <div class="getUserInfo">
     {{ div(style="display: inline-block;vertical-align:top; width: 150px; margin-right:35px;", textInput("userId", "User ID :", "") )}}
-    {{  withBusyIndicatorUI( actionButton("getUser", "Analyze Profile", class="btn-primary") )}}
+    {{  div(withBusyIndicatorUI( actionButton("getUser", "Analyze Profile", class="btn-primary")),style="margin-left:3%")}}
 </div>
 <div id="userAnalysisInfo">
      
