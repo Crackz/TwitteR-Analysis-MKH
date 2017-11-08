@@ -196,8 +196,8 @@ observeEvent(input$currentSelectedCountry, {
       )
       if (input$currentSelectedCountry != "Worldwide") {
         countryCoords <- getCountryCoords(input$currentSelectedCountry)
-        countryBoundary <- as.list(countryCoords@box)
-        countryPoint <- countryCoords@point
+        countryBoundary <- as.list(countryCoords$box)
+        countryPoint <- countryCoords$point
         
         leafletProxy("countryMap") %>%
           setView(lng = countryPoint[["lng"]],

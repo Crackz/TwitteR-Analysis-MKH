@@ -38,7 +38,7 @@ EnsurePackage <- function(x, github = FALSE, repo="") {
 
 LoadLibraries <- function() {
   EnsurePackage("devtools")
-  EnsurePackage("rtweet") # Provide Abstraction of Twitter APIs
+  EnsurePackage("mkearney/rtweet",github = T) # Provide Abstraction of Twitter APIs
   EnsurePackage("future") # Enable MultiProcessing Mechanism
   EnsurePackage("shiny")  # Web Server and Basic UI Elements in R
   EnsurePackage("shinyjs") # shiny's Extension to enable easy ui manipulation

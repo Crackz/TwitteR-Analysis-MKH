@@ -122,7 +122,7 @@ getCountryCoords<- function(countryName){
 }
 
 getRateLimitFor <- function (queryRateLimit) {
-  return (rate_limit(queryRateLimit, token = NULL))
+  return (rate_limit(queryRateLimit, token = NULL)[1,])
 }
 
 getForiegnCountriesNames<- function(){
