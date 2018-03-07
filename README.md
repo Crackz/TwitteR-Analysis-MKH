@@ -1,6 +1,14 @@
 
 ## **Some Features**
 
+![TwitterSearchAnalysis](https://i.imgur.com/YjBwMFp.png) ![ProfileAnalysis](https://i.imgur.com/q9g3mUc.png)
+
+<p float="left">
+  <img src="https://i.imgur.com/o5K2VhT.png" width="400" alt="RegionSelection"/>
+  <img src="https://i.imgur.com/b5qDYRA.png" width="400" alt="MostSpokenLang"/> 
+</p>
+
+
 ## **How to Setup**
 
 > *this project is developed under visualstudio and rstudio*
