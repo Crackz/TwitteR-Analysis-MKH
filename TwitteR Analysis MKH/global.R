@@ -85,8 +85,7 @@ getCountryTrends <- function (countryName) {
   if (getRateLimitFor("trends/place")$remaining > 0) {
     #Get woeid(Where On Earth) of selected country
     currentCountryWoeid <-
-      subset(availableTrendLocations, name == countryName)[["woeid"]]
-    
+      subset(availableTrendLocations, name == countryName)[["woeid"]][1]
     return (get_trends(currentCountryWoeid))
   } else
     return (exceedsTwitterLimits("trends/place"))
